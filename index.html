@@ -190,6 +190,7 @@ html,body{max-width:100%;overflow-x:hidden}
 .courseInfoCollapsed .courseDisplayBtn::after{content:"▼"}
 .courseInfoCollapsed #courseNav{display:none!important}
 .courseInfoCollapsed #list .section{display:none!important}
+#courseNav.courseInfoHidden,#list .section.courseInfoHidden{display:none!important}
 
 
 /* V24 포인트 내용 */
@@ -601,7 +602,19 @@ function applyCourseInfoDisplay(){
   const box=$('courseDisplayControl');
   const btn=$('courseDisplayBtn');
   if(box) box.style.display=enabled?'block':'none';
-  if(btn) btn.textContent=collapsed?'코스 정보 펼치기':'코스 정보 접기';
+  if(btn){
+    btn.textContent=collapsed?'코스 정보 펼치기':'코스 정보 접기';
+    btn.setAttribute('aria-expanded',collapsed?'false':'true');
+  }
+  const nav=$('courseNav');
+  if(nav){
+    nav.classList.toggle('courseInfoHidden',collapsed);
+    nav.hidden=collapsed;
+  }
+  document.querySelectorAll('#list .section').forEach(section=>{
+    section.classList.toggle('courseInfoHidden',collapsed);
+    section.hidden=collapsed;
+  });
 }
 function toggleCourseInfoDisplay(){
   ensureV23Settings();
