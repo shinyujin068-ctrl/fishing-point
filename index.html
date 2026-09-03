@@ -201,7 +201,7 @@ html,body{max-width:100%;overflow-x:hidden}
 
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V27 · 중복 렌더 정리 · 포인트 특장점</div></div><button class="tool" onclick="showManage()">관리</button></div>
+<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V28 · 전체 코스 접기 · 출발지 기준 자동정리</div></div><button class="tool" onclick="showManage()">관리</button></div>
 <div class="tabs"><button id="tabFresh" class="tab on" onclick="setCat('freshwater')">민물</button><button id="tabSea" class="tab" onclick="setCat('sea')">바다</button></div>
 <button id="regionScopeToggle" class="regionScopeToggle" type="button" aria-expanded="false" onclick="toggleRegionPanel()"><span id="regionScopeText" class="scopeText">지역 · 권역</span><span class="scopeChev">▼</span></button>
 <div id="regionPanel" class="regionPanel">
@@ -218,9 +218,9 @@ html,body{max-width:100%;overflow-x:hidden}
 </div>
 <button id="controlToggle" class="controlToggle" type="button" aria-expanded="false" onclick="toggleControlPanel()"><span>도구 메뉴 펼치기</span><span class="chev">▼</span></button>
 <div id="controlPanel" class="controlPanel">
-<div class="tools"><button id="patchBtn" class="tool patchBtn" onclick="showPatchNotes()">패치노트</button><button class="tool" onclick="showCafeImport()">카페 링크 추가</button><button class="tool" onclick="exportData()">백업 저장</button><button class="tool" onclick="document.getElementById('importFile').click()">백업 복원</button><input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)"><button class="tool" onclick="showStartChooser()">출발지 변경</button><button id="courseToggleBtn" class="tool" onclick="toggleCourseUsage()">코스 사용 ON</button><button class="tool" onclick="autoRebuildCurrent()">코스 자동정리</button><button class="tool" onclick="rebuildRemaining()">남은 코스 정리</button><button class="tool" onclick="locateMe()">내 위치 거리</button><button class="tool" onclick="scrollToTop()">맨 위</button></div>
+<div class="tools"><button id="patchBtn" class="tool patchBtn" onclick="showPatchNotes()">패치노트</button><button class="tool" onclick="showCafeImport()">카페 링크 추가</button><button class="tool" onclick="exportData()">백업 저장</button><button class="tool" onclick="document.getElementById('importFile').click()">백업 복원</button><input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)"><button class="tool" onclick="showStartChooser()">출발지 변경</button><button class="tool" onclick="autoRebuildCurrent()">코스 자동정리</button><button class="tool" onclick="locateMe()">내 위치 거리</button><button class="tool" onclick="scrollToTop()">맨 위</button></div>
 </div></div>
-<div id="autoStatus" class="autoStatus"></div><div id="courseDisplayControl" class="courseDisplayControl"><button id="courseDisplayBtn" class="courseDisplayBtn" type="button" onclick="toggleCourseInfoDisplay()">코스 정보 접기</button></div><div id="courseNav" class="courseNav"></div><div id="list"></div></div>
+<div id="autoStatus" class="autoStatus"></div><div id="courseDisplayControl" class="courseDisplayControl"><button id="courseDisplayBtn" class="courseDisplayBtn" type="button" onclick="toggleCourseInfoDisplay()">전체 코스 정보 접기</button></div><div id="courseNav" class="courseNav"></div><div id="list"></div></div>
 <button class="fab" onclick="openForm()">+ 포인트 추가</button><div id="toast" class="toast"></div>
 <dialog id="cafeDlg"><div class="modal"><h2>카페 링크로 포인트 추가</h2><div class="grid">
 <label>네이버 카페 글 링크<input id="cafeUrl" inputmode="url" placeholder="https://cafe.naver.com/koreabasspointmap/3684"></label>
@@ -258,7 +258,7 @@ html,body{max-width:100%;overflow-x:hidden}
 <div class="smallNote">원하는 주소나 현재 위치를 출발점으로 잡으면 그 지점에서 도로상 가장 가까운 포인트를 먼저 찾고, 이후 다음으로 가까운 포인트를 계속 연결합니다. 기본 민물 출발지는 농막 주소입니다.</div></div>
 </div><div class="modalBtns"><button class="cancel" style="grid-column:1/-1" onclick="startDlg.close()">닫기</button></div></div></dialog>
 <dialog id="manageDlg"><div class="modal"><h2>사이트 관리</h2><div class="grid">
-<div class="manageBox"><h3>코스 설정</h3><button id="manageCourseToggle" class="tool" onclick="toggleCourseUsage(true)">현재 카테고리 코스 사용 ON/OFF</button>
+<div class="manageBox"><h3>코스 설정</h3>
 <label>민물 출발지<input id="baseFresh" placeholder="예: 농막 주소"></label>
 <label>바다 출발지<input id="baseSea" placeholder="바다 출조 출발 주소"></label>
 <label>코스당 최대 포인트<select id="maxPerCourse"><option value="4">4개</option><option value="5">5개</option><option value="6">6개</option><option value="7">7개</option></select></label>
@@ -268,8 +268,9 @@ html,body{max-width:100%;overflow-x:hidden}
 <div class="smallNote">출발지(민물 기본값: 농막)에서 실제 도로 주행거리 기준으로 가장 가까운 포인트를 먼저 찾고, 그 지점에서 다음으로 가까운 포인트를 이어 코스를 만듭니다. 도로거리 계산이 일시적으로 실패하면 직선거리 방식으로 자동 대체됩니다.</div></div>
 <button class="tool" onclick="showPatchNotes();manageDlg.close()">패치노트 / 업데이트 내역</button><button class="tool" onclick="exportData()">전체 데이터 백업(JSON)</button><button class="tool" onclick="document.getElementById('importFile').click();manageDlg.close()">백업 파일 복원</button><button class="tool" onclick="if(confirm('직접 추가/수정한 내용을 모두 지우고 최초 상태로 되돌릴까요?')) resetAll()">최초 상태로 복원</button>
 </div><div class="smallNote">주소 좌표 변환은 개인용 저빈도 사용을 전제로 OpenStreetMap Nominatim을 사용하며, 요청은 1초 이상 간격으로 보내고 결과를 브라우저에 저장합니다. © OpenStreetMap contributors.</div><div class="smallNote">V21 현재: 민물은 배스 고정, 바다는 주소의 지역을 기준으로 대상어종을 자동 세팅하며 직접 수정할 수 있습니다.</div><div class="modalBtns"><button class="cancel" onclick="manageDlg.close()">닫기</button><button class="save" onclick="showInstallHelp()">홈 화면 사용법</button></div></div></dialog>
-<dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V23</b><span>현재 설치 버전 · 2026-09-03</span></div><h2>패치노트</h2><div class="patchList">
-<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V27</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>중복 render() 및 코스 렌더 래퍼 제거 · 렌더링 로직 1개로 통합</div><div>중복 카드 렌더 코드 제거 · 카드 출력 로직 1개로 통합</div><div>고정 코스명 '농막 근거리 주력/당진포리 연속탐색/옥현리 탐색' 삭제</div><div>거제 5포인트에 포인트 특장점 표시</div><div>포인트 추가/수정 화면의 '내용' 항목을 '포인트 특장점'으로 변경</div></div></div>
+<dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V28</b><span>현재 설치 버전 · 2026-09-03</span></div><h2>패치노트</h2><div class="patchList">
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V28</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>민물/바다 공통 '전체 코스 정보 접기/펼치기'로 구조 변경</div><div>도구 메뉴에서 코스 사용 ON/OFF와 남은 코스 정리 제거</div><div>코스는 항상 사용하며 필요할 때 파란 COURSE 정보만 전체 접기 가능</div><div>자동정리 순서를 출발지 → 가장 가까운 포인트 → 다음 가까운 포인트 방식으로 변경</div><div>전체 이동순서를 먼저 만든 뒤 코스당 포인트 수/거리 기준으로 코스를 분리</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V27</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>중복 render() 및 코스 렌더 래퍼 제거 · 렌더링 로직 1개로 통합</div><div>중복 카드 렌더 코드 제거 · 카드 출력 로직 1개로 통합</div><div>고정 코스명 '농막 근거리 주력/당진포리 연속탐색/옥현리 탐색' 삭제</div><div>거제 5포인트에 포인트 특장점 표시</div><div>포인트 추가/수정 화면의 '내용' 항목을 '포인트 특장점'으로 변경</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V26</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>코스 정보 접기 로직을 렌더링 단계에서 다시 작성</div><div>접힌 상태에서는 파란 COURSE 요약/코스 시작 박스를 아예 생성하지 않음</div><div>포인트 카드만 바로 표시되며 다시 펼치면 COURSE 정보가 재생성됨</div><div>노란색 기본 출발지 안내 박스 화면에서 제거</div><div>기존 출발지 설정/선택 기능은 그대로 유지</div><div>캐시 방지 설정과 서비스워커 버전 갱신</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V25</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>코스 정보 접기 버튼을 눌러도 파란 COURSE 박스가 남던 문제 수정</div><div>접기 상태에서 상단 코스 요약과 코스 시작 헤더를 코드에서 직접 숨김</div><div>포인트 카드는 그대로 유지하고 코스 정보만 숨김</div><div>민물/바다별 접힘 상태 저장 유지</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V24</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>포인트별 상세 '내용' 입력·수정·표시 기능 추가</div><div>검색 시 포인트 내용까지 함께 검색</div><div>거제 구조라방파제·덕포방파제·지세포항 외항·옥림방파제·학동방파제 기본 포인트 추가</div><div>기존 지세포항은 지세포항 외항 정보로 업데이트</div></div></div>
@@ -618,15 +619,146 @@ async function rebuildFromDefaultBase(){settings.activeStart=settings.activeStar
 function rebuildFromCurrentLocation(){if(!navigator.geolocation){toast('현재 위치를 지원하지 않는 브라우저입니다');return}status('현재 위치 확인 중...');navigator.geolocation.getCurrentPosition(async pos=>{let c={lat:pos.coords.latitude,lon:pos.coords.longitude};settings.activeStart=settings.activeStart||{};settings.activeStart[currentCat]={mode:'current',address:'현재 위치'};settings.activeStartCoord=settings.activeStartCoord||{};settings.activeStartCoord[currentCat]=c;settings.baseCoord=settings.baseCoord||{};settings.baseCoord[currentCat]=c;settings._baseCoordAddress=settings._baseCoordAddress||{};settings._baseCoordAddress[currentCat]='__current__';settings.roadMatrix={};persist();renderStartSummary();$('startDlg').close();await autoRebuildCurrent(false)},()=>{status('',false);toast('위치 권한을 허용해주세요')},{enableHighAccuracy:true,timeout:12000,maximumAge:30000})}
 function showManage(){$('baseFresh').value=settings.base?.freshwater||'';$('baseSea').value=settings.base?.sea||'';$('maxPerCourse').value=String(settings.maxPerCourse||6);$('splitLegKm').value=String(settings.splitLegKm||5);$('manageDlg').showModal()}
 function saveRouteSettings(){settings.base={freshwater:$('baseFresh').value.trim(),sea:$('baseSea').value.trim()};settings.maxPerCourse=+$('maxPerCourse').value||6;settings.splitLegKm=+$('splitLegKm').value||5;settings.baseCoord={};settings._baseCoordAddress={};settings.roadMatrix={};persist();renderStartSummary();toast('자동 코스 설정 저장됨')}
-async function autoRebuildCurrent(fromManage=false){if(fromManage)saveRouteSettings();let cat=currentCat,scope=courseScopePoints();if(!scope)return;let arr=scope.arr;if(!arr.length){toast('선택한 지역·권역·대상어종에 등록된 포인트가 없습니다');return}try{status(`${scope.region} · ${scope.zone} · ${scope.species} 포인트 주소 위치를 확인하는 중...`);await ensurePointCoords(arr);let base=await ensureBaseCoord(cat);let valid=arr.filter(p=>coord(p)),failed=arr.filter(p=>!coord(p));let matrix=await fetchRoadMatrix(cat,base,valid);let max=Math.max(2,+settings.maxPerCourse||6),leg=Math.max(1,+settings.splitLegKm||5),rem=valid.slice(),groups=[];for(const p of arr){p.start=false;p.courseStart=false;delete p.routeOrder}while(rem.length){let seed;if(base)seed=nearestByDistance(rem,'__base__',base,matrix);else seed=rem.slice().sort((a,b)=>(a.id||9999)-(b.id||9999))[0];let g=[seed];rem=rem.filter(p=>p!==seed);while(rem.length&&g.length<max){let last=g[g.length-1],cand=nearestByDistance(rem,pointKey(last),coord(last),matrix);let d=matrixKm(matrix,pointKey(last),pointKey(cand));if(!Number.isFinite(d))d=hav(coord(last),coord(cand));if(!Number.isFinite(d)||d>leg)break;g.push(cand);rem=rem.filter(p=>p!==cand)}groups.push(g)}let outside=new Set(points.filter(p=>p.category===cat&&!arr.includes(p)).map(p=>p.course).filter(Boolean)),courseNames=[];for(let n=0;courseNames.length<groups.length+(failed.length?1:0);n++){let c=n<26?String.fromCharCode(65+n):'C'+(n+1);if(!outside.has(c))courseNames.push(c)}for(let i=0;i<groups.length;i++){let c=courseNames[i];groups[i].forEach((p,j)=>{p.course=c;p.routeOrder=j+1;p.courseStart=j===0})}if(groups[0]?.[0])groups[0][0].start=true;let failCourse=courseNames[groups.length]||nextCourseName(cat);failed.forEach((p,j)=>{p.course=failCourse;p.routeOrder=j+1;p.courseStart=j===0});settings.autoMode=settings.autoMode||{};settings.autoMode[cat]=true;settings.routeMode=settings.routeMode||{};settings.routeMode[cat]=matrix?'road':'straight';persist();render();if(fromManage)$('manageDlg').close();status(`${scope.region} · ${scope.zone} · ${scope.species} · ${matrix?'도로 주행거리':'직선거리 대체'} 기준 자동 코스 완료 · ${groups.length+(failed.length?1:0)}개 코스`,true);setTimeout(()=>status('',false),3200)}catch(e){console.error(e);status('자동 코스 정리에 실패했습니다. 인터넷 연결을 확인한 뒤 다시 시도해주세요.',true)}}
-function exportData(){settings.lastBackupAt=new Date().toISOString();persist();let blob=new Blob([JSON.stringify({version:27,exportedAt:settings.lastBackupAt,points,settings},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='낚시포인트_백업_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href);toast('백업 파일 저장')}
+async function autoRebuildCurrent(fromManage=false){
+  if(fromManage)saveRouteSettings();
+
+  let cat=currentCat,scope=courseScopePoints();
+  if(!scope)return;
+
+  let arr=scope.arr;
+  if(!arr.length){
+    toast('선택한 지역·권역·대상어종에 등록된 포인트가 없습니다');
+    return;
+  }
+
+  try{
+    status(`${scope.region} · ${scope.zone} · ${scope.species} 포인트 위치를 확인하는 중...`);
+
+    await ensurePointCoords(arr);
+    let base=await ensureBaseCoord(cat);
+
+    let valid=arr.filter(p=>coord(p));
+    let failed=arr.filter(p=>!coord(p));
+    let matrix=await fetchRoadMatrix(cat,base,valid);
+
+    for(const p of arr){
+      p.start=false;
+      p.courseStart=false;
+      delete p.routeOrder;
+    }
+
+    // V28: 출발지에서 가장 가까운 곳부터 전체 경로를 한 번에 만든다.
+    let rem=valid.slice();
+    let ordered=[];
+    let fromKey='__base__';
+    let fromCoord=base;
+
+    while(rem.length){
+      let next;
+      if(fromCoord){
+        next=nearestByDistance(rem,fromKey,fromCoord,matrix);
+      }else{
+        next=rem.slice().sort((a,b)=>(a.id||9999)-(b.id||9999))[0];
+      }
+      if(!next)break;
+
+      ordered.push(next);
+      rem=rem.filter(p=>p!==next);
+      fromKey=pointKey(next);
+      fromCoord=coord(next);
+    }
+
+    // 전체 이동순서를 유지한 채 코스 단위로만 분리
+    let max=Math.max(2,+settings.maxPerCourse||6);
+    let leg=Math.max(1,+settings.splitLegKm||5);
+    let groups=[];
+    let current=[];
+
+    for(let i=0;i<ordered.length;i++){
+      let p=ordered[i];
+
+      if(!current.length){
+        current=[p];
+        continue;
+      }
+
+      let prev=current[current.length-1];
+      let d=matrixKm(matrix,pointKey(prev),pointKey(p));
+      if(!Number.isFinite(d))d=hav(coord(prev),coord(p));
+
+      if(current.length>=max || (Number.isFinite(d)&&d>leg)){
+        groups.push(current);
+        current=[p];
+      }else{
+        current.push(p);
+      }
+    }
+    if(current.length)groups.push(current);
+
+    let outside=new Set(
+      points.filter(p=>p.category===cat&&!arr.includes(p))
+        .map(p=>p.course).filter(Boolean)
+    );
+
+    let courseNames=[];
+    for(let n=0;courseNames.length<groups.length+(failed.length?1:0);n++){
+      let c=n<26?String.fromCharCode(65+n):'C'+(n+1);
+      if(!outside.has(c))courseNames.push(c);
+    }
+
+    let globalOrder=1;
+    for(let i=0;i<groups.length;i++){
+      let c=courseNames[i];
+      groups[i].forEach((p,j)=>{
+        p.course=c;
+        p.routeOrder=globalOrder++;
+        p.courseStart=j===0;
+      });
+    }
+
+    if(ordered[0]){
+      ordered[0].start=true;
+      ordered[0].courseStart=true;
+    }
+
+    let failCourse=courseNames[groups.length]||nextCourseName(cat);
+    failed.forEach((p,j)=>{
+      p.course=failCourse;
+      p.routeOrder=globalOrder++;
+      p.courseStart=j===0;
+    });
+
+    settings.autoMode=settings.autoMode||{};
+    settings.autoMode[cat]=true;
+    settings.routeMode=settings.routeMode||{};
+    settings.routeMode[cat]=matrix?'road':'straight';
+
+    persist();
+    render();
+
+    if(fromManage)$('manageDlg').close();
+
+    let first=ordered[0]?.name||'포인트';
+    status(
+      `${startShortLabel(cat)||'출발지'} → ${first}부터 시작 · ${matrix?'도로 주행거리':'직선거리 대체'} 기준 자동 코스 완료`,
+      true
+    );
+    setTimeout(()=>status('',false),3600);
+
+  }catch(e){
+    console.error(e);
+    status('자동 코스 정리에 실패했습니다. 인터넷 연결을 확인한 뒤 다시 시도해주세요.',true);
+  }
+}
+
+function exportData(){settings.lastBackupAt=new Date().toISOString();persist();let blob=new Blob([JSON.stringify({version:28,exportedAt:settings.lastBackupAt,points,settings},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='낚시포인트_백업_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href);toast('백업 파일 저장')}
 function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);if(!Array.isArray(d.points))throw 0;points=d.points;if((+d.version||0)<20){localStorage.removeItem(V20_MIGRATION_KEY);migrateV20Defaults()}migrateClassifications();if(d.settings)settings={...clone(DEFAULT_SETTINGS),...d.settings,base:{...DEFAULT_SETTINGS.base,...(d.settings.base||{})},activeStart:{freshwater:{...DEFAULT_SETTINGS.activeStart.freshwater,...(d.settings.activeStart?.freshwater||{})},sea:{...DEFAULT_SETTINGS.activeStart.sea,...(d.settings.activeStart?.sea||{})}}};persist();render();toast('백업 복원 완료')}catch(x){alert('올바른 백업 파일이 아닙니다.')}e.target.value=''};r.readAsText(f)}
 function resetAll(){points=clone(DEFAULT_POINTS);settings=clone(DEFAULT_SETTINGS);persist();render();$('manageDlg').close();toast('최초 상태로 복원됨')}
 function setControlPanel(open,remember=true){let p=$('controlPanel'),b=$('controlToggle');if(!p||!b)return;p.classList.toggle('open',!!open);b.classList.toggle('open',!!open);b.setAttribute('aria-expanded',open?'true':'false');b.querySelector('span:first-child').textContent=open?'도구 메뉴 접기':'도구 메뉴 펼치기';b.querySelector('.chev').textContent=open?'▲':'▼';if(remember)localStorage.setItem('fish_control_open',open?'1':'0')}
 function toggleControlPanel(){let p=$('controlPanel');setControlPanel(!p?.classList.contains('open'))}
 function initControlPanel(){setControlPanel(localStorage.getItem('fish_control_open')==='1',false)}
-function showPatchNotes(){localStorage.setItem('fish_seen_patch','27');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
-function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='27',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
+function showPatchNotes(){localStorage.setItem('fish_seen_patch','28');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
+function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='28',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}function showInstallHelp(){alert('휴대폰에서 GitHub Pages 주소를 연 뒤 브라우저 메뉴의 “홈 화면에 추가”를 누르면 앱처럼 사용할 수 있습니다. 추가/수정한 데이터, 즐겨찾기, 방문기록과 사진은 현재 휴대폰 브라우저에 저장되므로 정기적으로 백업 저장을 권장합니다.');$('manageDlg').close()}
 
 function openPhoto(src,title='사진 보기'){
@@ -654,12 +786,10 @@ function installDialogUX(){
 
 // ===== V22 course / visit / start point / auto map enhancements =====
 function ensureV22Settings(){
-  settings.courseEnabled={freshwater:true,sea:true,...(settings.courseEnabled||{})};
   settings.activeStart=settings.activeStart||clone(DEFAULT_SETTINGS.activeStart);
 }
-function isCourseEnabled(cat=currentCat){ensureV22Settings();return settings.courseEnabled?.[cat]!==false}
-function toggleCourseUsage(fromManage=false){ensureV22Settings();settings.courseEnabled[currentCat]=!isCourseEnabled(currentCat);persist();if(!isCourseEnabled(currentCat))stopRoute();render();renderStartSummary();toast(isCourseEnabled(currentCat)?'코스 사용 ON':'코스 사용 OFF')}
-function updateCourseToggleButtons(){let on=isCourseEnabled();let b=$('courseToggleBtn');if(b)b.textContent='코스 사용 '+(on?'ON':'OFF');let m=$('manageCourseToggle');if(m)m.textContent='현재 '+(currentCat==='freshwater'?'민물':'바다')+' 코스 사용 '+(on?'ON':'OFF')}
+function isCourseEnabled(){return true}
+function updateCourseToggleButtons(){}
 function toggleCustomCourseInput(){let w=$('customCourseWrap');if(w)w.style.display=$('fCourse').value==='CUSTOM'?'block':'none'}
 
 const __v21ActiveStartInfo=activeStartInfo;
@@ -675,16 +805,15 @@ ensureBaseCoord=async function(cat=currentCat){let s=activeStartInfo(cat);if(s.m
 
 const __v21ShowStartChooser=showStartChooser;
 showStartChooser=function(){__v21ShowStartChooser();let sel=$('startPointSelect');if(sel){let arr=points.filter(p=>p.category===currentCat).slice().sort((a,b)=>(a.id||9999)-(b.id||9999));sel.innerHTML='<option value="">포인트 선택</option>'+arr.map(p=>`<option value="${esc(pointKey(p))}">${String(p.id||'-').padStart(2,'0')} · ${esc(p.name)} · ${esc(p.address)}</option>`).join('');let a=settings.activeStart?.[currentCat];if(a?.mode==='point')sel.value=a.pointKey||''}}
-async function rebuildFromSelectedPoint(){let k=$('startPointSelect')?.value;if(!k){toast('출발 포인트를 선택해주세요');return}let p=points.find(x=>pointKey(x)===k);if(!p)return;settings.activeStart=settings.activeStart||{};settings.activeStart[currentCat]={mode:'point',pointKey:k,address:p.address};settings.activeStartCoord=settings.activeStartCoord||{};delete settings.activeStartCoord[currentCat];settings.baseCoord=settings.baseCoord||{};delete settings.baseCoord[currentCat];settings.roadMatrix={};persist();$('startDlg').close();renderStartSummary();if(isCourseEnabled())await autoRebuildCurrent(false)}
+async function rebuildFromSelectedPoint(){let k=$('startPointSelect')?.value;if(!k){toast('출발 포인트를 선택해주세요');return}let p=points.find(x=>pointKey(x)===k);if(!p)return;settings.activeStart=settings.activeStart||{};settings.activeStart[currentCat]={mode:'point',pointKey:k,address:p.address};settings.activeStartCoord=settings.activeStartCoord||{};delete settings.activeStartCoord[currentCat];settings.baseCoord=settings.baseCoord||{};delete settings.baseCoord[currentCat];settings.roadMatrix={};persist();$('startDlg').close();renderStartSummary();await autoRebuildCurrent(false)}
 
 function toggleVisited(k){let p=points.find(x=>pointKey(x)===k);if(!p)return;p.visited=!p.visited;p.visitedAt=p.visited?new Date().toISOString():'';persist();render();toast(p.visited?'방문 완료 저장':'방문 완료 취소')}
-function rebuildRemaining(){if(!isCourseEnabled()){toast('코스 사용을 먼저 켜주세요');return}autoRebuildCurrent(false,true)}
 
 const __v21MatchesPoint=matchesPoint;
 matchesPoint=function(p){if(!__v21MatchesPoint(p))return false;if(quickFilter==='logged'&&!(p.logs?.length||p.visited))return false;return true}
 
 const __v21StartCourse=startCourse;
-startCourse=function(c){if(!isCourseEnabled()){toast('코스 사용이 꺼져 있습니다');return}let arr=points.filter(p=>p.category===currentCat&&(currentRegion==='ALL'||pointRegion(p)===currentRegion)&&(currentZone==='ALL'||pointZone(p)===currentZone)&&(currentSpecies==='ALL'||pointSpeciesList(p).includes(currentSpecies))&&(p.course||'D')===c&&!p.visited);if(!arr.length){toast('남은 미방문 포인트가 없습니다');return}activeRoute=routeOrder(arr).map(pointKey);routePos=0;updateRouteBar();focusRoutePoint()}
+startCourse=function(c){let arr=points.filter(p=>p.category===currentCat&&(currentRegion==='ALL'||pointRegion(p)===currentRegion)&&(currentZone==='ALL'||pointZone(p)===currentZone)&&(currentSpecies==='ALL'||pointSpeciesList(p).includes(currentSpecies))&&(p.course||'D')===c&&!p.visited);if(!arr.length){toast('남은 미방문 포인트가 없습니다');return}activeRoute=routeOrder(arr).map(pointKey);routePos=0;updateRouteBar();focusRoutePoint()}
 
 const __v21SaveLog=saveLog;
 saveLog=function(e){let k=logKey;__v21SaveLog(e);let p=points.find(x=>pointKey(x)===k);if(p){p.visited=true;p.visitedAt=p.visitedAt||new Date().toISOString();persist();render()}}
@@ -709,32 +838,29 @@ showManage=function(){__v21ShowManage();updateCourseToggleButtons()}
 // ===== V23 course info collapse =====
 function ensureV23Settings(){
   ensureV22Settings();
-  settings.courseInfoCollapsed={
-    freshwater:false,
-    sea:false,
-    ...(settings.courseInfoCollapsed||{})
-  };
+  if(typeof settings.courseInfoCollapsedGlobal!=='boolean'){
+    let legacy=settings.courseInfoCollapsed||{};
+    settings.courseInfoCollapsedGlobal=!!(legacy.freshwater||legacy.sea);
+  }
 }
-function isCourseInfoCollapsed(cat=currentCat){
+function isCourseInfoCollapsed(){
   ensureV23Settings();
-  return !!settings.courseInfoCollapsed?.[cat];
+  return !!settings.courseInfoCollapsedGlobal;
 }
 function applyCourseInfoDisplay(){
   ensureV23Settings();
-  const enabled=isCourseEnabled();
-  const collapsed=enabled && isCourseInfoCollapsed();
+  const collapsed=isCourseInfoCollapsed();
   const box=$('courseDisplayControl');
   const btn=$('courseDisplayBtn');
-  if(box) box.style.display=enabled?'block':'none';
+  if(box)box.style.display='block';
   if(btn){
-    btn.textContent=collapsed?'코스 정보 펼치기':'코스 정보 접기';
+    btn.textContent=collapsed?'전체 코스 정보 펼치기':'전체 코스 정보 접기';
     btn.setAttribute('aria-expanded',collapsed?'false':'true');
   }
 }
 function toggleCourseInfoDisplay(){
   ensureV23Settings();
-  if(!isCourseEnabled()){toast('코스 사용을 먼저 켜주세요');return}
-  settings.courseInfoCollapsed[currentCat]=!isCourseInfoCollapsed();
+  settings.courseInfoCollapsedGlobal=!isCourseInfoCollapsed();
   persist();
   render();
 }
