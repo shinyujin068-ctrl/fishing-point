@@ -246,28 +246,92 @@ html,body{max-width:100%;overflow-x:hidden}
 }
 
 
-/* V35 대상어종 전체보기 */
+/* V40 대상어종 전체보기 */
 .speciesInlineBtn{
-  appearance:none;border:0;background:transparent;padding:0;margin:0;
-  color:inherit;font:inherit;text-align:left;cursor:pointer;
-  text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;
+  appearance:none;
+  border:0;
+  background:transparent;
+  padding:0;
+  margin:0;
+  color:inherit;
+  font:inherit;
+  font-weight:700;
+  text-align:left;
+  cursor:pointer;
+  text-decoration:underline;
+  text-decoration-style:dotted;
+  text-underline-offset:3px;
 }
-.speciesInlineBtn::after{content:" ▾";font-size:.8em;color:var(--muted)}
+.speciesInlineBtn::after{
+  content:" 전체보기";
+  display:inline-block;
+  margin-left:5px;
+  padding:1px 5px;
+  border-radius:5px;
+  background:#eef3f8;
+  color:#52606d;
+  font-size:10px;
+  font-weight:800;
+  text-decoration:none;
+  vertical-align:1px;
+}
 .speciesInlineBtn:active{opacity:.65}
-.speciesModalHead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.speciesModalHead h2{margin:0}
-.speciesDlgSub{font-size:13px;color:var(--muted);margin-top:4px}
-.dialogX{
-  width:42px;height:42px;min-width:42px;border:0;border-radius:999px;
-  background:#111827;color:#fff;font-size:25px;line-height:1;display:grid;place-items:center
+
+#speciesDlg{
+  width:min(92vw,520px);
 }
-.speciesFullList{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 6px}
+#speciesDlg>.speciesModal{
+  padding:58px 16px 18px;
+  overflow-y:auto;
+}
+#speciesDlg .dlgClose{
+  top:9px;
+  right:9px;
+}
+.speciesModal h2{
+  margin:0!important;
+  padding-right:0!important;
+  font-size:21px;
+  line-height:1.25;
+}
+.speciesDlgSub{
+  margin-top:7px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--line);
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.45;
+}
+.speciesFullList{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+  margin:14px 0 4px;
+}
 .speciesChip{
-  border:1px solid var(--line);background:#f4f7fa;border-radius:999px;
-  padding:9px 13px;font-weight:800;font-size:14px
+  min-width:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  padding:8px 6px;
+  border:1px solid #d8dee5;
+  border-radius:10px;
+  background:#f6f8fa;
+  color:#1f2937;
+  font-size:13px;
+  font-weight:800;
+  text-align:center;
+  word-break:keep-all;
 }
-@media(max-width:520px){
-  .speciesChip{font-size:13px;padding:8px 11px}
+.speciesModalBtns{
+  margin-top:14px;
+}
+
+@media(max-width:460px){
+  #speciesDlg{width:94vw}
+  .speciesFullList{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .speciesChip{font-size:13px;min-height:44px}
 }
 
 
@@ -319,7 +383,7 @@ html,body{max-width:100%;overflow-x:hidden}
 
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V39 · 거제 포인트 특장점 재조사</div></div><button class="tool" onclick="showManage()">관리</button></div>
+<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V40 · 대상어종 팝업 정리</div></div><button class="tool" onclick="showManage()">관리</button></div>
 <div class="tabs"><button id="tabFresh" class="tab on" onclick="setCat('freshwater')">민물</button><button id="tabSea" class="tab" onclick="setCat('sea')">바다</button></div>
 <button id="regionScopeToggle" class="regionScopeToggle" type="button" aria-expanded="false" onclick="toggleRegionPanel()"><span id="regionScopeText" class="scopeText">지역 · 권역</span><span class="scopeChev">▼</span></button>
 <div id="regionPanel" class="regionPanel">
@@ -387,7 +451,8 @@ html,body{max-width:100%;overflow-x:hidden}
 <button class="tool" onclick="showPatchNotes();manageDlg.close()">패치노트 / 업데이트 내역</button><button class="tool" onclick="exportData()">전체 데이터 백업(JSON)</button><button class="tool" onclick="document.getElementById('importFile').click();manageDlg.close()">백업 파일 복원</button><button class="tool" onclick="if(confirm('직접 추가/수정한 내용을 모두 지우고 최초 상태로 되돌릴까요?')) resetAll()">최초 상태로 복원</button>
 </div><div class="smallNote">주소 좌표 변환은 개인용 저빈도 사용을 전제로 OpenStreetMap Nominatim을 사용하며, 요청은 1초 이상 간격으로 보내고 결과를 브라우저에 저장합니다. © OpenStreetMap contributors.</div><div class="smallNote">V21 현재: 민물은 배스 고정, 바다는 주소의 지역을 기준으로 대상어종을 자동 세팅하며 직접 수정할 수 있습니다.</div><div class="modalBtns"><button class="cancel" onclick="manageDlg.close()">닫기</button><button class="save" onclick="showInstallHelp()">홈 화면 사용법</button></div></div></dialog>
 <dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V30</b><span>현재 설치 버전 · 2026-09-03</span></div><h2>패치노트</h2><div class="patchList">
-<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V39</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>거제 5포인트 특장점을 사용자 제공 문구가 아닌 공개 낚시자료 기준으로 전면 재작성</div><div>구조라·덕포·지세포 외항·옥림·학동의 지형·낚시 방식·포인트 성격 중심으로 정리</div><div>기존 제한적인 메모 문구도 실제 포인트 성격에 맞게 교체</div><div>각 포인트에 원문 보기 출처 연결</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V40</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>대상어종 전체보기 팝업의 닫기 버튼이 중복되던 구조 제거</div><div>대상어종 목록을 모바일 2열·넓은 화면 3열 격자로 정리</div><div>긴 어종 목록도 팝업 내부에서 자연스럽게 스크롤되도록 개선</div><div>중복 어종은 전체보기에서 한 번만 표시</div><div>카드의 대상어종 클릭 영역에 '전체보기' 표시 추가</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V39</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>거제 5포인트 특장점을 사용자 제공 문구가 아닌 공개 낚시자료 기준으로 전면 재작성</div><div>구조라·덕포·지세포 외항·옥림·학동의 지형·낚시 방식·포인트 성격 중심으로 정리</div><div>기존 제한적인 메모 문구도 실제 포인트 성격에 맞게 교체</div><div>각 포인트에 원문 보기 출처 연결</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V38</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>번호 제거 후 카드 본문이 왼쪽에 좁게 몰리던 레이아웃 수정</div><div>포인트 특장점 박스를 카드 본문 폭 전체로 확장</div><div>티맵·주소·지도 버튼을 3열 균등 정렬</div><div>방문 기능과 원문 버튼을 카드별 개수에 맞춰 균등 정렬</div><div>수정·삭제 버튼을 마지막 줄 2열로 균등 배치</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V37</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>포인트 카드의 01, 02 같은 번호 배지 제거</div><div>코스 정보의 숫자 ID 순서를 포인트명 순서로 변경</div><div>코스 지도 포인트 선택 목록에서도 앞 번호 제거</div><div>내부 ID는 저장·코스 계산용으로 그대로 유지</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V36</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>사이트를 닫았다 다시 열어도 마지막 사용 화면을 자동 복원</div><div>마지막 민물/바다 탭 저장</div><div>민물/바다별 지역·권역·대상어종 선택을 각각 따로 저장</div><div>마지막 검색어와 전체/즐겨찾기/주차 좋음/방문기록 필터 저장</div><div>기존 도구 메뉴 접힘·지역 접힘·코스 정보 접힘·출발지 설정 저장 기능과 함께 동작</div></div></div>
@@ -431,15 +496,12 @@ html,body{max-width:100%;overflow-x:hidden}
 
 
 <dialog id="speciesDlg"><div class="modal speciesModal">
-  <div class="speciesModalHead">
-    <div>
-      <h2 id="speciesDlgTitle">대상어종</h2>
-      <div id="speciesDlgSub" class="speciesDlgSub"></div>
-    </div>
-    <button type="button" class="dialogX" onclick="speciesDlg.close()" aria-label="닫기">×</button>
-  </div>
+  <h2 id="speciesDlgTitle">대상어종 전체보기</h2>
+  <div id="speciesDlgSub" class="speciesDlgSub"></div>
   <div id="speciesDlgList" class="speciesFullList"></div>
-  <div class="modalBtns"><button class="cancel" style="grid-column:1/-1" type="button" onclick="speciesDlg.close()">닫기</button></div>
+  <div class="modalBtns speciesModalBtns">
+    <button class="cancel" style="grid-column:1/-1" type="button" onclick="speciesDlg.close()">닫기</button>
+  </div>
 </div></dialog>
 
 <dialog id="allMapDlg"><div class="modal"><h2 id="allMapTitle">전체 지도</h2>
@@ -848,13 +910,18 @@ function speciesSummaryHtml(p,max=6){
 function showSpeciesList(k){
   let p=points.find(x=>pointKey(x)===k);
   if(!p)return;
-  let list=pointSpeciesList(p).filter(x=>x&&x!=='미지정');
 
-  $('speciesDlgTitle').textContent=`${p.name} 대상어종`;
-  $('speciesDlgSub').textContent=`${pointRegion(p)} · ${pointZone(p)} · 총 ${list.length}종`;
+  let list=[...new Set(
+    pointSpeciesList(p)
+      .map(x=>String(x||'').trim())
+      .filter(x=>x&&x!=='미지정')
+  )];
+
+  $('speciesDlgTitle').textContent=p.name;
+  $('speciesDlgSub').textContent=`대상어종 · ${pointRegion(p)} · ${pointZone(p)} · 총 ${list.length}종`;
   $('speciesDlgList').innerHTML=list.length
-    ?list.map(s=>`<span class="speciesChip">${esc(s)}</span>`).join('')
-    :'<div class="empty">등록된 대상어종이 없습니다.</div>';
+    ?list.map(s=>`<div class="speciesChip">${esc(s)}</div>`).join('')
+    :'<div class="empty" style="grid-column:1/-1">등록된 대상어종이 없습니다.</div>';
 
   $('speciesDlg').showModal();
 }
@@ -1208,14 +1275,14 @@ async function autoRebuildCurrent(fromManage=false){
   }
 }
 
-function exportData(){settings.lastBackupAt=new Date().toISOString();persist();let blob=new Blob([JSON.stringify({version:39,exportedAt:settings.lastBackupAt,points,settings},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='낚시포인트_백업_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href);toast('백업 파일 저장')}
+function exportData(){settings.lastBackupAt=new Date().toISOString();persist();let blob=new Blob([JSON.stringify({version:40,exportedAt:settings.lastBackupAt,points,settings},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='낚시포인트_백업_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href);toast('백업 파일 저장')}
 function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);if(!Array.isArray(d.points))throw 0;points=d.points;if((+d.version||0)<20){localStorage.removeItem(V20_MIGRATION_KEY);migrateV20Defaults()}migrateClassifications();if(d.settings)settings={...clone(DEFAULT_SETTINGS),...d.settings,base:{...DEFAULT_SETTINGS.base,...(d.settings.base||{})},activeStart:{freshwater:{...DEFAULT_SETTINGS.activeStart.freshwater,...(d.settings.activeStart?.freshwater||{})},sea:{...DEFAULT_SETTINGS.activeStart.sea,...(d.settings.activeStart?.sea||{})}}};persist();saveLastUiState();render();toast('백업 복원 완료')}catch(x){alert('올바른 백업 파일이 아닙니다.')}e.target.value=''};r.readAsText(f)}
 function resetAll(){points=clone(DEFAULT_POINTS);settings=clone(DEFAULT_SETTINGS);persist();render();$('manageDlg').close();toast('최초 상태로 복원됨')}
 function setControlPanel(open,remember=true){let p=$('controlPanel'),b=$('controlToggle');if(!p||!b)return;p.classList.toggle('open',!!open);b.classList.toggle('open',!!open);b.setAttribute('aria-expanded',open?'true':'false');b.querySelector('span:first-child').textContent=open?'도구 메뉴 접기':'도구 메뉴 펼치기';b.querySelector('.chev').textContent=open?'▲':'▼';if(remember)localStorage.setItem('fish_control_open',open?'1':'0')}
 function toggleControlPanel(){let p=$('controlPanel');setControlPanel(!p?.classList.contains('open'))}
 function initControlPanel(){setControlPanel(localStorage.getItem('fish_control_open')==='1',false)}
-function showPatchNotes(){localStorage.setItem('fish_seen_patch','39');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
-function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='39',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
+function showPatchNotes(){localStorage.setItem('fish_seen_patch','40');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
+function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='40',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}function showInstallHelp(){alert('휴대폰에서 GitHub Pages 주소를 연 뒤 브라우저 메뉴의 “홈 화면에 추가”를 누르면 앱처럼 사용할 수 있습니다. 추가/수정한 데이터, 즐겨찾기, 방문기록과 사진은 현재 휴대폰 브라우저에 저장되므로 정기적으로 백업 저장을 권장합니다.');$('manageDlg').close()}
 
 function openPhoto(src,title='사진 보기'){
@@ -1229,14 +1296,22 @@ function installDialogUX(){
   document.querySelectorAll('dialog').forEach(d=>{
     if(!d.querySelector(':scope > .dlgClose')){
       const b=document.createElement('button');
-      b.type='button';b.className='dlgClose';b.setAttribute('aria-label','닫기');b.textContent='×';
+      b.type='button';
+      b.className='dlgClose';
+      b.setAttribute('aria-label','닫기');
+      b.textContent='×';
       b.addEventListener('click',()=>d.close());
       d.appendChild(b);
     }
+    if(d.dataset.uxInstalled==='1')return;
+    d.dataset.uxInstalled='1';
     d.addEventListener('click',e=>{
       if(e.target===d)d.close();
     });
-    d.addEventListener('cancel',e=>{e.preventDefault();d.close()});
+    d.addEventListener('cancel',e=>{
+      e.preventDefault();
+      d.close();
+    });
   });
 }
 
