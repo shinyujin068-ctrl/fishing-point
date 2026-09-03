@@ -166,9 +166,23 @@ input,select,textarea{font-size:16px!important;line-height:1.35}
 .speciesPreset button.on{background:#8a4f16;border-color:#8a4f16;color:#fff}
 .speciesPreset button:active{transform:scale(.98)}
 .speciesHelp{font-size:12px;color:#64748b;margin-top:6px;line-height:1.45}
+
+/* V21 지역/권역/대상어종 잘림 방지 */
+html,body{max-width:100%;overflow-x:hidden}
+.regionPanel{max-width:100%;overflow:hidden}
+.regionPanel .regionFilters{display:grid!important;grid-template-columns:1fr!important;gap:8px!important;overflow:visible!important;white-space:normal!important;width:100%!important;max-width:100%!important}
+.regionPanel .filterLine{display:grid!important;grid-template-columns:64px minmax(0,1fr)!important;align-items:start!important;gap:8px!important;width:100%!important;max-width:100%!important;min-width:0!important}
+.regionPanel .filterLabel{min-width:0!important;width:auto!important;padding-top:7px!important}
+.regionPanel .filterChips{display:flex!important;flex-wrap:wrap!important;gap:6px!important;overflow:visible!important;white-space:normal!important;min-width:0!important;max-width:100%!important;width:100%!important}
+.regionPanel .regionChip{max-width:100%;white-space:nowrap}
+@media(max-width:520px){
+  .regionPanel .filterLine{grid-template-columns:58px minmax(0,1fr)!important;gap:6px!important}
+  .regionPanel .filterLabel{font-size:14px!important;padding-top:7px!important}
+  .regionPanel .regionChip{font-size:13px!important;padding:8px 10px!important}
+}
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V20 · 민물/바다 어종 프리셋 · 지세포항 추가</div></div><button class="tool" onclick="showManage()">관리</button></div>
+<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V21 · 지역별 대상어종 자동 세팅 · 분류영역 잘림 수정</div></div><button class="tool" onclick="showManage()">관리</button></div>
 <div class="tabs"><button id="tabFresh" class="tab on" onclick="setCat('freshwater')">민물</button><button id="tabSea" class="tab" onclick="setCat('sea')">바다</button></div>
 <button id="regionScopeToggle" class="regionScopeToggle" type="button" aria-expanded="false" onclick="toggleRegionPanel()"><span id="regionScopeText" class="scopeText">지역 · 권역</span><span class="scopeChev">▼</span></button>
 <div id="regionPanel" class="regionPanel">
@@ -233,9 +247,10 @@ input,select,textarea{font-size:16px!important;line-height:1.35}
 <button class="tool" onclick="autoRebuildCurrent(true)">현재 카테고리 전체 코스 자동 재구성</button>
 <div class="smallNote">출발지(민물 기본값: 농막)에서 실제 도로 주행거리 기준으로 가장 가까운 포인트를 먼저 찾고, 그 지점에서 다음으로 가까운 포인트를 이어 코스를 만듭니다. 도로거리 계산이 일시적으로 실패하면 직선거리 방식으로 자동 대체됩니다.</div></div>
 <button class="tool" onclick="showPatchNotes();manageDlg.close()">패치노트 / 업데이트 내역</button><button class="tool" onclick="exportData()">전체 데이터 백업(JSON)</button><button class="tool" onclick="document.getElementById('importFile').click();manageDlg.close()">백업 파일 복원</button><button class="tool" onclick="if(confirm('직접 추가/수정한 내용을 모두 지우고 최초 상태로 되돌릴까요?')) resetAll()">최초 상태로 복원</button>
-</div><div class="smallNote">주소 좌표 변환은 개인용 저빈도 사용을 전제로 OpenStreetMap Nominatim을 사용하며, 요청은 1초 이상 간격으로 보내고 결과를 브라우저에 저장합니다. © OpenStreetMap contributors.</div><div class="smallNote">V20 현재: 민물은 배스 고정, 바다는 주요 대상어종 복수 선택을 지원합니다. 지세포항 포인트와 대상어종도 추가했습니다.</div><div class="modalBtns"><button class="cancel" onclick="manageDlg.close()">닫기</button><button class="save" onclick="showInstallHelp()">홈 화면 사용법</button></div></div></dialog>
+</div><div class="smallNote">주소 좌표 변환은 개인용 저빈도 사용을 전제로 OpenStreetMap Nominatim을 사용하며, 요청은 1초 이상 간격으로 보내고 결과를 브라우저에 저장합니다. © OpenStreetMap contributors.</div><div class="smallNote">V21 현재: 민물은 배스 고정, 바다는 주소의 지역을 기준으로 대상어종을 자동 세팅하며 직접 수정할 수 있습니다.</div><div class="modalBtns"><button class="cancel" onclick="manageDlg.close()">닫기</button><button class="save" onclick="showInstallHelp()">홈 화면 사용법</button></div></div></dialog>
 <dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V20</b><span>현재 설치 버전 · 2026-09-03</span></div><h2>패치노트</h2><div class="patchList">
-<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V20</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>민물 대상어종은 배스로 고정</div><div>바다 포인트 추가/수정 화면에 우럭·광어·쭈꾸미·갑오징어·무늬오징어 등 주요 바다 어종 프리셋과 복수 선택 추가</div><div>거제 지세포항 포인트와 사용자 제공 지도 이미지 추가</div><div>지세포항 대상어종을 지세포항/거제 북동부 주요 조과 어종 기준으로 자동 세팅</div><div>대상어종 필터가 복수 어종 포인트를 개별 어종으로 검색·필터하도록 개선</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V21</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>새 바다 포인트는 주소에서 지역을 인식하면 해당 지역의 대표 대상어종을 자동 세팅</div><div>글/메모에 어종명이 있으면 지역 기본값보다 해당 어종을 우선 적용</div><div>민물은 기존대로 배스 고정</div><div>지역·권역·대상어종 선택 영역을 줄바꿈 구조로 변경해 오른쪽 잘림 현상 수정</div><div>등록되지 않은 바다 지역도 공통 바다 대상어종을 자동 제안하고 수정 가능</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V20</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>민물 대상어종은 배스로 고정</div><div>바다 포인트 추가/수정 화면에 우럭·광어·쭈꾸미·갑오징어·무늬오징어 등 주요 바다 어종 프리셋과 복수 선택 추가</div><div>거제 지세포항 포인트와 사용자 제공 지도 이미지 추가</div><div>지세포항 대상어종을 지세포항/거제 북동부 주요 조과 어종 기준으로 자동 세팅</div><div>대상어종 필터가 복수 어종 포인트를 개별 어종으로 검색·필터하도록 개선</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V19</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>지역·권역 분류에 대상어종 필터 추가</div><div>기존 대호만 1~15번 대상어종을 배스로 자동 적용</div><div>새 포인트 추가/수정 시 대상어종을 직접 입력하고 카페 링크에서도 배스 등 어종 자동 인식</div><div>코스 자동정리는 지역·권역뿐 아니라 선택한 대상어종까지 동일한 포인트끼리 계산</div><div>지역·권역·대상어종 라벨 글씨를 더 크게 키워 모바일 가독성 개선</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V18</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>지역·권역 접기 요약줄의 높이와 글자 크기를 소폭 확대</div><div>펼쳤을 때 지역·권역 버튼과 라벨 크기를 조금 키워 터치 편의성 개선</div><div>화면을 과하게 차지하지 않도록 V17 구조는 그대로 유지</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V17</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>지역·권역 선택 영역을 별도 접기/펼치기 메뉴로 변경</div><div>접힌 상태에서는 현재 적용 중인 지역·권역만 한 줄로 표시해 상단 공간 절약</div><div>펼쳤을 때는 현재 민물/바다에 실제 등록된 포인트가 있는 지역·권역만 표시</div><div>지역 또는 권역이 하나뿐이면 해당 범위를 자동 적용해 불필요한 전체 버튼을 숨김</div><div>검색·즐겨찾기·주차·방문기록 필터는 기존처럼 항상 표시</div></div></div>
@@ -265,6 +280,51 @@ let currentCat='freshwater', editKey=null, logKey=null, lastGeoAt=0;
 let searchQuery='', quickFilter='all', currentRegion='ALL', currentZone='ALL', currentSpecies='ALL', currentPos=null, activeRoute=[], routePos=0;
 const FRESHWATER_SPECIES=['배스'];
 const SEA_SPECIES=['우럭','광어','쭈꾸미','갑오징어','무늬오징어','문어','볼락','농어','감성돔','참돔','벵에돔','돌돔','고등어','삼치','전갱이','전어','학공치','도다리','노래미','붕장어','갈치','한치','방어','부시리','망상어','숭어','열기'];
+const SEA_REGION_SPECIES={
+  '인천':['우럭','광어','쭈꾸미','갑오징어','농어','감성돔','노래미','붕장어'],
+  '평택':['우럭','광어','쭈꾸미','갑오징어','농어','노래미'],
+  '당진':['우럭','광어','쭈꾸미','갑오징어','농어','감성돔','노래미','붕장어','전어'],
+  '서산':['우럭','광어','쭈꾸미','갑오징어','농어','감성돔','노래미','붕장어','전어'],
+  '태안':['우럭','광어','쭈꾸미','갑오징어','농어','감성돔','노래미','붕장어','전어'],
+  '보령':['우럭','광어','쭈꾸미','갑오징어','농어','감성돔','노래미','붕장어'],
+  '서천':['우럭','광어','쭈꾸미','갑오징어','농어','감성돔','노래미'],
+  '군산':['우럭','광어','쭈꾸미','갑오징어','농어','감성돔','노래미','붕장어'],
+  '부안':['우럭','광어','쭈꾸미','갑오징어','농어','감성돔','노래미'],
+  '목포':['우럭','광어','농어','감성돔','참돔','쭈꾸미','갑오징어','문어','전어'],
+  '신안':['우럭','광어','농어','감성돔','참돔','쭈꾸미','갑오징어','문어','전어'],
+  '여수':['우럭','볼락','농어','감성돔','참돔','벵에돔','무늬오징어','문어','갑오징어','고등어','전갱이'],
+  '고흥':['우럭','볼락','농어','감성돔','참돔','벵에돔','무늬오징어','문어','갑오징어'],
+  '완도':['우럭','볼락','농어','감성돔','참돔','벵에돔','무늬오징어','문어','고등어','전갱이'],
+  '해남':['우럭','볼락','농어','감성돔','참돔','벵에돔','무늬오징어','문어'],
+  '진도':['우럭','볼락','농어','감성돔','참돔','벵에돔','무늬오징어','문어'],
+  '거제':['우럭','광어','볼락','농어','감성돔','참돔','벵에돔','고등어','삼치','전갱이','전어','학공치','도다리','노래미','붕장어','망상어','무늬오징어'],
+  '통영':['우럭','볼락','농어','감성돔','참돔','벵에돔','무늬오징어','문어','갑오징어','고등어','전갱이'],
+  '고성':['우럭','볼락','농어','감성돔','참돔','벵에돔','무늬오징어','문어','고등어','전갱이'],
+  '사천':['우럭','볼락','농어','감성돔','참돔','벵에돔','무늬오징어','문어','갑오징어'],
+  '남해':['우럭','볼락','농어','감성돔','참돔','벵에돔','무늬오징어','문어','고등어','전갱이'],
+  '창원':['우럭','볼락','농어','감성돔','참돔','벵에돔','무늬오징어','문어','갑오징어'],
+  '부산':['우럭','광어','볼락','농어','감성돔','참돔','벵에돔','무늬오징어','고등어','삼치','전갱이','갈치'],
+  '울산':['우럭','광어','볼락','농어','감성돔','참돔','무늬오징어','문어','고등어','삼치','전갱이'],
+  '경주':['우럭','광어','볼락','농어','감성돔','참돔','무늬오징어','문어','고등어','삼치','전갱이'],
+  '포항':['우럭','광어','볼락','농어','감성돔','참돔','무늬오징어','문어','고등어','삼치','전갱이'],
+  '영덕':['우럭','광어','볼락','농어','감성돔','참돔','문어','고등어','삼치','전갱이'],
+  '울진':['우럭','광어','볼락','농어','감성돔','참돔','문어','고등어','삼치','전갱이'],
+  '삼척':['우럭','광어','볼락','농어','감성돔','참돔','문어','고등어','삼치','전갱이'],
+  '동해':['우럭','광어','볼락','농어','감성돔','참돔','문어','고등어','삼치','전갱이'],
+  '강릉':['우럭','광어','볼락','농어','감성돔','참돔','문어','고등어','삼치','전갱이'],
+  '양양':['우럭','광어','볼락','농어','감성돔','문어','고등어','삼치','전갱이'],
+  '속초':['우럭','광어','볼락','농어','감성돔','문어','고등어','삼치','전갱이'],
+  '제주':['벵에돔','참돔','돌돔','무늬오징어','한치','방어','부시리','고등어','전갱이','갈치','농어']
+};
+const SEA_COMMON_SPECIES=['우럭','광어','농어','감성돔','볼락'];
+function inferSeaSpeciesByRegion(region='',zone='',text=''){
+  let direct=inferTargetSpeciesList([text,zone].join(' '),'sea');
+  if(direct.length)return direct;
+  if(zone==='지세포항')return splitSpecies(JISEPO_DEFAULT.targetSpecies);
+  let preset=SEA_REGION_SPECIES[region];
+  return preset?preset.slice():SEA_COMMON_SPECIES.slice();
+}
+
 const JISEPO_DEFAULT={"id":1,"name":"지세포항","address":"경남 거제시 일운면 지세포리 929-76","course":"A","area":"지세포리","parking":"현장 확인","note":"사용자 제공 지도 기준 · 빨간선 낚시구역","category":"sea","mapImage":"assets/sea_jisepo_map.jpg","parkingImage":"","region":"거제","zone":"지세포항","targetSpecies":"우럭, 광어, 볼락, 농어, 감성돔, 참돔, 벵에돔, 고등어, 삼치, 전갱이, 전어, 학공치, 도다리, 노래미, 붕장어, 망상어, 무늬오징어","routeOrder":1,"courseStart":true};
 const V20_MIGRATION_KEY='fish_v20_jisepo_added';
 const DEFAULT_SETTINGS={base:{freshwater:'충남 당진시 석문면 통정리 358-3',sea:''},activeStart:{freshwater:{mode:'default',address:''},sea:{mode:'default',address:''}},activeStartCoord:{},maxPerCourse:6,splitLegKm:5,autoMode:{freshwater:false,sea:false},baseCoord:{},roadMatrix:{},routeMode:{}};
@@ -314,10 +374,10 @@ function splitSpecies(v){let a=Array.isArray(v)?v:String(v||'').split(/[,\n/|·]
 function joinSpecies(a){return splitSpecies(a).join(', ')}
 function inferTargetSpeciesList(text='',category=currentCat){let s=String(text||''),pool=category==='freshwater'?FRESHWATER_SPECIES:SEA_SPECIES,found=[];for(const n of pool){if(s.includes(n)||(n==='광어'&&s.includes('넙치'))||(n==='쭈꾸미'&&s.includes('주꾸미')))found.push(n)}if(category==='freshwater'&&/bass/i.test(s))found.push('배스');return [...new Set(found)]}
 function inferTargetSpecies(text='',category=currentCat){return joinSpecies(inferTargetSpeciesList(text,category))}
-function pointSpeciesList(p){let explicit=splitSpecies(p.targetSpecies);if(explicit.length)return explicit;let found=inferTargetSpeciesList([p.name,p.note,p.sourceUrl,p.zone].join(' '),p.category);if(found.length)return found;if(p.category==='freshwater')return ['배스'];return ['미지정']}
+function pointSpeciesList(p){let explicit=splitSpecies(p.targetSpecies);if(explicit.length&&explicit[0]!=='미지정')return explicit;let found=inferTargetSpeciesList([p.name,p.note,p.sourceUrl,p.zone].join(' '),p.category);if(found.length)return found;if(p.category==='freshwater')return ['배스'];return inferSeaSpeciesByRegion(pointRegion(p),pointZone(p),[p.name,p.note,p.sourceUrl].join(' '))}
 function pointSpecies(p){return joinSpecies(pointSpeciesList(p))||'미지정'}
 function migrateV20Defaults(){if(localStorage.getItem(V20_MIGRATION_KEY)==='1')return;let exists=points.some(p=>p.category==='sea'&&(String(p.address||'').replace(/\s/g,'')===JISEPO_DEFAULT.address.replace(/\s/g,'')||p.name==='지세포항'));if(!exists){let q=clone(JISEPO_DEFAULT),ids=points.filter(p=>p.category==='sea').map(p=>+p.id||0);q.id=Math.max(0,...ids)+1;points.push(q)}localStorage.setItem(V20_MIGRATION_KEY,'1')}
-function migrateClassifications(){let changed=false;for(const p of points){if(!p.region){p.region=inferRegion(p.address);changed=true}if(!p.zone){p.zone=inferKnownZone(p)||((p.region==='당진'&&p.category==='freshwater')?'대호만':'미분류');changed=true}if(p.category==='freshwater'&&p.targetSpecies!=='배스'){p.targetSpecies='배스';changed=true}else if(!p.targetSpecies){p.targetSpecies=pointSpecies(p);changed=true}else{let n=joinSpecies(p.targetSpecies);if(n!==p.targetSpecies){p.targetSpecies=n;changed=true}}}if(changed)persist()}
+function migrateClassifications(){let changed=false;for(const p of points){if(!p.region){p.region=inferRegion(p.address);changed=true}if(!p.zone){p.zone=inferKnownZone(p)||((p.region==='당진'&&p.category==='freshwater')?'대호만':'미분류');changed=true}if(p.category==='freshwater'){if(p.targetSpecies!=='배스'){p.targetSpecies='배스';changed=true}}else{let cur=splitSpecies(p.targetSpecies).filter(s=>s!=='미지정');if(!cur.length){p.targetSpecies=joinSpecies(inferSeaSpeciesByRegion(pointRegion(p),pointZone(p),[p.name,p.note,p.sourceUrl].join(' ')));changed=true}else{let n=joinSpecies(cur);if(n!==p.targetSpecies){p.targetSpecies=n;changed=true}}}}if(changed)persist()}
 function classificationForDraft(address='',name='',area='',note='',category=currentCat,explicitZone='',explicitSpecies=''){
   let region=inferRegion(address),zone=String(explicitZone||'').trim(),species=String(explicitSpecies||'').trim();
   if(!zone)zone=inferKnownZone({address,name,area,note,category});
@@ -325,8 +385,8 @@ function classificationForDraft(address='',name='',area='',note='',category=curr
   if(!zone){let zs=[...new Set(points.filter(p=>p.category===category&&pointRegion(p)===region).map(pointZone).filter(z=>z&&z!=='미분류'))];if(zs.length===1)zone=zs[0]}
   if(category==='freshwater')species='배스';
   if(!species)species=inferTargetSpecies([name,note,zone].join(' '),category);
+  if(!species&&category==='sea')species=joinSpecies(inferSeaSpeciesByRegion(region,zone,[name,note,address].join(' ')));
   if(!species&&currentSpecies!=='ALL')species=currentSpecies;
-  if(!species&&category==='sea'){let ss=[...new Set(points.filter(p=>p.category===category&&pointRegion(p)===region&&(zone==='미분류'||pointZone(p)===zone)).flatMap(pointSpeciesList).filter(s=>s&&s!=='미지정'))];if(ss.length===1)species=ss[0]}
   return {region:region||'미분류',zone:zone||'미분류',species:species||'미지정'}
 }
 function autofillClassification(){let c=classificationForDraft($('fAddr').value,$('fName').value,$('fArea').value,$('fNote').value,$('fCat').value,$('fZone').value,$('fSpecies').value);if(!$('fRegion').value.trim()||$('fRegion').dataset.auto==='1'){$('fRegion').value=c.region;$('fRegion').dataset.auto='1'}if(!$('fZone').value.trim()||$('fZone').dataset.auto==='1'){$('fZone').value=c.zone;$('fZone').dataset.auto='1'}if($('fCat').value==='freshwater'){$('fSpecies').value='배스';$('fSpecies').dataset.auto='1'}else if(!$('fSpecies').value.trim()||$('fSpecies').dataset.auto==='1'){$('fSpecies').value=c.species==='미지정'?'':c.species;$('fSpecies').dataset.auto='1'}renderSpeciesPreset()}
