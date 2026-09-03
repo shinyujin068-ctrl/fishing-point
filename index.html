@@ -319,7 +319,7 @@ html,body{max-width:100%;overflow-x:hidden}
 
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V38 · 포인트 카드 정렬 개선</div></div><button class="tool" onclick="showManage()">관리</button></div>
+<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V39 · 거제 포인트 특장점 재조사</div></div><button class="tool" onclick="showManage()">관리</button></div>
 <div class="tabs"><button id="tabFresh" class="tab on" onclick="setCat('freshwater')">민물</button><button id="tabSea" class="tab" onclick="setCat('sea')">바다</button></div>
 <button id="regionScopeToggle" class="regionScopeToggle" type="button" aria-expanded="false" onclick="toggleRegionPanel()"><span id="regionScopeText" class="scopeText">지역 · 권역</span><span class="scopeChev">▼</span></button>
 <div id="regionPanel" class="regionPanel">
@@ -387,7 +387,8 @@ html,body{max-width:100%;overflow-x:hidden}
 <button class="tool" onclick="showPatchNotes();manageDlg.close()">패치노트 / 업데이트 내역</button><button class="tool" onclick="exportData()">전체 데이터 백업(JSON)</button><button class="tool" onclick="document.getElementById('importFile').click();manageDlg.close()">백업 파일 복원</button><button class="tool" onclick="if(confirm('직접 추가/수정한 내용을 모두 지우고 최초 상태로 되돌릴까요?')) resetAll()">최초 상태로 복원</button>
 </div><div class="smallNote">주소 좌표 변환은 개인용 저빈도 사용을 전제로 OpenStreetMap Nominatim을 사용하며, 요청은 1초 이상 간격으로 보내고 결과를 브라우저에 저장합니다. © OpenStreetMap contributors.</div><div class="smallNote">V21 현재: 민물은 배스 고정, 바다는 주소의 지역을 기준으로 대상어종을 자동 세팅하며 직접 수정할 수 있습니다.</div><div class="modalBtns"><button class="cancel" onclick="manageDlg.close()">닫기</button><button class="save" onclick="showInstallHelp()">홈 화면 사용법</button></div></div></dialog>
 <dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V30</b><span>현재 설치 버전 · 2026-09-03</span></div><h2>패치노트</h2><div class="patchList">
-<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V38</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>번호 제거 후 카드 본문이 왼쪽에 좁게 몰리던 레이아웃 수정</div><div>포인트 특장점 박스를 카드 본문 폭 전체로 확장</div><div>티맵·주소·지도 버튼을 3열 균등 정렬</div><div>방문 기능과 원문 버튼을 카드별 개수에 맞춰 균등 정렬</div><div>수정·삭제 버튼을 마지막 줄 2열로 균등 배치</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V39</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>거제 5포인트 특장점을 사용자 제공 문구가 아닌 공개 낚시자료 기준으로 전면 재작성</div><div>구조라·덕포·지세포 외항·옥림·학동의 지형·낚시 방식·포인트 성격 중심으로 정리</div><div>기존 제한적인 메모 문구도 실제 포인트 성격에 맞게 교체</div><div>각 포인트에 원문 보기 출처 연결</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V38</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>번호 제거 후 카드 본문이 왼쪽에 좁게 몰리던 레이아웃 수정</div><div>포인트 특장점 박스를 카드 본문 폭 전체로 확장</div><div>티맵·주소·지도 버튼을 3열 균등 정렬</div><div>방문 기능과 원문 버튼을 카드별 개수에 맞춰 균등 정렬</div><div>수정·삭제 버튼을 마지막 줄 2열로 균등 배치</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V37</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>포인트 카드의 01, 02 같은 번호 배지 제거</div><div>코스 정보의 숫자 ID 순서를 포인트명 순서로 변경</div><div>코스 지도 포인트 선택 목록에서도 앞 번호 제거</div><div>내부 ID는 저장·코스 계산용으로 그대로 유지</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V36</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>사이트를 닫았다 다시 열어도 마지막 사용 화면을 자동 복원</div><div>마지막 민물/바다 탭 저장</div><div>민물/바다별 지역·권역·대상어종 선택을 각각 따로 저장</div><div>마지막 검색어와 전체/즐겨찾기/주차 좋음/방문기록 필터 저장</div><div>기존 도구 메뉴 접힘·지역 접힘·코스 정보 접힘·출발지 설정 저장 기능과 함께 동작</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V35</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>카드에서 줄여 표시되는 대상어종을 클릭하면 전체 어종 목록을 팝업으로 확인 가능</div><div>대상어종 전체보기에서 포인트명·지역·권역·총 어종 수 표시</div><div>어종은 개별 칩 형태로 표시해 모바일에서 한눈에 확인 가능</div><div>민물 배스처럼 대상어종이 1종인 경우 기존처럼 일반 텍스트로 표시</div></div></div>
@@ -1207,14 +1208,14 @@ async function autoRebuildCurrent(fromManage=false){
   }
 }
 
-function exportData(){settings.lastBackupAt=new Date().toISOString();persist();let blob=new Blob([JSON.stringify({version:38,exportedAt:settings.lastBackupAt,points,settings},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='낚시포인트_백업_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href);toast('백업 파일 저장')}
+function exportData(){settings.lastBackupAt=new Date().toISOString();persist();let blob=new Blob([JSON.stringify({version:39,exportedAt:settings.lastBackupAt,points,settings},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='낚시포인트_백업_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href);toast('백업 파일 저장')}
 function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);if(!Array.isArray(d.points))throw 0;points=d.points;if((+d.version||0)<20){localStorage.removeItem(V20_MIGRATION_KEY);migrateV20Defaults()}migrateClassifications();if(d.settings)settings={...clone(DEFAULT_SETTINGS),...d.settings,base:{...DEFAULT_SETTINGS.base,...(d.settings.base||{})},activeStart:{freshwater:{...DEFAULT_SETTINGS.activeStart.freshwater,...(d.settings.activeStart?.freshwater||{})},sea:{...DEFAULT_SETTINGS.activeStart.sea,...(d.settings.activeStart?.sea||{})}}};persist();saveLastUiState();render();toast('백업 복원 완료')}catch(x){alert('올바른 백업 파일이 아닙니다.')}e.target.value=''};r.readAsText(f)}
 function resetAll(){points=clone(DEFAULT_POINTS);settings=clone(DEFAULT_SETTINGS);persist();render();$('manageDlg').close();toast('최초 상태로 복원됨')}
 function setControlPanel(open,remember=true){let p=$('controlPanel'),b=$('controlToggle');if(!p||!b)return;p.classList.toggle('open',!!open);b.classList.toggle('open',!!open);b.setAttribute('aria-expanded',open?'true':'false');b.querySelector('span:first-child').textContent=open?'도구 메뉴 접기':'도구 메뉴 펼치기';b.querySelector('.chev').textContent=open?'▲':'▼';if(remember)localStorage.setItem('fish_control_open',open?'1':'0')}
 function toggleControlPanel(){let p=$('controlPanel');setControlPanel(!p?.classList.contains('open'))}
 function initControlPanel(){setControlPanel(localStorage.getItem('fish_control_open')==='1',false)}
-function showPatchNotes(){localStorage.setItem('fish_seen_patch','38');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
-function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='38',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
+function showPatchNotes(){localStorage.setItem('fish_seen_patch','39');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
+function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='39',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}function showInstallHelp(){alert('휴대폰에서 GitHub Pages 주소를 연 뒤 브라우저 메뉴의 “홈 화면에 추가”를 누르면 앱처럼 사용할 수 있습니다. 추가/수정한 데이터, 즐겨찾기, 방문기록과 사진은 현재 휴대폰 브라우저에 저장되므로 정기적으로 백업 저장을 권장합니다.');$('manageDlg').close()}
 
 function openPhoto(src,title='사진 보기'){
@@ -1421,21 +1422,35 @@ function toggleCourseInfoDisplay(){
 
 
 
-const GEOJE_FEATURES_V27={
-  '구조라방파제':'거제 무늬오징어 대표급 포인트 중 하나.\n잘피밭 + 가로등 + 수심 적당해서 밤 에깅 많이 함.\n전갱이도 집어등 쓰면 붙는 편.',
-  '덕포방파제':'전갱이 라이트게임 하는 사람들 꽤 감.\n무늬도 유명한 편이고, 밤 분위기 좋음.\n네 스타일이면 여기 잘 맞을 가능성 큼.',
-  '지세포항 외항':'씨알 전갱이 노리는 사람들 자주 감.\n무늬도 시즌 되면 계속 나오는 곳.',
-  '옥림방파제':'조용한 편인데 무늬 포인트로 유명한 축.\n전갱이도 밤에 붙음.',
-  '학동방파제':'무늬 + 생활루어 많이 하는 곳.\n사람은 좀 있을 수 있음.'
+const GEOJE_FEATURES_V39={
+  "구조라방파제": "구조라항 내항과 방파제, 인접 호안·갯바위가 이어지는 도보권 포인트입니다.\n방파제 기준 수심은 약 8~12m, 바닥은 펄로 안내되어 있습니다.\n감성돔·벵에돔·고등어·농어·볼락·참돔 등을 릴찌·루어·원투 등 여러 방식으로 노릴 수 있습니다.",
+  "덕포방파제": "덕포해수욕장과 방파제, 테트라, 인접 갯바위가 함께 있는 복합 포인트입니다.\n원투에서는 도다리·보리멸, 테트라 구멍치기에서는 볼락·우럭을 노릴 수 있는 곳으로 소개됩니다.\n시즌에는 감성돔·벵에돔을 비롯해 무늬오징어와 호래기 등도 공략 대상이 됩니다.",
+  "지세포항 외항": "방파제권 수심이 약 15~17m로 비교적 깊고, 계절에 따라 대상어가 크게 바뀌는 포인트입니다.\n여름부터 초가을에는 벵에돔·전갱이·무늬오징어·고등어, 겨울에는 볼락·청어·학공치 등이 주요 대상어로 소개됩니다.\n원투로 성대·광어·도다리도 노릴 수 있으며, 일부 방파제 구역은 출입 가능 여부를 현장에서 확인하는 것이 좋습니다.",
+  "옥림방파제": "무늬오징어 산란터로 알려진 에깅 포인트입니다.\n방파제 주변에 모래바닥이 형성된 구간이 있어 무늬오징어뿐 아니라 양태·성대 같은 바닥 어종도 루어로 탐색할 수 있습니다.\n한 자리만 고정해서 노리기보다 방파제를 이동하며 넓게 탐색하는 낚시에 잘 맞는 곳입니다.",
+  "학동방파제": "학동항 일대의 방파제와 인접 갯바위를 함께 공략할 수 있는 도보권 생활낚시 포인트입니다.\n초기 갑오징어가 들어오는 시기에는 에깅 탐색 포인트로 소개되며, 감성돔·도다리·볼락 등도 생활낚시 대상어로 언급됩니다.\n항 주변을 걸어서 포인트를 바꿔가며 탐색하기 쉬운 형태가 장점입니다."
 };
-function migrateV27Features(){
+const GEOJE_NOTES_V39={
+  "구조라방파제": "도보권 방파제·내항·호안 포인트",
+  "덕포방파제": "방파제·테트라·해수욕장 갯바위",
+  "지세포항 외항": "깊은 수심의 방파제·외항권",
+  "옥림방파제": "에깅·모래바닥 루어 탐색",
+  "학동방파제": "방파제·갯바위 복합 도보권"
+};
+const GEOJE_SOURCES_V39={
+  "구조라방파제": "https://m.badatime.com/view_point.jsp?idx=1110",
+  "덕포방파제": "https://fishingmap.co.kr/mobile/m_map_view.php?no=3610",
+  "지세포항 외항": "https://m.fishingseasons.co.kr/news_Detail.asp?b_no=89581",
+  "옥림방파제": "https://fishingseasons.co.kr/contents_view_detail.asp?b_no=89899",
+  "학동방파제": "https://kings65.tistory.com/entry/7%EC%9B%94-%EA%B0%91%EC%98%A4%EC%A7%95%EC%96%B4-%EB%82%9A%EC%8B%9C-%ED%8F%AC%EC%9D%B8%ED%8A%B8-%EC%B6%94%EC%B2%9C-%EC%97%AC%EB%A6%84-%EC%8B%9C%EC%A6%8C-%EC%8B%9C%EC%9E%91%EB%90%98%EB%8A%94-%EA%B0%91%EC%98%A4%EC%A7%95%EC%96%B4%EC%9D%98-%EB%A7%A4%EB%A0%A5?category=1261391"
+};
+
+function migrateGeojeFeaturesV39(){
   let changed=false;
   for(const p of points){
-    if(p.category==='sea'&&GEOJE_FEATURES_V27[p.name]){
-      if(p.content!==GEOJE_FEATURES_V27[p.name]){
-        p.content=GEOJE_FEATURES_V27[p.name];
-        changed=true;
-      }
+    if(p.category==='sea'&&GEOJE_FEATURES_V39[p.name]){
+      if(p.content!==GEOJE_FEATURES_V39[p.name]){p.content=GEOJE_FEATURES_V39[p.name];changed=true}
+      if(p.note!==GEOJE_NOTES_V39[p.name]){p.note=GEOJE_NOTES_V39[p.name];changed=true}
+      if(p.sourceUrl!==GEOJE_SOURCES_V39[p.name]){p.sourceUrl=GEOJE_SOURCES_V39[p.name];changed=true}
     }
   }
   if(changed)persist();
@@ -1488,7 +1503,7 @@ function migrateV34SeaPoints(){
 }
 
 // ===== V24 point content + Geoje defaults =====
-const GEOJE_V24_POINTS=[{"id":1,"name":"지세포항 외항","address":"경남 거제시 일운면 지세포리 929-76","course":"A","area":"지세포리","parking":"현장 확인","note":"지세포항 외항 포인트","content":"씨알 전갱이 노리는 사람들 자주 감.\n무늬도 시즌 되면 계속 나오는 곳.","category":"sea","region":"거제","zone":"지세포항","targetSpecies":"전갱이, 무늬오징어"},{"id":2,"name":"구조라방파제","address":"경상남도 거제시 일운면 구조라리 191-1","course":"A","area":"구조라리","parking":"현장 확인","note":"무늬오징어 · 전갱이","content":"거제 무늬오징어 대표급 포인트 중 하나.\n잘피밭 + 가로등 + 수심 적당해서 밤 에깅 많이 함.\n전갱이도 집어등 쓰면 붙는 편.","category":"sea","region":"거제","zone":"구조라","targetSpecies":"무늬오징어, 전갱이"},{"id":3,"name":"덕포방파제","address":"경상남도 거제시 덕포동 81-6","course":"A","area":"덕포동","parking":"현장 확인","note":"전갱이 · 무늬오징어","content":"전갱이 라이트게임 하는 사람들 꽤 감.\n무늬도 유명한 편이고, 밤 분위기 좋음.\n네 스타일이면 여기 잘 맞을 가능성 큼.","category":"sea","region":"거제","zone":"덕포","targetSpecies":"전갱이, 무늬오징어"},{"id":4,"name":"옥림방파제","address":"경상남도 거제시 일운면 옥림리 587-3","course":"A","area":"옥림리","parking":"현장 확인","note":"무늬오징어 · 전갱이","content":"조용한 편인데 무늬 포인트로 유명한 축.\n전갱이도 밤에 붙음.","category":"sea","region":"거제","zone":"옥림","targetSpecies":"무늬오징어, 전갱이"},{"id":5,"name":"학동방파제","address":"경남 거제시 동부면 학동리 303-1","course":"A","area":"학동리","parking":"현장 확인","note":"무늬오징어 · 생활루어","content":"무늬 + 생활루어 많이 하는 곳.\n사람은 좀 있을 수 있음.","category":"sea","region":"거제","zone":"학동","targetSpecies":"무늬오징어"}];
+const GEOJE_V24_POINTS=[{"id":1,"name":"지세포항 외항","address":"경남 거제시 일운면 지세포리 929-76","course":"A","area":"지세포리","parking":"현장 확인","note":"깊은 수심의 방파제·외항권","content":"방파제권 수심이 약 15~17m로 비교적 깊고, 계절에 따라 대상어가 크게 바뀌는 포인트입니다.\n여름부터 초가을에는 벵에돔·전갱이·무늬오징어·고등어, 겨울에는 볼락·청어·학공치 등이 주요 대상어로 소개됩니다.\n원투로 성대·광어·도다리도 노릴 수 있으며, 일부 방파제 구역은 출입 가능 여부를 현장에서 확인하는 것이 좋습니다.","category":"sea","region":"거제","zone":"지세포항","targetSpecies":"전갱이, 무늬오징어","sourceUrl":"https://m.fishingseasons.co.kr/news_Detail.asp?b_no=89581"},{"id":2,"name":"구조라방파제","address":"경상남도 거제시 일운면 구조라리 191-1","course":"A","area":"구조라리","parking":"현장 확인","note":"도보권 방파제·내항·호안 포인트","content":"구조라항 내항과 방파제, 인접 호안·갯바위가 이어지는 도보권 포인트입니다.\n방파제 기준 수심은 약 8~12m, 바닥은 펄로 안내되어 있습니다.\n감성돔·벵에돔·고등어·농어·볼락·참돔 등을 릴찌·루어·원투 등 여러 방식으로 노릴 수 있습니다.","category":"sea","region":"거제","zone":"구조라","targetSpecies":"무늬오징어, 전갱이","sourceUrl":"https://m.badatime.com/view_point.jsp?idx=1110"},{"id":3,"name":"덕포방파제","address":"경상남도 거제시 덕포동 81-6","course":"A","area":"덕포동","parking":"현장 확인","note":"방파제·테트라·해수욕장 갯바위","content":"덕포해수욕장과 방파제, 테트라, 인접 갯바위가 함께 있는 복합 포인트입니다.\n원투에서는 도다리·보리멸, 테트라 구멍치기에서는 볼락·우럭을 노릴 수 있는 곳으로 소개됩니다.\n시즌에는 감성돔·벵에돔을 비롯해 무늬오징어와 호래기 등도 공략 대상이 됩니다.","category":"sea","region":"거제","zone":"덕포","targetSpecies":"전갱이, 무늬오징어","sourceUrl":"https://fishingmap.co.kr/mobile/m_map_view.php?no=3610"},{"id":4,"name":"옥림방파제","address":"경상남도 거제시 일운면 옥림리 587-3","course":"A","area":"옥림리","parking":"현장 확인","note":"에깅·모래바닥 루어 탐색","content":"무늬오징어 산란터로 알려진 에깅 포인트입니다.\n방파제 주변에 모래바닥이 형성된 구간이 있어 무늬오징어뿐 아니라 양태·성대 같은 바닥 어종도 루어로 탐색할 수 있습니다.\n한 자리만 고정해서 노리기보다 방파제를 이동하며 넓게 탐색하는 낚시에 잘 맞는 곳입니다.","category":"sea","region":"거제","zone":"옥림","targetSpecies":"무늬오징어, 전갱이","sourceUrl":"https://fishingseasons.co.kr/contents_view_detail.asp?b_no=89899"},{"id":5,"name":"학동방파제","address":"경남 거제시 동부면 학동리 303-1","course":"A","area":"학동리","parking":"현장 확인","note":"방파제·갯바위 복합 도보권","content":"학동항 일대의 방파제와 인접 갯바위를 함께 공략할 수 있는 도보권 생활낚시 포인트입니다.\n초기 갑오징어가 들어오는 시기에는 에깅 탐색 포인트로 소개되며, 감성돔·도다리·볼락 등도 생활낚시 대상어로 언급됩니다.\n항 주변을 걸어서 포인트를 바꿔가며 탐색하기 쉬운 형태가 장점입니다.","category":"sea","region":"거제","zone":"학동","targetSpecies":"무늬오징어","sourceUrl":"https://kings65.tistory.com/entry/7%EC%9B%94-%EA%B0%91%EC%98%A4%EC%A7%95%EC%96%B4-%EB%82%9A%EC%8B%9C-%ED%8F%AC%EC%9D%B8%ED%8A%B8-%EC%B6%94%EC%B2%9C-%EC%97%AC%EB%A6%84-%EC%8B%9C%EC%A6%8C-%EC%8B%9C%EC%9E%91%EB%90%98%EB%8A%94-%EA%B0%91%EC%98%A4%EC%A7%95%EC%96%B4%EC%9D%98-%EB%A7%A4%EB%A0%A5?category=1261391"}];
 const V24_MIGRATION_KEY='fish_v24_geoje_content_added';
 
 function migrateV24GeojePoints(){
@@ -1537,5 +1552,5 @@ async function buildMissingGeojeMaps(){
 ensureV22Settings();
 ensureV23Settings();
 
-migrateV20Defaults();migrateV24GeojePoints();migrateV27Features();migrateRouteFixV33();migrateV34SeaPoints();migrateClassifications();persist();restoreLastUiState();render();renderStartSummary();initControlPanel();applyRegionPanelState();initPatchBadge();installDialogUX();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').then(r=>r.update()).catch(()=>{});
+migrateV20Defaults();migrateV24GeojePoints();migrateGeojeFeaturesV39();migrateRouteFixV33();migrateV34SeaPoints();migrateClassifications();persist();restoreLastUiState();render();renderStartSummary();initControlPanel();applyRegionPanelState();initPatchBadge();installDialogUX();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').then(r=>r.update()).catch(()=>{});
 </script></body></html>
