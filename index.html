@@ -42,10 +42,34 @@ dialog>.modal,dialog>form.modal{max-height:92dvh;overflow-y:auto;overscroll-beha
 .imgLabel img{cursor:zoom-in}
 @media(min-width:700px){#photoDlg{width:min(96vw,1000px);height:min(92dvh,900px);margin:auto;border-radius:18px}}
 
+
+/* V11 모바일 상단 레이아웃 개선 */
+.top{overflow:visible}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:7px;margin-top:8px;padding-top:7px;overflow:visible;align-items:stretch}
+.tools .tool{min-width:0;width:100%;white-space:normal;word-break:keep-all;line-height:1.2;min-height:42px;padding:8px 6px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:visible}
+.patchBtn.new::after{right:4px;top:-7px;z-index:3}
+.searchBox{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:stretch}
+.searchBox .tool{white-space:nowrap;min-width:58px}
+.quickFilters{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px;overflow:visible;padding:0}
+.quickFilters .qf{flex:0 0 auto}
+.title{min-width:0}.title>div{min-width:0}.tiny{white-space:normal;line-height:1.35}
+@media(max-width:520px){
+  .tools{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding-top:8px}
+  .tools .tool{font-size:12px;min-height:40px;padding:7px 4px}
+  .patchBtn.new::after{right:3px;top:-6px;font-size:7px;padding:2px 4px}
+  .searchBox{gap:6px}
+  .searchBox input{font-size:13px;padding:9px 10px}
+  .searchBox .tool{font-size:12px;padding:8px 7px;min-width:54px}
+  .quickFilters .qf{font-size:11px;padding:7px 9px}
+}
+@media(max-width:360px){
+  .tools{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
 @media(max-width:480px){.wrap{padding-left:9px;padding-right:9px}.imgs img{height:160px}.actions{grid-template-columns:1fr 1fr}.actions .edit{grid-column:auto}.routeBtns{grid-template-columns:.7fr 1.3fr .7fr .7fr}}
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V10 · 모바일 조작 개선 · 사진뷰어 · 상단 닫기 · 자동코스</div></div><button class="tool" onclick="showManage()">관리</button></div>
+<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V11 · 모바일 상단 레이아웃 개선 · 버튼 잘림 수정 · 자동코스</div></div><button class="tool" onclick="showManage()">관리</button></div>
 <div class="tabs"><button id="tabFresh" class="tab on" onclick="setCat('freshwater')">민물</button><button id="tabSea" class="tab" onclick="setCat('sea')">바다</button></div>
 <div class="tools"><button id="patchBtn" class="tool patchBtn" onclick="showPatchNotes()">패치노트</button><button class="tool" onclick="showCafeImport()">카페 링크 추가</button><button class="tool" onclick="exportData()">백업 저장</button><button class="tool" onclick="document.getElementById('importFile').click()">백업 복원</button><input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)"><button class="tool" onclick="showStartChooser()">출발지 변경</button><button class="tool" onclick="autoRebuildCurrent()">코스 자동정리</button><button class="tool" onclick="locateMe()">내 위치 거리</button><button class="tool" onclick="scrollToTop()">맨 위</button></div>
 <div class="searchBox"><input id="searchInput" type="search" placeholder="포인트명 · 주소 · 지역 · 메모 검색" oninput="searchQuery=this.value;render()"><button class="tool" onclick="clearSearch()">지우기</button></div>
@@ -94,9 +118,10 @@ dialog>.modal,dialog>form.modal{max-height:92dvh;overflow-y:auto;overscroll-beha
 <button class="tool" onclick="autoRebuildCurrent(true)">현재 카테고리 전체 코스 자동 재구성</button>
 <div class="smallNote">출발지(민물 기본값: 농막)에서 실제 도로 주행거리 기준으로 가장 가까운 포인트를 먼저 찾고, 그 지점에서 다음으로 가까운 포인트를 이어 코스를 만듭니다. 도로거리 계산이 일시적으로 실패하면 직선거리 방식으로 자동 대체됩니다.</div></div>
 <button class="tool" onclick="showPatchNotes();manageDlg.close()">패치노트 / 업데이트 내역</button><button class="tool" onclick="exportData()">전체 데이터 백업(JSON)</button><button class="tool" onclick="document.getElementById('importFile').click();manageDlg.close()">백업 파일 복원</button><button class="tool" onclick="if(confirm('직접 추가/수정한 내용을 모두 지우고 최초 상태로 되돌릴까요?')) resetAll()">최초 상태로 복원</button>
-</div><div class="smallNote">주소 좌표 변환은 개인용 저빈도 사용을 전제로 OpenStreetMap Nominatim을 사용하며, 요청은 1초 이상 간격으로 보내고 결과를 브라우저에 저장합니다. © OpenStreetMap contributors.</div><div class="smallNote">V10 현재: 모든 팝업에 상단 고정 닫기 버튼을 추가했고, 사진은 새 창 대신 사이트 내부 확대보기로 열립니다. 네이버 카페 글 링크를 붙여 새 포인트 기본 정보를 자동으로 불러올 수 있습니다. 기본 농막 출발지뿐 아니라 원하는 주소 또는 현재 위치를 임시 출발지로 지정해 즉시 전체 코스를 다시 계산할 수 있습니다. 새로 추가한 포인트도 자동 배정을 선택하면 현재 출발지 기준 전체 코스에 자동 반영됩니다. 각 포인트 위/아래 수동 순서 변경과 패치노트도 유지됩니다. 도로거리 계산은 OpenStreetMap 기반 공개 라우팅을 사용하며 실시간 교통상황은 반영하지 않습니다. 데이터는 이 휴대폰 브라우저에 저장되므로 휴대폰 변경 전에는 JSON 백업을 저장하세요.</div><div class="modalBtns"><button class="cancel" onclick="manageDlg.close()">닫기</button><button class="save" onclick="showInstallHelp()">홈 화면 사용법</button></div></div></dialog>
-<dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V10</b><span>현재 설치 버전 · 2026-09-03</span></div><h2>패치노트</h2><div class="patchList">
-<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V10</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>모든 팝업 오른쪽 위에 항상 보이는 닫기(X) 버튼 추가</div><div>패치노트가 길어도 아래까지 내리지 않고 즉시 닫기 가능</div><div>지도·주차사진 클릭 시 새 탭 대신 사이트 내부 전체화면 사진뷰어로 확대</div><div>사진뷰어 상단 X와 하단 닫기 버튼, 바깥 영역 터치 닫기 지원</div><div>포인트 추가·수정·조과기록·출발지·관리창을 휴대폰 높이에 맞춰 내부 스크롤하도록 개선</div></div></div>
+</div><div class="smallNote">주소 좌표 변환은 개인용 저빈도 사용을 전제로 OpenStreetMap Nominatim을 사용하며, 요청은 1초 이상 간격으로 보내고 결과를 브라우저에 저장합니다. © OpenStreetMap contributors.</div><div class="smallNote">V11 현재: 모바일 상단 버튼이 화면 밖으로 잘리지 않도록 자동 줄바꿈형 버튼 배치를 적용했고, 검색/필터 영역도 화면 폭에 맞춰 정리했습니다. 모든 팝업에 상단 고정 닫기 버튼을 유지했고, 사진은 새 창 대신 사이트 내부 확대보기로 열립니다. 네이버 카페 글 링크를 붙여 새 포인트 기본 정보를 자동으로 불러올 수 있습니다. 기본 농막 출발지뿐 아니라 원하는 주소 또는 현재 위치를 임시 출발지로 지정해 즉시 전체 코스를 다시 계산할 수 있습니다. 새로 추가한 포인트도 자동 배정을 선택하면 현재 출발지 기준 전체 코스에 자동 반영됩니다. 각 포인트 위/아래 수동 순서 변경과 패치노트도 유지됩니다. 도로거리 계산은 OpenStreetMap 기반 공개 라우팅을 사용하며 실시간 교통상황은 반영하지 않습니다. 데이터는 이 휴대폰 브라우저에 저장되므로 휴대폰 변경 전에는 JSON 백업을 저장하세요.</div><div class="modalBtns"><button class="cancel" onclick="manageDlg.close()">닫기</button><button class="save" onclick="showInstallHelp()">홈 화면 사용법</button></div></div></dialog>
+<dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V11</b><span>현재 설치 버전 · 2026-09-03</span></div><h2>패치노트</h2><div class="patchList">
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V11</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>상단 기능 버튼을 화면 폭에 맞춰 자동 줄바꿈하는 반응형 그리드로 변경</div><div>버튼 글자가 좁은 화면에서 잘리거나 가려지는 현상 수정</div><div>패치노트 NEW 배지가 컨테이너 밖으로 잘리지 않도록 위치 및 여백 수정</div><div>검색창과 지우기 버튼, 빠른 필터가 작은 화면에서도 겹치거나 잘리지 않도록 개선</div><div>휴대폰 가로·세로 전환 시 버튼 폭을 자동 재배치하도록 개선</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V10</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>모든 팝업 오른쪽 위에 항상 보이는 닫기(X) 버튼 추가</div><div>패치노트가 길어도 아래까지 내리지 않고 즉시 닫기 가능</div><div>지도·주차사진 클릭 시 새 탭 대신 사이트 내부 전체화면 사진뷰어로 확대</div><div>사진뷰어 상단 X와 하단 닫기 버튼, 바깥 영역 터치 닫기 지원</div><div>포인트 추가·수정·조과기록·출발지·관리창을 휴대폰 높이에 맞춰 내부 스크롤하도록 개선</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V9</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>네이버 카페 글 링크를 붙여 포인트명·주소·지역 정보를 자동 추출하는 카페 링크 추가 기능</div><div>원문 링크를 포인트에 저장하고 카드에서 원문 바로 열기 지원</div><div>네이버 접근 제한으로 자동 읽기가 막히면 글 일부 붙여넣기로 동일하게 자동 추출</div><div>링크로 추가한 새 포인트도 저장 즉시 현재 출발지 기준 자동 코스 재계산</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V8</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>원하는 주소를 임시 출발지로 지정해 그 위치 기준 최적 코스 즉시 재계산</div><div>휴대폰 현재 위치를 출발점으로 잡아 이동 중에도 남은 포인트 코스를 다시 계산</div><div>기본 농막 출발지로 한 번에 복귀</div><div>새 포인트 자동 배정 시 현재 선택된 출발지 기준으로 전체 코스에 즉시 반영</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V7</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>사이트 안에서 버전별 업데이트 내역을 확인하는 패치노트 메뉴 추가</div><div>새 버전 적용 후 패치노트를 아직 열지 않았으면 NEW 표시</div><div>관리 메뉴에서도 패치노트 바로 열기 지원</div></div></div>
 <div class="patchItem"><div class="patchHead"><span class="patchVer">V6</span><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>농막 출발지에서 실제 도로 주행거리 기준으로 가까운 포인트부터 자동 코스 구성</div><div>현재 포인트에서 다음으로 가까운 포인트를 이어서 이동 순서 자동 정렬</div><div>포인트별 위로 / 아래로 버튼으로 코스 순서 수동 변경</div><div>도로거리 계산 실패 시 직선거리 기준으로 자동 대체</div></div></div>
@@ -217,5 +242,5 @@ function installDialogUX(){
   });
 }
 
-persist();render();renderStartSummary();initPatchBadge();installDialogUX();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+persist();render();renderStartSummary();initPatchBadge();installDialogUX();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').then(r=>r.update()).catch(()=>{});
 </script></body></html>
