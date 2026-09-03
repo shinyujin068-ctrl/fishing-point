@@ -247,7 +247,7 @@ html,body{max-width:100%;overflow-x:hidden}
 
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V32 · 지도 구조 교체 · 주소기반 지도</div></div><button class="tool" onclick="showManage()">관리</button></div>
+<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V33 · 코스 계산 오류 수정 · 번호순 대체 제거</div></div><button class="tool" onclick="showManage()">관리</button></div>
 <div class="tabs"><button id="tabFresh" class="tab on" onclick="setCat('freshwater')">민물</button><button id="tabSea" class="tab" onclick="setCat('sea')">바다</button></div>
 <button id="regionScopeToggle" class="regionScopeToggle" type="button" aria-expanded="false" onclick="toggleRegionPanel()"><span id="regionScopeText" class="scopeText">지역 · 권역</span><span class="scopeChev">▼</span></button>
 <div id="regionPanel" class="regionPanel">
@@ -315,7 +315,8 @@ html,body{max-width:100%;overflow-x:hidden}
 <button class="tool" onclick="showPatchNotes();manageDlg.close()">패치노트 / 업데이트 내역</button><button class="tool" onclick="exportData()">전체 데이터 백업(JSON)</button><button class="tool" onclick="document.getElementById('importFile').click();manageDlg.close()">백업 파일 복원</button><button class="tool" onclick="if(confirm('직접 추가/수정한 내용을 모두 지우고 최초 상태로 되돌릴까요?')) resetAll()">최초 상태로 복원</button>
 </div><div class="smallNote">주소 좌표 변환은 개인용 저빈도 사용을 전제로 OpenStreetMap Nominatim을 사용하며, 요청은 1초 이상 간격으로 보내고 결과를 브라우저에 저장합니다. © OpenStreetMap contributors.</div><div class="smallNote">V21 현재: 민물은 배스 고정, 바다는 주소의 지역을 기준으로 대상어종을 자동 세팅하며 직접 수정할 수 있습니다.</div><div class="modalBtns"><button class="cancel" onclick="manageDlg.close()">닫기</button><button class="save" onclick="showInstallHelp()">홈 화면 사용법</button></div></div></dialog>
 <dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V30</b><span>현재 설치 버전 · 2026-09-03</span></div><h2>패치노트</h2><div class="patchList">
-<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V32</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>지도 미표시 원인이던 Leaflet 외부 CDN 의존 구조 제거</div><div>포인트 카드 지도와 전체 지도를 주소 기반 지도 iframe 방식으로 교체</div><div>포인트 버튼을 누르면 같은 지도 화면에서 해당 주소 위치로 즉시 변경</div><div>직접 등록한 지도 이미지가 있으면 이미지 우선 표시, 없으면 주소 지도 표시</div><div>코스 지도도 출발지/포인트 버튼을 누르며 위치를 확인하는 방식으로 변경</div><div>자동 코스 좌표 확인은 Nominatim 실패 시 Photon을 한 번 더 사용하는 2중 방식으로 보강</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V33</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>코스 계산 실패 시 포인트 번호 1→2→3 순서로 대체하던 로직 제거</div><div>통정리 358-3 기본 출발지 좌표를 고정해 잘못된 외부 지오코딩 결과가 덮어쓰지 못하도록 수정</div><div>기존 저장 기준에 따라 대호만 기본 START를 12번 대호대교 캠핑장으로 복구</div><div>V32에서 잘못 저장된 감옥골수로 START/1→15 순서를 최초 실행 시 자동 교정</div><div>일반 지역은 모든 포인트 좌표가 확인되지 않으면 가짜 코스를 만들지 않고 미계산 상태로 유지</div><div>새 포인트 자동정리 실패 시 임의 새 코스로 보내는 동작 제거</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V32</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>지도 미표시 원인이던 Leaflet 외부 CDN 의존 구조 제거</div><div>포인트 카드 지도와 전체 지도를 주소 기반 지도 iframe 방식으로 교체</div><div>포인트 버튼을 누르면 같은 지도 화면에서 해당 주소 위치로 즉시 변경</div><div>직접 등록한 지도 이미지가 있으면 이미지 우선 표시, 없으면 주소 지도 표시</div><div>코스 지도도 출발지/포인트 버튼을 누르며 위치를 확인하는 방식으로 변경</div><div>자동 코스 좌표 확인은 Nominatim 실패 시 Photon을 한 번 더 사용하는 2중 방식으로 보강</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V31</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>출발지 변경·코스 자동정리·코스 지도를 전체 코스 정보 안으로 이동</div><div>상단 도구 메뉴에 일반 전체 지도 추가</div><div>포인트 카드에 지도 보기 버튼 추가 · 해당 포인트를 전체 지도에서 바로 강조</div><div>직접 등록한 지도/이미지가 있으면 이미지 표시, 없으면 주소 기준 실제 미니 지도 표시</div><div>포인트 카드 위로/아래로 버튼 제거</div><div>주소 좌표 확인 한 곳이 실패해도 자동 코스 전체가 실패하지 않도록 오류 처리 개선</div><div>외부 도로거리 계산 실패 시 직선거리로 계속 계산하며 불필요한 인터넷 오류 경고 제거</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V30</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>전체 코스 정보 접기/펼치기 화살표가 실제 상태와 함께 ▲/▼로 변경되도록 수정</div><div>코스 지도 기능 추가 · 출발지와 포인트 순서를 지도에서 번호로 확인</div><div>민물 기본 출발지 통정리 358-3을 S 마커로 표시</div><div>가능하면 실제 도로 경로선을 표시하고 실패하면 직선 연결로 대체</div><div>코스 순서가 없으면 지도 열기 전에 현재 출발지 기준 자동정리 실행</div><div>사용하지 않는 과거 남은코스 자동정리 래퍼 제거</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V29</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>같은 코스가 파란 박스 2개로 중복 표시되던 구조 제거</div><div>코스명·이동순서·거리·코스 시작 버튼을 파란 박스 1개에 통합</div><div>전체 코스 정보 접기 시 단일 코스 박스만 숨고 포인트 카드는 그대로 유지</div></div></div>
@@ -420,6 +421,75 @@ function inferSeaSpeciesByRegion(region='',zone='',text=''){
 
 const JISEPO_DEFAULT={"id":1,"name":"지세포항","address":"경남 거제시 일운면 지세포리 929-76","course":"A","area":"지세포리","parking":"현장 확인","note":"사용자 제공 지도 기준 · 빨간선 낚시구역","category":"sea","mapImage":"assets/sea_jisepo_map.jpg","parkingImage":"","region":"거제","zone":"지세포항","targetSpecies":"우럭, 광어, 볼락, 농어, 감성돔, 참돔, 벵에돔, 고등어, 삼치, 전갱이, 전어, 학공치, 도다리, 노래미, 붕장어, 망상어, 무늬오징어","routeOrder":1,"courseStart":true};
 const V20_MIGRATION_KEY='fish_v20_jisepo_added';
+
+const ROUTE_FIX_V33_KEY='fish_route_fix_v33';
+const DAEHO_DEFAULT_BASE_ADDRESS='충남 당진시 석문면 통정리 358-3';
+const DAEHO_DEFAULT_BASE_COORD={lat:36.9795481,lon:126.5935679};
+const DAEHO_TRUSTED_START_ID=12;
+
+// 좌표 서비스가 막혀도 번호순(1→2→3...)으로 가짜 코스를 만들지 않기 위한
+// 대호만 기본 출발지 전용 안전 순서.
+// 12번은 기존 저장 기준에서 농막 근거리 START로 지정되어 있던 포인트다.
+const DAEHO_SAFE_ROUTE=[12,13,14,15,11,10,9,8,7,6,5,4,3,2,1];
+
+function compactAddrV33(s=''){
+  return String(s||'')
+    .replace(/충청남도/g,'충남')
+    .replace(/\s+/g,'')
+    .trim();
+}
+function isDaehoDefaultScopeV33(cat=currentCat, arr=null){
+  if(cat!=='freshwater')return false;
+  const s=activeStartInfo(cat);
+  if(compactAddrV33(s.address)!==compactAddrV33(DAEHO_DEFAULT_BASE_ADDRESS))return false;
+  const list=arr||points.filter(p=>p.category==='freshwater');
+  return list.length>0 && list.every(p=>pointRegion(p)==='당진'&&pointZone(p)==='대호만');
+}
+function applyDaehoSafeRouteV33(arr){
+  const pos=new Map(DAEHO_SAFE_ROUTE.map((id,i)=>[id,i]));
+  const known=arr.filter(p=>pos.has(+p.id)).sort((a,b)=>pos.get(+a.id)-pos.get(+b.id));
+  const rest=arr.filter(p=>!pos.has(+p.id));
+  const ordered=[...known,...rest];
+
+  for(const p of arr){
+    p.start=false;
+    p.courseStart=false;
+    delete p.routeOrder;
+  }
+
+  let order=1;
+  ordered.forEach((p,i)=>{
+    p.course='A';
+    p.routeOrder=order++;
+    p.courseStart=i===0;
+    p.start=i===0;
+  });
+
+  settings.baseCoord=settings.baseCoord||{};
+  settings.baseCoord.freshwater={...DAEHO_DEFAULT_BASE_COORD};
+  settings._baseCoordAddress=settings._baseCoordAddress||{};
+  settings._baseCoordAddress.freshwater=DAEHO_DEFAULT_BASE_ADDRESS;
+  settings.routeMode=settings.routeMode||{};
+  settings.routeMode.freshwater='trusted-fallback';
+  return ordered;
+}
+function migrateRouteFixV33(){
+  // 잘못 저장된 1→2→3... 코스를 한 번 교정한다.
+  if(localStorage.getItem(ROUTE_FIX_V33_KEY)==='1')return;
+
+  settings.baseCoord=settings.baseCoord||{};
+  settings.baseCoord.freshwater={...DAEHO_DEFAULT_BASE_COORD};
+  settings._baseCoordAddress=settings._baseCoordAddress||{};
+  settings._baseCoordAddress.freshwater=DAEHO_DEFAULT_BASE_ADDRESS;
+
+  const arr=points.filter(p=>p.category==='freshwater'&&pointRegion(p)==='당진'&&pointZone(p)==='대호만');
+  if(arr.length){
+    applyDaehoSafeRouteV33(arr);
+  }
+  localStorage.setItem(ROUTE_FIX_V33_KEY,'1');
+  persist();
+}
+
 const DEFAULT_SETTINGS={base:{freshwater:'충남 당진시 석문면 통정리 358-3',sea:''},activeStart:{freshwater:{mode:'default',address:''},sea:{mode:'default',address:''}},activeStartCoord:{},maxPerCourse:6,splitLegKm:5,autoMode:{freshwater:false,sea:false},baseCoord:{},roadMatrix:{},routeMode:{}};
 const clone=x=>JSON.parse(JSON.stringify(x));
 function load(){try{let v=localStorage.getItem(KEY);if(v)return JSON.parse(v);let old=localStorage.getItem(OLD_KEY);if(old)return JSON.parse(old);return clone(DEFAULT_POINTS)}catch(e){return clone(DEFAULT_POINTS)}}
@@ -441,7 +511,44 @@ function esc(s=''){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt
 function courseIndex(c){if(/^[A-Z]$/.test(c))return c.charCodeAt(0)-65;let n=parseInt(String(c).replace(/\D/g,''),10);return Number.isFinite(n)?n-1:99}
 function hav(a,b){if(!a||!b)return Infinity;const R=6371,r=x=>x*Math.PI/180,dlat=r(b.lat-a.lat),dlon=r(b.lon-a.lon),la1=r(a.lat),la2=r(b.lat);const h=Math.sin(dlat/2)**2+Math.cos(la1)*Math.cos(la2)*Math.sin(dlon/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
 function coord(p){return Number.isFinite(+p.lat)&&Number.isFinite(+p.lon)?{lat:+p.lat,lon:+p.lon}:null}
-function routeOrder(list){if(list.length<2)return list.slice();if(list.some(p=>Number.isFinite(+p.routeOrder)))return list.slice().sort((a,b)=>(Number.isFinite(+a.routeOrder)?+a.routeOrder:9999)-(Number.isFinite(+b.routeOrder)?+b.routeOrder:9999)||(a.id||9999)-(b.id||9999));let rem=list.slice(),out=[];let start=rem.find(p=>p.courseStart)||rem.find(p=>p.start);let base=settings.baseCoord?.[currentCat];if(!start&&base)start=rem.slice().sort((a,b)=>hav(base,coord(a))-hav(base,coord(b)))[0];if(!start)start=rem.slice().sort((a,b)=>(a.id||9999)-(b.id||9999))[0];out.push(start);rem=rem.filter(p=>p!==start);while(rem.length){let last=coord(out[out.length-1]);let next=rem.slice().sort((a,b)=>hav(last,coord(a))-hav(last,coord(b)))[0];out.push(next);rem=rem.filter(p=>p!==next)}return out}
+function routeOrder(list){
+  if(list.length<2)return list.slice();
+
+  // 계산된 routeOrder가 있을 때만 그 순서를 신뢰한다.
+  if(list.every(p=>Number.isFinite(+p.routeOrder))){
+    return list.slice().sort((a,b)=>(+a.routeOrder)-(+b.routeOrder));
+  }
+
+  // 통정리 358-3 / 대호만 기본 범위는 검증된 START 기준 안전순서 사용.
+  if(isDaehoDefaultScopeV33(currentCat,list)){
+    const pos=new Map(DAEHO_SAFE_ROUTE.map((id,i)=>[id,i]));
+    return list.slice().sort((a,b)=>
+      (pos.has(+a.id)?pos.get(+a.id):9999)-
+      (pos.has(+b.id)?pos.get(+b.id):9999)
+    );
+  }
+
+  // 좌표가 모두 확보됐을 때만 거리순 계산.
+  const base=settings.baseCoord?.[currentCat];
+  if(base && list.every(p=>coord(p))){
+    let rem=list.slice(),out=[];
+    let start=rem.slice().sort((a,b)=>hav(base,coord(a))-hav(base,coord(b)))[0];
+    if(!start)return list.slice();
+    out.push(start);
+    rem=rem.filter(p=>p!==start);
+    while(rem.length){
+      let last=coord(out[out.length-1]);
+      let next=rem.slice().sort((a,b)=>hav(last,coord(a))-hav(last,coord(b)))[0];
+      if(!next)break;
+      out.push(next);
+      rem=rem.filter(p=>p!==next);
+    }
+    return out;
+  }
+
+  // 중요: 좌표가 없다고 ID 1→2→3 순으로 가짜 코스를 만들지 않는다.
+  return list.slice();
+}
 function roadCache(cat=currentCat){return settings.roadMatrix?.[cat]||null}
 function roadKmByKeys(aKey,bKey,cat=currentCat){let m=roadCache(cat);if(!m?.keys?.length||!Array.isArray(m.distances))return Infinity;let i=m.keys.indexOf(aKey),j=m.keys.indexOf(bKey);if(i<0||j<0)return Infinity;let v=m.distances?.[i]?.[j];return Number.isFinite(+v)?+v:Infinity}
 function courseDistanceInfo(list){if(!list.length)return {km:0,road:false};let d=0,road=true,base=settings.baseCoord?.[currentCat];let firstKey=pointKey(list[0]);let x=roadKmByKeys('__base__',firstKey);if(Number.isFinite(x))d+=x;else if(base&&coord(list[0])){d+=hav(base,coord(list[0]));road=false}else road=false;for(let i=1;i<list.length;i++){let a=pointKey(list[i-1]),b=pointKey(list[i]),r=roadKmByKeys(a,b);if(Number.isFinite(r))d+=r;else{let h=hav(coord(list[i-1]),coord(list[i]));if(Number.isFinite(h))d+=h;road=false}}return {km:d,road}}
@@ -735,12 +842,37 @@ async function geocodeAddress(address){
 }
 
 async function ensurePointCoords(arr){let missing=arr.filter(p=>!coord(p));let failed=[];for(let i=0;i<missing.length;i++){status(`주소 위치 확인 중 ${i+1}/${missing.length} · ${missing[i].name}`);try{let c=await geocodeAddress(missing[i].address);if(c)Object.assign(missing[i],c);else failed.push(missing[i])}catch(e){failed.push(missing[i])}}persist();return failed}
-async function ensureBaseCoord(cat){settings.baseCoord=settings.baseCoord||{};settings.activeStartCoord=settings.activeStartCoord||{};let s=activeStartInfo(cat);if(s.mode==='current'&&s.coord){settings.baseCoord[cat]=s.coord;return s.coord}if(s.mode==='custom'&&s.coord){settings.baseCoord[cat]=s.coord;return s.coord}let a=s.address?.trim();if(!a)return null;if(settings.baseCoord[cat]&&settings._baseCoordAddress?.[cat]===a)return settings.baseCoord[cat];status('출발지 위치 확인 중');let c=await geocodeAddress(a);if(c){settings.baseCoord[cat]=c;settings.activeStartCoord[cat]=c;settings._baseCoordAddress=settings._baseCoordAddress||{};settings._baseCoordAddress[cat]=a;persist()}return c}
+async function ensureBaseCoord(cat){
+  settings.baseCoord=settings.baseCoord||{};
+  settings.activeStartCoord=settings.activeStartCoord||{};
+  let s=activeStartInfo(cat);
+
+  // 기본 농막은 외부 지오코딩 결과를 쓰지 않고 고정 좌표 사용.
+  if(cat==='freshwater' && compactAddrV33(s.address)===compactAddrV33(DAEHO_DEFAULT_BASE_ADDRESS)){
+    settings.baseCoord.freshwater={...DAEHO_DEFAULT_BASE_COORD};
+    settings._baseCoordAddress=settings._baseCoordAddress||{};
+    settings._baseCoordAddress.freshwater=DAEHO_DEFAULT_BASE_ADDRESS;
+    return settings.baseCoord.freshwater;
+  }if(s.mode==='current'&&s.coord){settings.baseCoord[cat]=s.coord;return s.coord}if(s.mode==='custom'&&s.coord){settings.baseCoord[cat]=s.coord;return s.coord}let a=s.address?.trim();if(!a)return null;if(settings.baseCoord[cat]&&settings._baseCoordAddress?.[cat]===a)return settings.baseCoord[cat];status('출발지 위치 확인 중');let c=await geocodeAddress(a);if(c){settings.baseCoord[cat]=c;settings.activeStartCoord[cat]=c;settings._baseCoordAddress=settings._baseCoordAddress||{};settings._baseCoordAddress[cat]=a;persist()}return c}
 async function fetchRoadMatrix(cat,base,arr){if(!base||!arr.length)return null;let coords=[base,...arr.map(p=>coord(p))],keys=['__base__',...arr.map(pointKey)];if(coords.some(x=>!x))return null;let joined=coords.map(c=>`${c.lon},${c.lat}`).join(';');let ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),12000);try{status('실제 도로 주행거리 계산 중...');let r=await fetch('https://router.project-osrm.org/table/v1/driving/'+joined+'?annotations=distance,duration',{signal:ctl.signal});if(!r.ok)throw new Error('road');let d=await r.json();if(d.code!=='Ok'||!Array.isArray(d.distances))throw new Error('road');let distances=d.distances.map(row=>row.map(v=>Number.isFinite(v)?Math.round(v/10)/100:null));let durations=(d.durations||[]).map(row=>row.map(v=>Number.isFinite(v)?Math.round(v/6)/10:null));let m={keys,distances,durations,updatedAt:new Date().toISOString()};settings.roadMatrix=settings.roadMatrix||{};settings.roadMatrix[cat]=m;settings.routeMode=settings.routeMode||{};settings.routeMode[cat]='road';persist();return m}catch(e){console.warn('도로거리 계산 실패, 직선거리로 대체',e);settings.routeMode=settings.routeMode||{};settings.routeMode[cat]='straight';return null}finally{clearTimeout(timer)}}
 function matrixKm(m,aKey,bKey){if(!m)return Infinity;let i=m.keys.indexOf(aKey),j=m.keys.indexOf(bKey),v=i>=0&&j>=0?m.distances?.[i]?.[j]:null;return Number.isFinite(+v)?+v:Infinity}
 function nearestByDistance(rem,fromKey,fromCoord,m){return rem.slice().sort((a,b)=>{let da=matrixKm(m,fromKey,pointKey(a)),db=matrixKm(m,fromKey,pointKey(b));if(!Number.isFinite(da))da=hav(fromCoord,coord(a));if(!Number.isFinite(db))db=hav(fromCoord,coord(b));return da-db})[0]}
 function nextCourseName(cat){let cs=[...new Set(points.filter(p=>p.category===cat).map(p=>p.course).filter(x=>x&&x!=='AUTO'))];let idx=Math.max(-1,...cs.map(courseIndex))+1;return idx<26?String.fromCharCode(65+idx):'C'+(idx+1)}
-async function autoAssignPoint(p){try{status('새 포인트를 포함해 전체 코스를 다시 계산하는 중...');await autoRebuildCurrent(false);toast(`자동 코스 재정리 완료 · ${p.name}`)}catch(e){p.course=nextCourseName(p.category);delete p.routeOrder;persist();render();status('자동 코스 계산에 실패해 새 코스로 넣었습니다. 인터넷 연결 후 코스 자동정리를 다시 눌러주세요.',true)}}
+async function autoAssignPoint(p){
+  status('새 포인트를 포함해 전체 코스를 다시 계산하는 중...');
+  try{
+    await autoRebuildCurrent(false);
+  }catch(e){
+    console.error(e);
+    delete p.routeOrder;
+    p.start=false;
+    p.courseStart=false;
+    persist();
+    render();
+    status('새 포인트는 저장했지만 코스 계산은 완료하지 못했습니다.',true);
+    setTimeout(()=>status('',false),3200);
+  }
+}
 async function saveForm(e){e.preventDefault();let existing=editKey?points.find(x=>(x._key||'d'+x.id)===editKey):null;let map=await fileToData($('fMap').files[0]),park=await fileToData($('fParkingImg').files[0]);let requestedCourse=$('fCourse').value;let newAddr=$('fAddr').value.trim();let dup=points.find(x=>x!==existing&&x.category===$('fCat').value&&String(x.address||'').replace(/\s/g,'')===newAddr.replace(/\s/g,''));if(dup&&!confirm(`같은 주소에 ${dup.name} 포인트가 있습니다. 그래도 저장할까요?`))return;let p={...(existing||{}),_key:existing?existing._key:('u'+Date.now()),category:$('fCat').value,id:Number($('fId').value)||nextId($('fCat').value),name:$('fName').value.trim(),address:$('fAddr').value.trim(),region:($('fRegion').value.trim()||classificationForDraft(newAddr,$('fName').value,$('fArea').value,$('fNote').value,$('fCat').value,$('fZone').value).region),zone:($('fZone').value.trim()||classificationForDraft(newAddr,$('fName').value,$('fArea').value,$('fNote').value,$('fCat').value,$('fZone').value,$('fSpecies').value).zone),targetSpecies:($('fCat').value==='freshwater'?'배스':(joinSpecies($('fSpecies').value)||classificationForDraft(newAddr,$('fName').value,$('fArea').value,$('fNote').value,$('fCat').value,$('fZone').value,$('fSpecies').value).species)),sourceUrl:$('fSource').value.trim(),course:requestedCourse,area:$('fArea').value.trim(),parking:$('fParking').value.trim(),note:$('fNote').value.trim(),content:$('fContent').value.trim(),mapImage:map||existing?.mapImage||'',parkingImage:park||existing?.parkingImage||'',start:existing?.start||false};if(existing&&existing.address!==p.address){delete p.lat;delete p.lon}if(existing&&existing.course!==p.course){delete p.routeOrder;delete p.courseStart}if(existing){let i=points.indexOf(existing);points[i]=p}else points.push(p);try{persist()}catch(err){alert('사진 용량이 커서 브라우저 저장공간을 초과했습니다. 사진을 줄이거나 백업 후 일부 사진을 삭제해주세요.');return}$('formDlg').close();currentCat=p.category;$('tabFresh').classList.toggle('on',currentCat==='freshwater');$('tabSea').classList.toggle('on',currentCat==='sea');currentRegion=pointRegion(p);currentZone=pointZone(p);let ps=pointSpeciesList(p);currentSpecies=ps.length===1?ps[0]:'ALL';render();renderStartSummary();if(requestedCourse==='AUTO')await autoAssignPoint(p);else{persist();render();toast('저장되었습니다')}}
 function showStartChooser(){let s=activeStartInfo();$('startCatTitle').textContent=(currentCat==='freshwater'?'민물':'바다')+' 출발지';$('startCurrentText').textContent='현재 적용: '+s.label;$('customStartAddr').value=s.mode==='custom'?s.address:'';$('startDlg').showModal()}
 async function rebuildFromCustomAddress(){let a=$('customStartAddr').value.trim();if(!a){toast('출발 주소를 입력해주세요');return}settings.activeStart=settings.activeStart||{};settings.activeStart[currentCat]={mode:'custom',address:a};settings.activeStartCoord=settings.activeStartCoord||{};delete settings.activeStartCoord[currentCat];settings.baseCoord=settings.baseCoord||{};delete settings.baseCoord[currentCat];settings._baseCoordAddress=settings._baseCoordAddress||{};delete settings._baseCoordAddress[currentCat];settings.roadMatrix={};persist();renderStartSummary();$('startDlg').close();await autoRebuildCurrent(false)}
@@ -761,46 +893,69 @@ async function autoRebuildCurrent(fromManage=false){
   }
 
   try{
-    status(`${scope.region} · ${scope.zone} · ${scope.species} 포인트 위치를 확인하는 중...`);
+    status(`${scope.region} · ${scope.zone} · ${scope.species} 실제 위치를 확인하는 중...`);
 
-    let geoFailed=await ensurePointCoords(arr);
     let base=await ensureBaseCoord(cat);
-
-    let valid=arr.filter(p=>coord(p));
-    let failed=arr.filter(p=>!coord(p));
-
     if(!base){
-      status('출발지 위치를 확인할 수 없어 코스 순서를 변경하지 않았습니다.',true);
+      status('출발지 위치를 확인하지 못했습니다. 기존 코스는 변경하지 않았습니다.',true);
       setTimeout(()=>status('',false),3200);
       return;
     }
-    if(!valid.length){
-      status('포인트 주소 위치를 확인할 수 없어 코스 순서를 변경하지 않았습니다.',true);
-      setTimeout(()=>status('',false),3200);
+
+    await ensurePointCoords(arr);
+    let valid=arr.filter(p=>coord(p));
+    let unresolved=arr.filter(p=>!coord(p));
+
+    // 대호만 + 통정리 기본 출발지는 외부 좌표검색 실패 때문에
+    // 1→2→3 가짜 코스로 내려가지 않는다.
+    if(isDaehoDefaultScopeV33(cat,arr) && unresolved.length){
+      let ordered=applyDaehoSafeRouteV33(arr);
+      persist();
+      render();
+
+      let missing=unresolved.map(p=>p.name).join(', ');
+      status(
+        `통정리 358-3 기준 코스 복구 완료 · START: ${ordered[0]?.name||'대호대교 캠핑장'} · 좌표 미확인 ${unresolved.length}곳은 저장된 대호만 순서를 사용했습니다.`,
+        true
+      );
+      console.warn('V33 unresolved Daeho points:',missing);
+      setTimeout(()=>status('',false),4300);
+      return;
+    }
+
+    // 일반 지역은 한 곳이라도 좌표를 못 찾으면 임의 순서를 만들지 않는다.
+    if(unresolved.length){
+      for(const p of arr){
+        p.start=false;
+        p.courseStart=false;
+        delete p.routeOrder;
+      }
+      persist();
+      render();
+      status(
+        `좌표를 확인하지 못한 포인트 ${unresolved.length}곳이 있어 코스를 만들지 않았습니다: ${unresolved.slice(0,3).map(p=>p.name).join(', ')}${unresolved.length>3?' 외':''}`,
+        true
+      );
+      setTimeout(()=>status('',false),4300);
       return;
     }
 
     let matrix=await fetchRoadMatrix(cat,base,valid);
 
+    // 여기까지 왔을 때만 기존 코스 순서를 지운다.
     for(const p of arr){
       p.start=false;
       p.courseStart=false;
       delete p.routeOrder;
     }
 
-    // V28: 출발지에서 가장 가까운 곳부터 전체 경로를 한 번에 만든다.
     let rem=valid.slice();
     let ordered=[];
     let fromKey='__base__';
     let fromCoord=base;
 
     while(rem.length){
-      let next;
-      if(fromCoord){
-        next=nearestByDistance(rem,fromKey,fromCoord,matrix);
-      }else{
-        next=rem.slice().sort((a,b)=>(a.id||9999)-(b.id||9999))[0];
-      }
+      let next=nearestByDistance(rem,fromKey,fromCoord,matrix);
       if(!next)break;
 
       ordered.push(next);
@@ -809,19 +964,20 @@ async function autoRebuildCurrent(fromManage=false){
       fromCoord=coord(next);
     }
 
-    // 전체 이동순서를 유지한 채 코스 단위로만 분리
+    if(ordered.length!==valid.length){
+      // 계산 중 누락이 생기면 저장하지 않는다.
+      status('코스 계산 중 일부 포인트가 누락되어 기존 코스를 유지했습니다.',true);
+      setTimeout(()=>status('',false),3200);
+      return;
+    }
+
     let max=Math.max(2,+settings.maxPerCourse||6);
     let leg=Math.max(1,+settings.splitLegKm||5);
-    let groups=[];
-    let current=[];
+    let groups=[],current=[];
 
     for(let i=0;i<ordered.length;i++){
       let p=ordered[i];
-
-      if(!current.length){
-        current=[p];
-        continue;
-      }
+      if(!current.length){current=[p];continue}
 
       let prev=current[current.length-1];
       let d=matrixKm(matrix,pointKey(prev),pointKey(p));
@@ -842,7 +998,7 @@ async function autoRebuildCurrent(fromManage=false){
     );
 
     let courseNames=[];
-    for(let n=0;courseNames.length<groups.length+(failed.length?1:0);n++){
+    for(let n=0;courseNames.length<groups.length;n++){
       let c=n<26?String.fromCharCode(65+n):'C'+(n+1);
       if(!outside.has(c))courseNames.push(c);
     }
@@ -854,20 +1010,9 @@ async function autoRebuildCurrent(fromManage=false){
         p.course=c;
         p.routeOrder=globalOrder++;
         p.courseStart=j===0;
+        p.start=(globalOrder===2);
       });
     }
-
-    if(ordered[0]){
-      ordered[0].start=true;
-      ordered[0].courseStart=true;
-    }
-
-    let failCourse=courseNames[groups.length]||nextCourseName(cat);
-    failed.forEach((p,j)=>{
-      p.course=failCourse;
-      p.routeOrder=globalOrder++;
-      p.courseStart=j===0;
-    });
 
     settings.autoMode=settings.autoMode||{};
     settings.autoMode[cat]=true;
@@ -881,25 +1026,26 @@ async function autoRebuildCurrent(fromManage=false){
 
     let first=ordered[0]?.name||'포인트';
     status(
-      `${startShortLabel(cat)||'출발지'} → ${first}부터 시작 · ${matrix?'도로 주행거리':'직선거리 대체'} 기준 자동 코스 완료`,
+      `${startShortLabel(cat)||'출발지'} → ${first}부터 시작 · ${matrix?'도로 주행거리':'직선거리'} 기준 자동 코스 완료`,
       true
     );
     setTimeout(()=>status('',false),3600);
 
   }catch(e){
     console.error(e);
-    status('자동 코스 정리를 완료하지 못했습니다. 주소 위치 정보를 확인해주세요.',true);setTimeout(()=>status('',false),3200);
+    status('코스 계산을 완료하지 못했습니다. 기존 코스는 변경하지 않았습니다.',true);
+    setTimeout(()=>status('',false),3200);
   }
 }
 
-function exportData(){settings.lastBackupAt=new Date().toISOString();persist();let blob=new Blob([JSON.stringify({version:32,exportedAt:settings.lastBackupAt,points,settings},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='낚시포인트_백업_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href);toast('백업 파일 저장')}
+function exportData(){settings.lastBackupAt=new Date().toISOString();persist();let blob=new Blob([JSON.stringify({version:33,exportedAt:settings.lastBackupAt,points,settings},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='낚시포인트_백업_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href);toast('백업 파일 저장')}
 function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);if(!Array.isArray(d.points))throw 0;points=d.points;if((+d.version||0)<20){localStorage.removeItem(V20_MIGRATION_KEY);migrateV20Defaults()}migrateClassifications();if(d.settings)settings={...clone(DEFAULT_SETTINGS),...d.settings,base:{...DEFAULT_SETTINGS.base,...(d.settings.base||{})},activeStart:{freshwater:{...DEFAULT_SETTINGS.activeStart.freshwater,...(d.settings.activeStart?.freshwater||{})},sea:{...DEFAULT_SETTINGS.activeStart.sea,...(d.settings.activeStart?.sea||{})}}};persist();render();toast('백업 복원 완료')}catch(x){alert('올바른 백업 파일이 아닙니다.')}e.target.value=''};r.readAsText(f)}
 function resetAll(){points=clone(DEFAULT_POINTS);settings=clone(DEFAULT_SETTINGS);persist();render();$('manageDlg').close();toast('최초 상태로 복원됨')}
 function setControlPanel(open,remember=true){let p=$('controlPanel'),b=$('controlToggle');if(!p||!b)return;p.classList.toggle('open',!!open);b.classList.toggle('open',!!open);b.setAttribute('aria-expanded',open?'true':'false');b.querySelector('span:first-child').textContent=open?'도구 메뉴 접기':'도구 메뉴 펼치기';b.querySelector('.chev').textContent=open?'▲':'▼';if(remember)localStorage.setItem('fish_control_open',open?'1':'0')}
 function toggleControlPanel(){let p=$('controlPanel');setControlPanel(!p?.classList.contains('open'))}
 function initControlPanel(){setControlPanel(localStorage.getItem('fish_control_open')==='1',false)}
-function showPatchNotes(){localStorage.setItem('fish_seen_patch','32');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
-function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='32',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
+function showPatchNotes(){localStorage.setItem('fish_seen_patch','33');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
+function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='33',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}function showInstallHelp(){alert('휴대폰에서 GitHub Pages 주소를 연 뒤 브라우저 메뉴의 “홈 화면에 추가”를 누르면 앱처럼 사용할 수 있습니다. 추가/수정한 데이터, 즐겨찾기, 방문기록과 사진은 현재 휴대폰 브라우저에 저장되므로 정기적으로 백업 저장을 권장합니다.');$('manageDlg').close()}
 
 function openPhoto(src,title='사진 보기'){
@@ -1176,5 +1322,5 @@ async function buildMissingGeojeMaps(){
 ensureV22Settings();
 ensureV23Settings();
 
-migrateV20Defaults();migrateV24GeojePoints();migrateV27Features();migrateClassifications();persist();render();renderStartSummary();initControlPanel();applyRegionPanelState();initPatchBadge();installDialogUX();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').then(r=>r.update()).catch(()=>{});
+migrateV20Defaults();migrateV24GeojePoints();migrateV27Features();migrateRouteFixV33();migrateClassifications();persist();render();renderStartSummary();initControlPanel();applyRegionPanelState();initPatchBadge();installDialogUX();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').then(r=>r.update()).catch(()=>{});
 </script></body></html>
