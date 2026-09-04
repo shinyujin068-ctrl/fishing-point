@@ -11,6 +11,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--bg:#f3f5f7;--card:#fff;--text:#121820;--muted:#68717d;--line:#dfe4e8;--dark:#101827;--accent:#1166cc;--a:#153a63;--b:#2e5f49;--c:#76512f}
 *{box-sizing:border-box} body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",sans-serif;color:var(--text)}
@@ -474,23 +475,9 @@ html,body{max-width:100%;overflow-x:hidden}
 /* V58 추천 낚시자리 */
 .fishingSpotToggle.on{background:#176b43!important;color:#fff!important;border-color:#176b43!important}
 .fishingSpotCount{display:inline-block;margin-top:5px;margin-left:4px;background:#e8f7ee;color:#176b43;border-radius:99px;padding:3px 7px;font-size:11px;font-weight:900}
-.spotMapCanvas{position:relative;width:100%;overflow:hidden;background:#edf2f1}
-.spotMapStage{position:relative;width:100%;overflow:hidden;background:#edf2f1}
-.spotMapStage>img{width:100%!important;height:auto!important;object-fit:contain!important;display:block!important}
-.spotMapStage .fishingSpotOverlay{position:absolute;inset:0;z-index:7;display:block!important;visibility:visible!important;pointer-events:none}
-.spotMapStage .fishingSpotMarker{z-index:8!important;pointer-events:auto}
-.spotMapStage .fishingSpotArrow{z-index:7!important}
-.fishingSpotOverlay{position:absolute;inset:0;z-index:5;pointer-events:none}
-.fishingSpotMarker{position:absolute;z-index:3;width:31px;height:31px;transform:translate(-50%,-50%);border:2px solid #fff;border-radius:999px;background:#159447;color:#fff;font-size:13px;font-weight:1000;display:grid;place-items:center;box-shadow:0 2px 8px #0008;pointer-events:auto;cursor:pointer;padding:0}
-.fishingSpotMarker:hover{background:#0d7837}
-.fishingSpotArrow{position:absolute;height:0;width:52px;border-top:4px solid #16a34a;transform-origin:0 50%;pointer-events:none;filter:drop-shadow(0 1px 1px #fff);z-index:2}
 .fishingSpotArrow::after{content:'';position:absolute;right:-2px;top:-8px;border-left:12px solid #16a34a;border-top:6px solid transparent;border-bottom:6px solid transparent}
-.fishingSpotEditBtn{position:absolute;right:8px;top:8px;z-index:9;border:1px solid #ffffffcc;background:#0d6b3ddd;color:#fff;border-radius:9px;padding:7px 9px;font-size:11px;font-weight:900;box-shadow:0 2px 7px #0004}
 #fishingSpotDlg{width:min(96vw,900px);max-width:none}
 .fishingSpotEditorHelp{padding:9px 11px;border:1px solid #cce2d4;background:#f1faf4;color:#315b41;border-radius:11px;font-size:12px;line-height:1.5;margin-bottom:9px}
-.fishingSpotEditorCanvas{position:relative;width:100%;background:#e8eeeb;border:1px solid #cbd8d0;border-radius:13px;overflow:hidden;cursor:crosshair;touch-action:manipulation}
-.fishingSpotEditorCanvas img{display:block;width:100%;height:auto;object-fit:contain;margin:auto}
-.fishingSpotEditorCanvas.moving{outline:3px solid #f59e0b;outline-offset:2px}
 .fishingSpotEditorList{display:grid;gap:7px;margin-top:10px;max-height:230px;overflow:auto}
 .fishingSpotEditorRow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;border:1px solid #dde5e0;background:#fff;border-radius:11px;padding:8px 9px}
 .fishingSpotEditorText{min-width:0;font-size:12px;color:#334155;line-height:1.35}
@@ -499,10 +486,21 @@ html,body{max-width:100%;overflow-x:hidden}
 .fishingSpotEditorBtns button{border:1px solid #d3dce0;background:#f8fafb;border-radius:8px;padding:6px 8px;font-size:11px;font-weight:900}
 .fishingSpotEditorBtns .danger{color:#b42318;background:#fff2f1;border-color:#ffd1ce}
 .fishingSpotEmpty{padding:12px;text-align:center;color:#718096;font-size:12px;border:1px dashed #ccd5d0;border-radius:10px;background:#fbfdfb}
-@media(max-width:600px){#fishingSpotDlg{width:calc(100vw - 6px);max-height:calc(100dvh - 6px);margin:3px auto}.fishingSpotEditorRow{grid-template-columns:1fr}.fishingSpotEditorBtns{justify-content:flex-start}.fishingSpotMarker{width:30px;height:30px}}
+@media(max-width:600px){#fishingSpotDlg{width:calc(100vw - 6px);max-height:calc(100dvh - 6px);margin:3px auto}.fishingSpotEditorRow{grid-template-columns:1fr}.fishingSpotEditorBtns{justify-content:flex-start}}
+
+.liveMap,.fishingSpotLiveMap{width:100%;height:min(58dvh,500px);min-height:340px;border:1px solid var(--line);border-radius:14px;background:#e8edf1;overflow:hidden;margin-top:10px}
+.fishingSpotLiveMap{height:min(62dvh,560px);min-height:380px;margin-top:0;cursor:crosshair}
+.spotLeafletPin{width:30px;height:30px;border-radius:50%;background:#17864f;color:#fff;border:3px solid #fff;box-shadow:0 2px 8px #0005;display:grid;place-items:center;font-weight:950;font-size:13px}
+.pointLeafletPin{width:30px;height:30px;border-radius:50%;background:#1769c2;color:#fff;border:3px solid #fff;box-shadow:0 2px 8px #0005;display:grid;place-items:center;font-weight:950;font-size:12px}
+.castArrowIcon{width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:14px solid #f59e0b;filter:drop-shadow(0 1px 2px #0006);transform-origin:50% 50%}
+.leaflet-tooltip.spotTip{font-size:12px;font-weight:800;border-radius:8px}
+.fishingSpotMapLegend{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:8px 0 0;font-size:11px;color:#586474}
+.fishingSpotMapLegend span{display:flex;align-items:center;gap:5px}
+.fishingSpotMapLegend i{width:12px;height:12px;border-radius:50%;display:inline-block}.fishingSpotMapLegend .base{background:#1769c2}.fishingSpotMapLegend .spot{background:#17864f}.fishingSpotMapLegend .dir{width:16px;height:3px;border-radius:2px;background:#f59e0b}
+@media(max-width:600px){.liveMap,.fishingSpotLiveMap{height:56dvh;min-height:360px}.fishingSpotLiveMap{height:60dvh}}
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V59 · 프로필 위치 복원 · 추천자리 표시 수정</div></div><div class="titleActions"><button id="cloudBadge" class="cloudBadge local" type="button" onclick="showManage()">로컬 저장</button><button class="tool" onclick="showManage()">관리</button></div></div>
+<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V60 · 실제 지도 추천자리 · 프로필 유지</div></div><div class="titleActions"><button id="cloudBadge" class="cloudBadge local" type="button" onclick="showManage()">로컬 저장</button><button class="tool" onclick="showManage()">관리</button></div></div>
 <div class="tabs"><button id="tabFresh" class="tab on" onclick="setCat('freshwater')">민물</button><button id="tabSea" class="tab" onclick="setCat('sea')">바다</button></div>
 <div id="seaTideBar" class="seaTideBar" hidden><button class="tideMainBtn" type="button" onclick="showTide()">월간 물때표</button><span>바다 전용 · 물때 기준지역 직접 선택</span></div>
 <button id="regionScopeToggle" class="regionScopeToggle" type="button" aria-expanded="false" onclick="toggleRegionPanel()"><span id="regionScopeText" class="scopeText">지역 · 권역</span><span class="scopeChev">▼</span></button>
@@ -607,7 +605,8 @@ html,body{max-width:100%;overflow-x:hidden}
 <button class="tool" onclick="showPatchNotes();manageDlg.close()">패치노트 / 업데이트 내역</button><button class="tool" onclick="exportData()">전체 데이터 백업(JSON)</button><button class="tool" onclick="document.getElementById('importFile').click();manageDlg.close()">백업 파일 복원</button><button class="tool" onclick="if(confirm('직접 추가/수정한 내용을 모두 지우고 최초 상태로 되돌릴까요?')) resetAll()">최초 상태로 복원</button>
 </div><div class="smallNote">주소 좌표 변환은 개인용 저빈도 사용을 전제로 OpenStreetMap Nominatim을 사용하며, 요청은 1초 이상 간격으로 보내고 결과를 브라우저에 저장합니다. © OpenStreetMap contributors.</div><div class="smallNote">V21 현재: 민물은 배스 고정, 바다는 주소의 지역을 기준으로 대상어종을 자동 세팅하며 직접 수정할 수 있습니다.</div><div class="modalBtns"><button class="cancel" onclick="manageDlg.close()">닫기</button><button class="save" onclick="showInstallHelp()">홈 화면 사용법</button></div></div></dialog>
 <dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V59</b><span>현재 설치 버전 · 2026-09-04</span></div><h2>패치노트</h2><div class="patchList">
-<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V59</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>사이트 관리 화면에서 내 프로필을 다시 최상단으로 복원</div><div>코스 설정은 현재값 보기 상태로 두고 수정 버튼을 눌렀을 때만 편집되도록 복원</div><div>추천 낚시자리 오버레이를 실제 지도 이미지 영역에 고정해 번호 핀이 안 보이거나 위치가 어긋나는 문제 수정</div><div>추천자리 저장 시 표시 ON으로 자동 전환하고 Safari에서도 저장 직후 지도에 바로 표시되도록 보강</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V60</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>추천 낚시자리를 포인트 이미지가 아닌 실제 지도 위 위도·경도 좌표로 저장하도록 변경</div><div>지도 확대·축소·이동 후에도 초록색 번호 핀이 정확한 위치에 유지되도록 수정</div><div>추천자리 메모·이동·삭제·캐스팅 방향을 실제 지도에서 편집하도록 변경</div><div>V59의 내 프로필 최상단 배치와 코스 설정 수동 수정 방식 유지</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V59</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>사이트 관리 화면에서 내 프로필을 다시 최상단으로 복원</div><div>코스 설정은 현재값 보기 상태로 두고 수정 버튼을 눌렀을 때만 편집되도록 복원</div><div>추천 낚시자리 오버레이를 실제 지도 이미지 영역에 고정해 번호 핀이 안 보이거나 위치가 어긋나는 문제 수정</div><div>추천자리 저장 시 표시 ON으로 자동 전환하고 Safari에서도 저장 직후 지도에 바로 표시되도록 보강</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V58</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>포인트 지도 사진에 초록색 번호로 추천 낚시자리 표시 기능 추가</div><div>추천자리별 메모·위치 이동·삭제·캐스팅 방향 화살표 설정 지원</div><div>추천자리 표시 ON/OFF 및 PC·휴대폰 계정 자동 동기화 지원</div><div>이전 버전의 중복 지도 CSS와 패치 버전 상태를 정리해 충돌 가능성 감소</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V57</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>아이폰 Safari에서 월간 물때표가 지나치게 작게 축소되던 문제 수정</div><div>모바일에서는 바다타임 페이지를 실제 화면 폭으로 렌더링해 글씨 크기를 유지</div><div>표가 화면보다 넓을 때 강제 축소 대신 좌우 스크롤로 확인하도록 변경</div><div>모바일 물때표 팝업 폭과 높이를 화면에 맞게 조정</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V56</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>로그인 프로필에 닉네임 생성·수정 기능 추가</div><div>프로필 사진 선택·변경·삭제 기능 추가</div><div>프로필 사진은 256×256 정사각형으로 자동 압축해 계정 데이터에 저장</div><div>닉네임과 프로필 사진도 PC·휴대폰에서 같은 계정으로 자동 동기화</div><div>프로필 화면은 닉네임을 크게, 이메일은 보조정보로 표시</div></div></div>
@@ -672,7 +671,7 @@ html,body{max-width:100%;overflow-x:hidden}
 
 <dialog id="allMapDlg"><div class="modal"><h2 id="allMapTitle">전체 지도</h2>
 <div id="allMapInfo" class="courseMapInfo">포인트를 선택해주세요.</div>
-<iframe id="allMapFrame" class="mapFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+<div id="allMapFrame" class="mapFrame liveMap" aria-label="포인트 실제 지도"></div>
 <div id="allMapPointList" class="mapPointList"></div>
 <div class="modalBtns"><button class="cancel" style="grid-column:1/-1" type="button" onclick="closeAllPointsMap()">닫기</button></div>
 </div></dialog>
@@ -709,13 +708,15 @@ html,body{max-width:100%;overflow-x:hidden}
 <div class="modalBtns"><button class="cancel" style="grid-column:1/-1" type="button" onclick="catchDlg.close()">닫기</button></div></div></dialog>
 
 <dialog id="fishingSpotDlg"><div class="modal"><h2 id="fishingSpotTitle">추천 낚시자리</h2>
-<div class="fishingSpotEditorHelp">지도에서 낚시할 자리를 누르면 초록색 번호 핀이 추가됩니다. 각 자리마다 메모와 캐스팅 방향을 저장할 수 있습니다. 이동을 누른 뒤 지도에서 새 위치를 누르면 핀이 옮겨집니다.</div>
-<div id="fishingSpotEditorCanvas" class="fishingSpotEditorCanvas" onclick="handleFishingSpotMapClick(event)"><img id="fishingSpotEditorImage" alt="포인트 지도"><div id="fishingSpotEditorLayer" class="fishingSpotOverlay"></div></div>
+<div class="fishingSpotEditorHelp">실제 지도에서 낚시할 자리를 누르면 초록색 번호 핀이 추가됩니다. 지도 확대·축소와 이동이 가능하며 저장된 위치는 위도·경도로 유지됩니다. 이동 또는 방향 버튼을 누른 뒤 지도에서 새 위치를 선택하세요.</div>
+<div id="fishingSpotEditorMap" class="fishingSpotLiveMap" aria-label="추천 낚시자리 실제 지도"></div>
+<div class="fishingSpotMapLegend"><span><i class="base"></i>포인트 기준위치</span><span><i class="spot"></i>추천 낚시자리</span><span><i class="dir"></i>캐스팅 방향</span></div>
 <div id="fishingSpotMoveHint" class="smallNote"></div>
 <div id="fishingSpotEditorList" class="fishingSpotEditorList"></div>
 <div class="modalBtns"><button class="cancel" type="button" onclick="cancelFishingSpotEditor()">취소</button><button class="save" type="button" onclick="saveFishingSpotEditor()">저장</button></div></div></dialog>
 <dialog id="photoDlg"><div class="photoModal"><div id="photoTitle" class="photoTitle">사진 보기</div><div class="photoStage"><img id="photoFull" alt="확대 사진"></div><div class="photoBottom"><button type="button" onclick="photoDlg.close()">닫기</button></div></div></dialog>
 <div id="routeBar" class="routeBar"><div id="routeTitle" class="routeTitle"></div><div class="routeBtns"><button class="routeNav" onclick="moveRoute(-1)">이전</button><button class="routeOpen" onclick="openRouteTmap()">티맵</button><button class="routeNav" onclick="moveRoute(1)">다음</button><button class="routeStop" onclick="stopRoute()">종료</button></div></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 const DEFAULT_POINTS=[{"id":1,"name":"감옥골수로","address":"충남 당진시 고대면 옥현리 1015","course":"A","area":"옥현리","parking":"사진 추후 추가","note":"파란색 주차 · 노란색 진입로 · 빨간색 낚시구역","category":"freshwater","mapImage":"assets/p01_map.webp","parkingImage":"","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":2,"name":"큰골 수로","address":"충남 당진시 고대면 옥현리 1001","course":"A","area":"옥현리","parking":"사진 추후 추가","note":"곶부리 형태 연안 낚시구역","category":"freshwater","mapImage":"assets/p02_map.webp","parkingImage":"","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":3,"name":"딴산삼거리","address":"충남 당진시 고대면 옥현리 830-6","course":"A","area":"옥현리","parking":"사진 추후 추가","note":"대호만 본류 서쪽 연안","category":"freshwater","mapImage":"assets/p03_map.webp","parkingImage":"","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":4,"name":"딴산","address":"충남 당진시 고대면 옥현리 산 209","course":"A","area":"옥현리","parking":"도로 우측 비포장 갓길","note":"곶부리와 좌우 본류 연안","category":"freshwater","mapImage":"assets/p04_map.webp","parkingImage":"assets/p04_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":5,"name":"독창골 수로","address":"충남 당진시 고대면 옥현리 963","course":"A","area":"옥현리","parking":"도로 옆 넓은 비포장 공간","note":"수로 입구와 본류가 만나는 연안","category":"freshwater","mapImage":"assets/p05_map.webp","parkingImage":"assets/p05_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":6,"name":"금산미산 수로","address":"충남 당진시 고대면 당진포리 2116","course":"A","area":"당진포리","parking":"농로 폭 넓어진 구간","note":"수로 입구와 본류가 만나는 연안","category":"freshwater","mapImage":"assets/p06_map.webp","parkingImage":"assets/p06_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":7,"name":"안대산 수로","address":"충남 당진시 고대면 당진포리 2099","course":"A","area":"당진포리","parking":"농로 가장자리 확장 공간","note":"수로 입구 주변","category":"freshwater","mapImage":"assets/p07_map.webp","parkingImage":"assets/p07_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":8,"name":"안쟁이길","address":"충남 당진시 고대면 당진포리 2093","course":"A","area":"당진포리","parking":"전봇대 옆 농로 교차부","note":"대호만 본류 연안","category":"freshwater","mapImage":"assets/p08_map.webp","parkingImage":"assets/p08_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":9,"name":"온동매운탕","address":"충남 당진시 고대면 당진포리 2092","course":"A","area":"당진포리","parking":"콘크리트 도로 가장자리","note":"대호만 본류 서쪽 연안","category":"freshwater","mapImage":"assets/p09_map.webp","parkingImage":"assets/p09_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":10,"name":"감산매운탕","address":"충남 당진시 고대면 당진포리 2084","course":"A","area":"당진포리","parking":"논둑 농로 폭 확보 구간","note":"대호만 본류 직선형 연안","category":"freshwater","mapImage":"assets/p10_map.webp","parkingImage":"assets/p10_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":11,"name":"어선득호","address":"충남 당진시 고대면 당진포리 2080","course":"A","area":"당진포리","parking":"좋음 · 넓은 흙/자갈 공터","note":"대호만 본류 연안","category":"freshwater","mapImage":"assets/p11_map.webp","parkingImage":"assets/p11_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":12,"name":"대호대교 캠핑장","address":"충청남도 당진시 고대면 대호로 953","course":"A","area":"당진포리","parking":"제일 좋음 · 대호대교 아래 넓은 포장공간","note":"대호대교 인근 본류 포인트","start":true,"category":"freshwater","mapImage":"assets/p12_map.webp","parkingImage":"assets/p12_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":13,"name":"석문양수장","address":"충남 당진시 고대면 당진포리 2160-1","course":"A","area":"당진포리","parking":"지도/주차사진 저장","note":"슬로프 포함 · 본류 탐색","category":"freshwater","mapImage":"assets/p13_map.webp","parkingImage":"assets/p13_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":14,"name":"송전탑","address":"충남 당진시 고대면 당진포리 1883-1","course":"A","area":"당진포리","parking":"자갈 농로 주차공간","note":"송전탑 인근 본류 연안","category":"freshwater","mapImage":"assets/p14_map.webp","parkingImage":"assets/p14_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":15,"name":"노적봉","address":"충청남도 당진시 고대면 해창길 114","course":"A","area":"당진포리","parking":"좋음 · 건물 옆 도로 갓길","note":"농막 근거리 본류","category":"freshwater","mapImage":"assets/p15_map.webp","parkingImage":"assets/p15_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":1,"name":"지세포항","address":"경남 거제시 일운면 지세포리 929-76","course":"A","area":"지세포리","parking":"현장 확인","note":"사용자 제공 지도 기준 · 빨간선 낚시구역","category":"sea","mapImage":"assets/sea_jisepo_map.jpg","parkingImage":"","region":"거제","zone":"지세포항","targetSpecies":"우럭, 광어, 볼락, 농어, 감성돔, 참돔, 벵에돔, 고등어, 삼치, 전갱이, 전어, 학공치, 도다리, 노래미, 붕장어, 망상어, 무늬오징어","routeOrder":1,"courseStart":true}];
 const KEY='fishingPointManager_v4', OLD_KEY='fishingPointManager_v3', SETTINGS_KEY='fishingRouteSettings_v4';
@@ -1419,64 +1420,97 @@ function isDirectPointImage(src){
 function fishingSpotItems(p){
   let a=Array.isArray(p?.fishingSpots)?p.fishingSpots:[];
   return a.map((x,i)=>{
-    let nx=Number(x?.x),ny=Number(x?.y),rawAngle=x?.angle;
+    let lat=Number(x?.lat),lon=Number(x?.lon),dirLat=Number(x?.dirLat),dirLon=Number(x?.dirLon);
     return {
       id:String(x?.id||('fs'+(i+1))),
-      x:Number.isFinite(nx)?Math.max(0,Math.min(1,nx)):NaN,
-      y:Number.isFinite(ny)?Math.max(0,Math.min(1,ny)):NaN,
+      lat:Number.isFinite(lat)?lat:NaN,
+      lon:Number.isFinite(lon)?lon:NaN,
       note:String(x?.note||'').trim(),
-      angle:(rawAngle===null||rawAngle===undefined||rawAngle==='')?null:(Number.isFinite(Number(rawAngle))?Number(rawAngle):null)
+      dirLat:Number.isFinite(dirLat)?dirLat:NaN,
+      dirLon:Number.isFinite(dirLon)?dirLon:NaN
     };
-  }).filter(x=>Number.isFinite(x.x)&&Number.isFinite(x.y));
+  }).filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lon));
 }
 function fishingSpotsVisible(){return settings.showFishingSpots!==false}
 function updateFishingSpotToggle(){let b=$('fishingSpotToggleBtn');if(!b)return;let on=fishingSpotsVisible();b.classList.toggle('on',on);b.textContent=on?'추천자리 ON':'추천자리 OFF'}
-function toggleFishingSpots(){settings.showFishingSpots=!fishingSpotsVisible();persist();updateFishingSpotToggle();render();toast(fishingSpotsVisible()?'추천 낚시자리 표시':'추천 낚시자리 숨김')}
-function fishingSpotOverlayHtml(p,editor=false){
-  if(!editor&&!fishingSpotsVisible())return '';
-  let spots=editor?fishingSpotDraft:fishingSpotItems(p);
-  return spots.map((x,i)=>{
-    let left=(x.x*100).toFixed(3)+'%',top=(x.y*100).toFixed(3)+'%';
-    let arrow=Number.isFinite(x.angle)?`<span class="fishingSpotArrow" style="left:${left};top:${top};transform:rotate(${x.angle.toFixed(2)}deg)"></span>`:'';
-    let click=editor?`selectFishingSpot('${esc(x.id)}',event)`:`showFishingSpotNote('${esc(pointKey(p))}','${esc(x.id)}',event)`;
-    return `${arrow}<button type="button" class="fishingSpotMarker" style="left:${left};top:${top}" title="${esc(x.note||('추천자리 '+(i+1)))}" onclick="${click}">${i+1}</button>`;
-  }).join('');
+function toggleFishingSpots(){settings.showFishingSpots=!fishingSpotsVisible();persist();updateFishingSpotToggle();render();refreshAllMapSpots();toast(fishingSpotsVisible()?'추천 낚시자리 표시':'추천 낚시자리 숨김')}
+
+let fishingSpotMap=null,fishingSpotMapLayers=[];
+let allLeafletMap=null,allLeafletLayers=[];
+function leafletReady(){return typeof window.L!=='undefined'}
+function numberedSpotIcon(n){return L.divIcon({className:'',html:`<div class="spotLeafletPin">${n}</div>`,iconSize:[30,30],iconAnchor:[15,15],tooltipAnchor:[0,-17]})}
+function basePointIcon(){return L.divIcon({className:'',html:'<div class="pointLeafletPin">P</div>',iconSize:[30,30],iconAnchor:[15,15],tooltipAnchor:[0,-17]})}
+function castArrowIcon(fromLat,fromLon,toLat,toLon){
+  let dy=toLat-fromLat,dx=(toLon-fromLon)*Math.cos(fromLat*Math.PI/180),deg=Math.atan2(dy,dx)*180/Math.PI*-1;
+  return L.divIcon({className:'',html:`<div class="castArrowIcon" style="transform:rotate(${deg.toFixed(1)}deg)"></div>`,iconSize:[16,16],iconAnchor:[8,8]});
 }
-function showFishingSpotNote(k,id,e){e?.stopPropagation();let p=findPointByKey(k),spots=fishingSpotItems(p),i=spots.findIndex(x=>x.id===id);if(i<0)return;let x=spots[i];toast(`${i+1}번 추천자리${x.note?' · '+x.note:''}${Number.isFinite(x.angle)?' · 캐스팅 방향 표시됨':''}`)}
-function showFishingSpotEditor(k){
+function clearLeafletLayers(map,layers){if(!map)return;for(const x of layers.splice(0)){try{map.removeLayer(x)}catch(e){}}}
+function addSpotLayers(map,layers,spots,interactive=true){
+  if(!map||!fishingSpotsVisible())return;
+  spots.forEach((x,i)=>{
+    let m=L.marker([x.lat,x.lon],{icon:numberedSpotIcon(i+1),keyboard:true});
+    let tip=`${i+1}번 추천자리${x.note?' · '+esc(x.note):''}`;
+    m.bindTooltip(tip,{direction:'top',className:'spotTip'});
+    if(interactive)m.on('click',()=>selectFishingSpot(x.id));
+    else m.bindPopup(`<b>${i+1}번 추천자리</b>${x.note?`<br>${esc(x.note)}`:''}`);
+    m.addTo(map);layers.push(m);
+    if(Number.isFinite(x.dirLat)&&Number.isFinite(x.dirLon)){
+      let line=L.polyline([[x.lat,x.lon],[x.dirLat,x.dirLon]],{color:'#f59e0b',weight:4,opacity:.9}).addTo(map);layers.push(line);
+      let a=L.marker([x.dirLat,x.dirLon],{icon:castArrowIcon(x.lat,x.lon,x.dirLat,x.dirLon),interactive:false}).addTo(map);layers.push(a);
+    }
+  });
+}
+async function ensurePointCoordForMap(p){
+  let c=coord(p);if(c)return c;
+  status(`지도 위치 확인 중 · ${p.name}`);
+  let failed=await ensurePointCoords([p]);status('',false);
+  return failed.length?null:coord(p);
+}
+async function showFishingSpotEditor(k){
   let p=findPointByKey(k);if(!p)return;
-  if(!isDirectPointImage(p.mapImage)){toast('추천자리를 표시하려면 포인트 수정에서 지도 사진을 먼저 등록해주세요');return}
+  if(!leafletReady()){alert('지도를 불러오지 못했습니다. 인터넷 연결 후 다시 열어주세요.');return}
+  let c=await ensurePointCoordForMap(p);if(!c){alert('포인트 주소의 지도 위치를 찾지 못했습니다. 포인트 주소를 확인해주세요.');return}
   fishingSpotPointKey=k;fishingSpotDraft=fishingSpotItems(p).map(x=>({...x}));fishingSpotMoveId=null;fishingSpotDirectionId=null;
   $('fishingSpotTitle').textContent=`${p.name} · 추천 낚시자리`;
-  let editorImg=$('fishingSpotEditorImage');
-  editorImg.onload=()=>renderFishingSpotEditor();
-  editorImg.src=p.mapImage;
-  $('fishingSpotMoveHint').textContent='빈 지도 부분을 누르면 새 추천자리가 추가됩니다.';
-  renderFishingSpotEditor();$('fishingSpotDlg').showModal();
+  $('fishingSpotMoveHint').textContent='지도의 원하는 낚시자리를 누르면 새 추천자리가 추가됩니다.';
+  $('fishingSpotDlg').showModal();
+  requestAnimationFrame(()=>{
+    if(fishingSpotMap){try{fishingSpotMap.remove()}catch(e){}fishingSpotMap=null}
+    fishingSpotMap=L.map('fishingSpotEditorMap',{zoomControl:true}).setView([c.lat,c.lon],17);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:20,attribution:'© OpenStreetMap'}).addTo(fishingSpotMap);
+    fishingSpotMap.on('click',handleFishingSpotMapClick);
+    setTimeout(()=>{try{fishingSpotMap.invalidateSize()}catch(e){}},80);
+    renderFishingSpotEditor();
+  });
 }
 function renderFishingSpotEditor(){
-  let layer=$('fishingSpotEditorLayer'),list=$('fishingSpotEditorList'),canvas=$('fishingSpotEditorCanvas');if(!layer||!list)return;
-  layer.innerHTML=fishingSpotOverlayHtml(null,true);
-  canvas?.classList.toggle('moving',!!fishingSpotMoveId||!!fishingSpotDirectionId);
-  if(!fishingSpotDraft.length){list.innerHTML='<div class="fishingSpotEmpty">아직 추천자리가 없습니다. 지도에서 낚시할 자리를 눌러 추가하세요.</div>';return}
-  list.innerHTML=fishingSpotDraft.map((x,i)=>`<div class="fishingSpotEditorRow"><div class="fishingSpotEditorText"><b>${i+1}번</b>${esc(x.note||'메모 없음')}${Number.isFinite(x.angle)?' · 캐스팅 방향 있음':''}</div><div class="fishingSpotEditorBtns"><button type="button" onclick="editFishingSpotNote('${esc(x.id)}')">메모</button><button type="button" onclick="beginMoveFishingSpot('${esc(x.id)}')">이동</button><button type="button" onclick="beginFishingSpotDirection('${esc(x.id)}')">방향</button>${Number.isFinite(x.angle)?`<button type="button" onclick="clearFishingSpotDirection('${esc(x.id)}')">방향삭제</button>`:''}<button class="danger" type="button" onclick="deleteFishingSpotDraft('${esc(x.id)}')">삭제</button></div></div>`).join('');
+  let list=$('fishingSpotEditorList');if(!list)return;
+  if(fishingSpotMap){
+    clearLeafletLayers(fishingSpotMap,fishingSpotMapLayers);
+    let p=findPointByKey(fishingSpotPointKey),c=p?coord(p):null;
+    if(c){let b=L.marker([c.lat,c.lon],{icon:basePointIcon(),interactive:false}).addTo(fishingSpotMap);b.bindTooltip('포인트 기준 위치',{direction:'top'});fishingSpotMapLayers.push(b)}
+    addSpotLayers(fishingSpotMap,fishingSpotMapLayers,fishingSpotDraft,true);
+  }
+  if(!fishingSpotDraft.length){list.innerHTML='<div class="fishingSpotEmpty">아직 추천자리가 없습니다. 실제 지도에서 낚시할 자리를 눌러 추가하세요.</div>';return}
+  list.innerHTML=fishingSpotDraft.map((x,i)=>`<div class="fishingSpotEditorRow"><div class="fishingSpotEditorText"><b>${i+1}번</b>${esc(x.note||'메모 없음')}${Number.isFinite(x.dirLat)&&Number.isFinite(x.dirLon)?' · 캐스팅 방향 있음':''}</div><div class="fishingSpotEditorBtns"><button type="button" onclick="editFishingSpotNote('${esc(x.id)}')">메모</button><button type="button" onclick="beginMoveFishingSpot('${esc(x.id)}')">이동</button><button type="button" onclick="beginFishingSpotDirection('${esc(x.id)}')">방향</button>${Number.isFinite(x.dirLat)&&Number.isFinite(x.dirLon)?`<button type="button" onclick="clearFishingSpotDirection('${esc(x.id)}')">방향삭제</button>`:''}<button class="danger" type="button" onclick="deleteFishingSpotDraft('${esc(x.id)}')">삭제</button></div></div>`).join('');
 }
-function selectFishingSpot(id,e){e?.stopPropagation();let i=fishingSpotDraft.findIndex(x=>x.id===id);if(i<0)return;let x=fishingSpotDraft[i];toast(`${i+1}번${x.note?' · '+x.note:''}`)}
-function editorPointFromEvent(e){let img=$('fishingSpotEditorImage');if(!img)return null;let r=img.getBoundingClientRect();if(!r.width||!r.height)return null;let x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;if(x<0||x>1||y<0||y>1)return null;return {x:Math.max(0,Math.min(1,x)),y:Math.max(0,Math.min(1,y)),rect:r}}
+function selectFishingSpot(id){let i=fishingSpotDraft.findIndex(x=>x.id===id);if(i<0)return;let x=fishingSpotDraft[i];toast(`${i+1}번${x.note?' · '+x.note:''}`)}
 function handleFishingSpotMapClick(e){
-  if(e.target?.classList?.contains('fishingSpotMarker'))return;let pt=editorPointFromEvent(e);if(!pt)return;
-  if(fishingSpotMoveId){let x=fishingSpotDraft.find(v=>v.id===fishingSpotMoveId);if(x){x.x=pt.x;x.y=pt.y}fishingSpotMoveId=null;$('fishingSpotMoveHint').textContent='추천자리 위치를 옮겼습니다.';renderFishingSpotEditor();return}
-  if(fishingSpotDirectionId){let x=fishingSpotDraft.find(v=>v.id===fishingSpotDirectionId);if(x){let dx=(pt.x-x.x)*pt.rect.width,dy=(pt.y-x.y)*pt.rect.height;x.angle=Math.atan2(dy,dx)*180/Math.PI}fishingSpotDirectionId=null;$('fishingSpotMoveHint').textContent='캐스팅 방향을 설정했습니다.';renderFishingSpotEditor();return}
+  let pt=e?.latlng;if(!pt)return;
+  if(fishingSpotMoveId){let x=fishingSpotDraft.find(v=>v.id===fishingSpotMoveId);if(x){x.lat=pt.lat;x.lon=pt.lng}fishingSpotMoveId=null;$('fishingSpotMoveHint').textContent='추천자리 위치를 옮겼습니다.';renderFishingSpotEditor();return}
+  if(fishingSpotDirectionId){let x=fishingSpotDraft.find(v=>v.id===fishingSpotDirectionId);if(x){x.dirLat=pt.lat;x.dirLon=pt.lng}fishingSpotDirectionId=null;$('fishingSpotMoveHint').textContent='캐스팅 방향을 설정했습니다.';renderFishingSpotEditor();return}
   let note=prompt('이 자리 메모를 입력하세요.\n예: 수초 끝 공략, 곶부리 앞, 수로 입구','');if(note===null)return;
-  fishingSpotDraft.push({id:'fs_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),x:pt.x,y:pt.y,note:String(note||'').trim(),angle:null});renderFishingSpotEditor();
+  fishingSpotDraft.push({id:'fs_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),lat:pt.lat,lon:pt.lng,note:String(note||'').trim(),dirLat:NaN,dirLon:NaN});renderFishingSpotEditor();
 }
 function editFishingSpotNote(id){let x=fishingSpotDraft.find(v=>v.id===id);if(!x)return;let n=prompt('추천자리 메모',x.note||'');if(n===null)return;x.note=String(n).trim();renderFishingSpotEditor()}
-function beginMoveFishingSpot(id){fishingSpotMoveId=id;fishingSpotDirectionId=null;let i=fishingSpotDraft.findIndex(x=>x.id===id);$('fishingSpotMoveHint').textContent=`${i+1}번 추천자리의 새 위치를 지도에서 눌러주세요.`;renderFishingSpotEditor()}
-function beginFishingSpotDirection(id){fishingSpotDirectionId=id;fishingSpotMoveId=null;let i=fishingSpotDraft.findIndex(x=>x.id===id);$('fishingSpotMoveHint').textContent=`${i+1}번 자리에서 캐스팅할 방향의 지점을 지도에서 눌러주세요.`;renderFishingSpotEditor()}
-function clearFishingSpotDirection(id){let x=fishingSpotDraft.find(v=>v.id===id);if(!x)return;x.angle=null;renderFishingSpotEditor()}
+function beginMoveFishingSpot(id){fishingSpotMoveId=id;fishingSpotDirectionId=null;let i=fishingSpotDraft.findIndex(x=>x.id===id);$('fishingSpotMoveHint').textContent=`${i+1}번 추천자리의 새 위치를 실제 지도에서 눌러주세요.`}
+function beginFishingSpotDirection(id){fishingSpotDirectionId=id;fishingSpotMoveId=null;let i=fishingSpotDraft.findIndex(x=>x.id===id);$('fishingSpotMoveHint').textContent=`${i+1}번 자리에서 캐스팅할 방향의 지점을 실제 지도에서 눌러주세요.`}
+function clearFishingSpotDirection(id){let x=fishingSpotDraft.find(v=>v.id===id);if(!x)return;x.dirLat=NaN;x.dirLon=NaN;renderFishingSpotEditor()}
 function deleteFishingSpotDraft(id){let i=fishingSpotDraft.findIndex(x=>x.id===id);if(i<0)return;if(!confirm(`${i+1}번 추천자리를 삭제할까요?`))return;fishingSpotDraft.splice(i,1);if(fishingSpotMoveId===id)fishingSpotMoveId=null;if(fishingSpotDirectionId===id)fishingSpotDirectionId=null;renderFishingSpotEditor()}
-function saveFishingSpotEditor(){let p=findPointByKey(fishingSpotPointKey);if(!p)return;p.fishingSpots=fishingSpotDraft.map(x=>({...x}));settings.showFishingSpots=true;persist();$('fishingSpotDlg').close();updateFishingSpotToggle();render();toast(`추천 낚시자리 ${p.fishingSpots.length}곳 저장됨 · 지도에 표시됩니다`)}
-function cancelFishingSpotEditor(){fishingSpotPointKey=null;fishingSpotDraft=[];fishingSpotMoveId=null;fishingSpotDirectionId=null;$('fishingSpotDlg').close()}
+function saveFishingSpotEditor(){let p=findPointByKey(fishingSpotPointKey);if(!p)return;p.fishingSpots=fishingSpotDraft.map(x=>({id:x.id,lat:x.lat,lon:x.lon,note:x.note||'',...(Number.isFinite(x.dirLat)&&Number.isFinite(x.dirLon)?{dirLat:x.dirLat,dirLon:x.dirLon}:{})}));settings.showFishingSpots=true;persist();$('fishingSpotDlg').close();updateFishingSpotToggle();render();refreshAllMapSpots();toast(`추천 낚시자리 ${p.fishingSpots.length}곳 저장됨 · 실제 지도에 표시됩니다`)}
+function cancelFishingSpotEditor(){fishingSpotPointKey=null;fishingSpotDraft=[];fishingSpotMoveId=null;fishingSpotDirectionId=null;if(fishingSpotMap){try{fishingSpotMap.remove()}catch(e){}fishingSpotMap=null}fishingSpotMapLayers=[];$('fishingSpotDlg').close()}
+function showFishingSpotNote(k,id,e){e?.stopPropagation?.();let p=findPointByKey(k),spots=fishingSpotItems(p),i=spots.findIndex(x=>x.id===id);if(i<0)return;let x=spots[i];toast(`${i+1}번 추천자리${x.note?' · '+x.note:''}${Number.isFinite(x.dirLat)&&Number.isFinite(x.dirLon)?' · 캐스팅 방향 표시됨':''}`)}
+function refreshAllMapSpots(){if(!allLeafletMap||!currentAllMapKey)return;let p=findPointByKey(currentAllMapKey);if(p)renderAllLeafletPoint(p,false)}
 
 function pointMapIframe(p){
   return `<div class="pointMapWrap"><iframe class="pointMapFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen src="${esc(mapEmbedUrl(p.address))}"></iframe><button class="pointMapOpen" type="button" onclick="showAllPointsMap('${esc(pointKey(p))}')">큰 지도에서 보기</button></div>`;
@@ -1487,7 +1521,7 @@ function pointMedia(p){
   let parts='';
 
   if(mapImg){
-    parts+=`<div class="imgLabel spotMapCanvas"><div class="spotMapStage"><img loading="lazy" src="${mapImg}" onclick="openPhoto(this.src,'포인트 지도/이미지')" onerror="this.closest('.imgLabel').replaceWith(document.createRange().createContextualFragment(pointMapIframe(points.find(x=>pointKey(x)==='${esc(pointKey(p))}'))))"><div class="fishingSpotOverlay">${fishingSpotOverlayHtml(p)}</div><button type="button" class="fishingSpotEditBtn" onclick="event.stopPropagation();showFishingSpotEditor('${esc(pointKey(p))}')">추천자리 설정</button></div><span>포인트 지도/이미지</span></div>`;
+    parts+=`<div class="imgLabel"><img loading="lazy" src="${mapImg}" onclick="openPhoto(this.src,'포인트 지도/이미지')" onerror="this.closest('.imgLabel').replaceWith(document.createRange().createContextualFragment(pointMapIframe(points.find(x=>pointKey(x)==='${esc(pointKey(p))}'))))"><span>포인트 지도/이미지</span></div>`;
   }else{
     parts+=pointMapIframe(p);
   }
@@ -2186,8 +2220,8 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 function setControlPanel(open,remember=true){let p=$('controlPanel'),b=$('controlToggle');if(!p||!b)return;p.classList.toggle('open',!!open);b.classList.toggle('open',!!open);b.setAttribute('aria-expanded',open?'true':'false');b.querySelector('span:first-child').textContent=open?'도구 메뉴 접기':'도구 메뉴 펼치기';b.querySelector('.chev').textContent=open?'▲':'▼';if(remember)localStorage.setItem('fish_control_open',open?'1':'0')}
 function toggleControlPanel(){let p=$('controlPanel');setControlPanel(!p?.classList.contains('open'))}
 function initControlPanel(){setControlPanel(localStorage.getItem('fish_control_open')==='1',false)}
-function showPatchNotes(){localStorage.setItem('fish_seen_patch','59');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
-function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='59',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
+function showPatchNotes(){localStorage.setItem('fish_seen_patch','60');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
+function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='60',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}function showInstallHelp(){alert('휴대폰에서 GitHub Pages 주소를 연 뒤 브라우저 메뉴의 “홈 화면에 추가”를 누르면 앱처럼 사용할 수 있습니다. 회원가입 후 같은 계정으로 로그인하면 PC와 휴대폰에서 포인트·즐겨찾기·기록·조과사진을 자동으로 공유할 수 있습니다. 로그인하지 않으면 개인 설정과 기록은 저장되지 않으며 초기 상태로 이용합니다.');$('manageDlg').close()}
 
 function openPhoto(src,title='사진 보기'){
@@ -2281,36 +2315,58 @@ function filteredPointsForMap(){
 function closeAllPointsMap(){
   try{$('allMapDlg').close()}catch(e){}
 }
-function setMapFrame(frameId,address){
-  let f=$(frameId);
-  if(!f)return;
-  f.src=mapEmbedUrl(address);
+function setMapFrame(frameId,address,p=null){
+  let f=$(frameId);if(!f)return;
+  if(frameId==='allMapFrame'){
+    if(p)renderAllLeafletPoint(p,true);
+    return;
+  }
+  if(f.tagName==='IFRAME')f.src=mapEmbedUrl(address);
+}
+function ensureAllLeafletMap(c){
+  if(!leafletReady())return null;
+  if(!allLeafletMap){
+    allLeafletMap=L.map('allMapFrame',{zoomControl:true}).setView([c.lat,c.lon],16);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:20,attribution:'© OpenStreetMap'}).addTo(allLeafletMap);
+  }
+  return allLeafletMap;
+}
+async function renderAllLeafletPoint(p,moveView=true){
+  if(!p||!leafletReady())return;
+  let c=await ensurePointCoordForMap(p);if(!c){toast('지도 위치를 찾지 못했습니다');return}
+  let map=ensureAllLeafletMap(c);if(!map)return;
+  clearLeafletLayers(map,allLeafletLayers);
+  let b=L.marker([c.lat,c.lon],{icon:basePointIcon()}).addTo(map);b.bindTooltip(`${esc(p.name)} · 기준 위치`,{direction:'top'});allLeafletLayers.push(b);
+  addSpotLayers(map,allLeafletLayers,fishingSpotItems(p),false);
+  if(moveView){
+    let spots=fishingSpotItems(p),bounds=[[c.lat,c.lon],...spots.map(x=>[x.lat,x.lon])];
+    if(bounds.length>1)map.fitBounds(bounds,{padding:[45,45],maxZoom:18});else map.setView([c.lat,c.lon],17);
+  }
+  setTimeout(()=>{try{map.invalidateSize()}catch(e){}},80);
 }
 function renderAllMapList(arr,selectedKey){
-  let box=$('allMapPointList');
-  if(!box)return;
-  box.innerHTML=arr.map(p=>`<button type="button" class="${pointKey(p)===selectedKey?'on':''}" onclick="selectAllMapPoint('${esc(pointKey(p))}')">${esc(p.name)}</button>`).join('');
+  let box=$('allMapPointList');if(!box)return;
+  box.innerHTML=arr.map(p=>`<button type="button" class="${pointKey(p)===selectedKey?'on':''}" onclick="selectAllMapPoint('${esc(pointKey(p))}')">${esc(p.name)}${fishingSpotItems(p).length?` · 추천 ${fishingSpotItems(p).length}`:''}</button>`).join('');
 }
-function selectAllMapPoint(k){
-  let p=points.find(x=>pointKey(x)===k);
-  if(!p)return;
+async function selectAllMapPoint(k){
+  let p=points.find(x=>pointKey(x)===k);if(!p)return;
   currentAllMapKey=k;
   $('allMapTitle').textContent='포인트 지도';
-  $('allMapInfo').innerHTML=`<b>${esc(p.name)}</b><br>${esc(p.address)}`;
-  setMapFrame('allMapFrame',p.address);
+  $('allMapInfo').innerHTML=`<b>${esc(p.name)}</b><br>${esc(p.address)}${fishingSpotItems(p).length?`<br><span class="smallNote">초록색 번호 = 추천 낚시자리 ${fishingSpotItems(p).length}곳</span>`:''}`;
+  await renderAllLeafletPoint(p,true);
   renderAllMapList(filteredPointsForMap(),k);
 }
-function showAllPointsMap(focusKey=null){
+async function showAllPointsMap(focusKey=null){
   let arr=filteredPointsForMap();
   if(!arr.length){toast('지도에 표시할 포인트가 없습니다');return}
+  if(!leafletReady()){toast('실제 지도 모듈을 불러오는 중입니다. 잠시 후 다시 눌러주세요.');return}
   let p=focusKey?points.find(x=>pointKey(x)===focusKey):arr[0];
   if(!p||!arr.includes(p))p=arr[0];
-
   $('allMapDlg').showModal();
   currentAllMapKey=pointKey(p);
   $('allMapTitle').textContent=focusKey?'포인트 지도':'전체 지도';
-  $('allMapInfo').innerHTML=`<b>${esc(p.name)}</b><br>${esc(p.address)}<br><span class="smallNote">아래 포인트 이름을 누르면 지도 위치가 바로 바뀝니다.</span>`;
-  setMapFrame('allMapFrame',p.address);
+  $('allMapInfo').innerHTML=`<b>${esc(p.name)}</b><br>${esc(p.address)}<br><span class="smallNote">초록색 번호는 실제 지도 좌표로 저장된 추천 낚시자리입니다. 아래 포인트 이름을 누르면 위치가 바뀝니다.</span>`;
+  requestAnimationFrame(async()=>{await renderAllLeafletPoint(p,true)});
   renderAllMapList(arr,currentAllMapKey);
 }
 
