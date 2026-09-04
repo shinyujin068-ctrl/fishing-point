@@ -465,6 +465,8 @@ html,body{max-width:100%;overflow-x:hidden}
 }
 
 
+.manageSectionHead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.manageSectionHead h3{margin:0}.courseSettingsSummary{display:grid;gap:7px}.courseSettingsSummaryRow{display:grid;grid-template-columns:108px minmax(0,1fr);gap:8px;align-items:start;border:1px solid #e0e5ea;background:#fff;border-radius:10px;padding:9px 10px}.courseSettingsSummaryRow span{font-size:11px;color:var(--muted);font-weight:800}.courseSettingsSummaryRow b{font-size:12px;line-height:1.4;overflow-wrap:anywhere}.courseSettingsEditor{display:none;margin-top:9px}.courseSettingsEditor.open{display:grid;gap:9px}.courseSettingsEditorBtns{display:grid;grid-template-columns:1fr 1fr;gap:7px}.courseSettingsEditorBtns button{border-radius:10px;padding:10px;font-weight:900}.courseSettingsActions{display:grid;gap:7px}.courseSettingsNote{margin-top:8px}
+
 /* V43 물때표 / 조과사진 / 최근 본 포인트 */
 .seaTideBar{display:flex;align-items:center;gap:9px;margin:8px 0 0;padding:9px 10px;border:1px solid #b9d7f5;background:#eef7ff;border-radius:12px;color:#31516f;font-size:11px;font-weight:800}.seaTideBar[hidden]{display:none!important}.tideMainBtn{border:0;border-radius:10px;background:#1267bb;color:#fff;padding:9px 13px;font-weight:900;font-size:13px;white-space:nowrap}#tideDlg{width:min(98vw,1180px);max-width:none}.tideModal{width:auto!important;min-width:0}.tideSearchRow{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:7px;align-items:end;margin-bottom:8px}.tideSearchRow label{margin:0;min-width:0}.tideSearchRow input{box-sizing:border-box;width:100%;min-width:0}.tideSearchBtn{border:1px solid #cbd5df;background:#fff;color:#334155;border-radius:10px;padding:10px 12px;font-weight:900;white-space:nowrap}.tideSearchMeta{min-height:18px;margin:3px 2px 0;color:#64748b;font-size:11px;line-height:1.4}.tideControls{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:8px}.tideControls label{margin:0;min-width:0}.tideControls select,.tideControls input{box-sizing:border-box;min-width:0;max-width:100%}.tideNav{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}.tideSourceNote{padding:8px 10px;border-radius:10px;background:#f5f7f9;color:#566270;font-size:11px;line-height:1.45}.tideMobileHint{display:none;padding:7px 9px;border-radius:10px;background:#eef7ff;color:#31516f;font-size:12px;line-height:1.4;font-weight:800}.tideFrameWrap{width:100%;height:min(64dvh,690px);overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;border:1px solid #d7dee5;border-radius:12px;background:#fff;position:relative}.tideFrame{display:block;width:100%;height:100%;min-width:0;border:0;background:#fff;transform:none!important;transform-origin:top left}.tideFallback{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11px;color:#6c7783}.catchUpload{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.catchUpload input{min-width:0}.catchUpload .save{border:0;border-radius:10px;padding:10px 14px;background:#1267bb;color:#fff;font-weight:900}.catchPhotoGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:10px}.catchPhotoItem{border:1px solid #dce2e8;border-radius:12px;background:#fff;overflow:hidden}.catchPhotoItem img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#eef1f4;cursor:zoom-in}.catchPhotoMeta{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:7px 8px;font-size:11px;color:#66727e}.catchDelete{border:0;background:#fff0f0;color:#b42318;border-radius:8px;padding:5px 7px;font-weight:900}.catchCount{display:inline-block;margin-top:5px;margin-left:4px;background:#fff3e8;color:#9a4c08;border-radius:99px;padding:3px 7px;font-size:11px;font-weight:800}.recentStamp{display:inline-block;margin-top:5px;margin-left:4px;background:#f2efff;color:#5a46a8;border-radius:99px;padding:3px 7px;font-size:11px;font-weight:800}
 @media(max-width:760px){#tideDlg{width:calc(100vw - 6px);max-height:calc(100dvh - 6px);margin:3px auto}.tideModal{padding-left:10px!important;padding-right:10px!important}.tideSearchRow{grid-template-columns:1fr 1fr}.tideSearchRow label{grid-column:1/-1}.tideControls{grid-template-columns:1fr}.tideFrameWrap{height:64dvh;overflow:auto}.tideFrame{width:100%!important;min-width:100%!important;height:100%!important;transform:none!important}.tideSourceNote{font-size:12px}.tideMobileHint{display:block}.tideFallback{font-size:12px}.catchPhotoGrid{grid-template-columns:1fr 1fr}.seaTideBar span{font-size:10px}}
@@ -473,7 +475,11 @@ html,body{max-width:100%;overflow-x:hidden}
 .fishingSpotToggle.on{background:#176b43!important;color:#fff!important;border-color:#176b43!important}
 .fishingSpotCount{display:inline-block;margin-top:5px;margin-left:4px;background:#e8f7ee;color:#176b43;border-radius:99px;padding:3px 7px;font-size:11px;font-weight:900}
 .spotMapCanvas{position:relative;width:100%;overflow:hidden;background:#edf2f1}
-.spotMapCanvas>img{width:100%!important;height:auto!important;object-fit:contain!important;display:block!important}
+.spotMapStage{position:relative;width:100%;overflow:hidden;background:#edf2f1}
+.spotMapStage>img{width:100%!important;height:auto!important;object-fit:contain!important;display:block!important}
+.spotMapStage .fishingSpotOverlay{position:absolute;inset:0;z-index:7;display:block!important;visibility:visible!important;pointer-events:none}
+.spotMapStage .fishingSpotMarker{z-index:8!important;pointer-events:auto}
+.spotMapStage .fishingSpotArrow{z-index:7!important}
 .fishingSpotOverlay{position:absolute;inset:0;z-index:5;pointer-events:none}
 .fishingSpotMarker{position:absolute;z-index:3;width:31px;height:31px;transform:translate(-50%,-50%);border:2px solid #fff;border-radius:999px;background:#159447;color:#fff;font-size:13px;font-weight:1000;display:grid;place-items:center;box-shadow:0 2px 8px #0008;pointer-events:auto;cursor:pointer;padding:0}
 .fishingSpotMarker:hover{background:#0d7837}
@@ -496,7 +502,7 @@ html,body{max-width:100%;overflow-x:hidden}
 @media(max-width:600px){#fishingSpotDlg{width:calc(100vw - 6px);max-height:calc(100dvh - 6px);margin:3px auto}.fishingSpotEditorRow{grid-template-columns:1fr}.fishingSpotEditorBtns{justify-content:flex-start}.fishingSpotMarker{width:30px;height:30px}}
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V58 · 추천 낚시자리 · 코드 안정화</div></div><div class="titleActions"><button id="cloudBadge" class="cloudBadge local" type="button" onclick="showManage()">로컬 저장</button><button class="tool" onclick="showManage()">관리</button></div></div>
+<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V59 · 프로필 위치 복원 · 추천자리 표시 수정</div></div><div class="titleActions"><button id="cloudBadge" class="cloudBadge local" type="button" onclick="showManage()">로컬 저장</button><button class="tool" onclick="showManage()">관리</button></div></div>
 <div class="tabs"><button id="tabFresh" class="tab on" onclick="setCat('freshwater')">민물</button><button id="tabSea" class="tab" onclick="setCat('sea')">바다</button></div>
 <div id="seaTideBar" class="seaTideBar" hidden><button class="tideMainBtn" type="button" onclick="showTide()">월간 물때표</button><span>바다 전용 · 물때 기준지역 직접 선택</span></div>
 <button id="regionScopeToggle" class="regionScopeToggle" type="button" aria-expanded="false" onclick="toggleRegionPanel()"><span id="regionScopeText" class="scopeText">지역 · 권역</span><span class="scopeChev">▼</span></button>
@@ -555,15 +561,7 @@ html,body{max-width:100%;overflow-x:hidden}
 <div class="smallNote">원하는 주소나 현재 위치를 출발점으로 잡으면 그 지점에서 도로상 가장 가까운 포인트를 먼저 찾고, 이후 다음으로 가까운 포인트를 계속 연결합니다. 기본 민물 출발지는 농막 주소입니다.</div></div>
 </div><div class="modalBtns"><button class="cancel" style="grid-column:1/-1" onclick="startDlg.close()">닫기</button></div></div></dialog>
 <dialog id="manageDlg"><div class="modal"><h2>사이트 관리</h2><div class="grid">
-<div class="manageBox"><h3>코스 설정</h3>
-<label>민물 출발지<input id="baseFresh" placeholder="예: 농막 주소"></label>
-<label>바다 출발지<input id="baseSea" placeholder="바다 출조 출발 주소"></label>
-<label>코스당 최대 포인트<select id="maxPerCourse"><option value="4">4개</option><option value="5">5개</option><option value="6">6개</option><option value="7">7개</option></select></label>
-<label>다음 포인트 최대 주행거리<select id="splitLegKm"><option value="3">3km</option><option value="4">4km</option><option value="5">5km</option><option value="6">6km</option><option value="8">8km</option><option value="10">10km</option></select></label>
-<button class="tool" onclick="saveRouteSettings()">자동 코스 설정 저장</button>
-<button class="tool" onclick="autoRebuildCurrent(true)">현재 카테고리 전체 코스 자동 재구성</button>
-<div class="smallNote">출발지(민물 기본값: 농막)에서 실제 도로 주행거리 기준으로 가장 가까운 포인트를 먼저 찾고, 그 지점에서 다음으로 가까운 포인트를 이어 코스를 만듭니다. 도로거리 계산이 일시적으로 실패하면 직선거리 방식으로 자동 대체됩니다.</div></div>
-<div class="manageBox cloudSyncBox"><h3>PC · 휴대폰 자동 동기화</h3>
+<div class="manageBox cloudSyncBox"><div class="manageSectionHead"><h3 id="accountBoxTitle">내 프로필</h3></div>
 <div id="cloudLoggedOutPanel" class="cloudAuthView">
 <div class="cloudSyncStatus"><b id="cloudStatusTitle">로그인 필요</b><span id="cloudStatusText">회원가입 후 같은 계정으로 로그인하면 PC와 휴대폰 자료가 자동으로 공유됩니다.</span></div>
 <div class="cloudGrid">
@@ -590,10 +588,27 @@ html,body{max-width:100%;overflow-x:hidden}
 <button id="cloudSignOutBtn" class="tool cloudProfileLogout" type="button">로그아웃</button>
 </div>
 </div>
+<div class="manageBox" id="courseSettingsBox"><div class="manageSectionHead"><h3>코스 설정</h3><button id="courseSettingsEditBtn" class="tool" type="button" onclick="setCourseSettingsEditor(true)">수정</button></div>
+<div id="courseSettingsSummary" class="courseSettingsSummary">
+<div class="courseSettingsSummaryRow"><span>민물 출발지</span><b id="courseSummaryFresh">미설정</b></div>
+<div class="courseSettingsSummaryRow"><span>바다 출발지</span><b id="courseSummarySea">미설정</b></div>
+<div class="courseSettingsSummaryRow"><span>코스당 포인트</span><b id="courseSummaryMax">6개</b></div>
+<div class="courseSettingsSummaryRow"><span>최대 주행거리</span><b id="courseSummaryLeg">5km</b></div>
+</div>
+<div id="courseSettingsEditor" class="courseSettingsEditor">
+<label>민물 출발지<input id="baseFresh" placeholder="예: 농막 주소"></label>
+<label>바다 출발지<input id="baseSea" placeholder="바다 출조 출발 주소"></label>
+<label>코스당 최대 포인트<select id="maxPerCourse"><option value="4">4개</option><option value="5">5개</option><option value="6">6개</option><option value="7">7개</option></select></label>
+<label>다음 포인트 최대 주행거리<select id="splitLegKm"><option value="3">3km</option><option value="4">4km</option><option value="5">5km</option><option value="6">6km</option><option value="8">8km</option><option value="10">10km</option></select></label>
+<div class="courseSettingsEditorBtns"><button class="cancel" type="button" onclick="cancelCourseSettingsEdit()">취소</button><button class="save" type="button" onclick="saveRouteSettingsFromEditor()">설정 저장</button></div>
+<div class="courseSettingsActions"><button class="tool" type="button" onclick="autoRebuildCurrent(true)">현재 카테고리 전체 코스 자동 재구성</button></div>
+</div>
+<div class="smallNote courseSettingsNote">코스 설정은 자동으로 수정 상태가 되지 않습니다. 위의 ‘수정’을 눌렀을 때만 값을 변경할 수 있습니다. 출발지에서 실제 도로 주행거리 기준으로 가까운 포인트부터 코스를 구성하며, 도로거리 계산 실패 시 직선거리 방식으로 대체됩니다.</div></div>
 <button class="tool" onclick="showPatchNotes();manageDlg.close()">패치노트 / 업데이트 내역</button><button class="tool" onclick="exportData()">전체 데이터 백업(JSON)</button><button class="tool" onclick="document.getElementById('importFile').click();manageDlg.close()">백업 파일 복원</button><button class="tool" onclick="if(confirm('직접 추가/수정한 내용을 모두 지우고 최초 상태로 되돌릴까요?')) resetAll()">최초 상태로 복원</button>
 </div><div class="smallNote">주소 좌표 변환은 개인용 저빈도 사용을 전제로 OpenStreetMap Nominatim을 사용하며, 요청은 1초 이상 간격으로 보내고 결과를 브라우저에 저장합니다. © OpenStreetMap contributors.</div><div class="smallNote">V21 현재: 민물은 배스 고정, 바다는 주소의 지역을 기준으로 대상어종을 자동 세팅하며 직접 수정할 수 있습니다.</div><div class="modalBtns"><button class="cancel" onclick="manageDlg.close()">닫기</button><button class="save" onclick="showInstallHelp()">홈 화면 사용법</button></div></div></dialog>
-<dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V58</b><span>현재 설치 버전 · 2026-09-04</span></div><h2>패치노트</h2><div class="patchList">
-<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V58</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>포인트 지도 사진에 초록색 번호로 추천 낚시자리 표시 기능 추가</div><div>추천자리별 메모·위치 이동·삭제·캐스팅 방향 화살표 설정 지원</div><div>추천자리 표시 ON/OFF 및 PC·휴대폰 계정 자동 동기화 지원</div><div>이전 버전의 중복 지도 CSS와 패치 버전 상태를 정리해 충돌 가능성 감소</div></div></div>
+<dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V59</b><span>현재 설치 버전 · 2026-09-04</span></div><h2>패치노트</h2><div class="patchList">
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V59</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>사이트 관리 화면에서 내 프로필을 다시 최상단으로 복원</div><div>코스 설정은 현재값 보기 상태로 두고 수정 버튼을 눌렀을 때만 편집되도록 복원</div><div>추천 낚시자리 오버레이를 실제 지도 이미지 영역에 고정해 번호 핀이 안 보이거나 위치가 어긋나는 문제 수정</div><div>추천자리 저장 시 표시 ON으로 자동 전환하고 Safari에서도 저장 직후 지도에 바로 표시되도록 보강</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V58</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>포인트 지도 사진에 초록색 번호로 추천 낚시자리 표시 기능 추가</div><div>추천자리별 메모·위치 이동·삭제·캐스팅 방향 화살표 설정 지원</div><div>추천자리 표시 ON/OFF 및 PC·휴대폰 계정 자동 동기화 지원</div><div>이전 버전의 중복 지도 CSS와 패치 버전 상태를 정리해 충돌 가능성 감소</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V57</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>아이폰 Safari에서 월간 물때표가 지나치게 작게 축소되던 문제 수정</div><div>모바일에서는 바다타임 페이지를 실제 화면 폭으로 렌더링해 글씨 크기를 유지</div><div>표가 화면보다 넓을 때 강제 축소 대신 좌우 스크롤로 확인하도록 변경</div><div>모바일 물때표 팝업 폭과 높이를 화면에 맞게 조정</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V56</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>로그인 프로필에 닉네임 생성·수정 기능 추가</div><div>프로필 사진 선택·변경·삭제 기능 추가</div><div>프로필 사진은 256×256 정사각형으로 자동 압축해 계정 데이터에 저장</div><div>닉네임과 프로필 사진도 PC·휴대폰에서 같은 계정으로 자동 동기화</div><div>프로필 화면은 닉네임을 크게, 이메일은 보조정보로 표시</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V55</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>로그인 전에는 회원가입·로그인 입력폼만 표시하고 로그인 후에는 입력폼을 완전히 숨김</div><div>로그인 후 이메일 계정을 프로필 카드로 표시하고 자동 동기화 상태를 한눈에 확인하도록 변경</div><div>프로필 카드에서 로그아웃만 제공해 로그인 상태와 입력 화면이 섞이지 않도록 UI 정리</div><div>상단 동기화 배지는 정상 로그인 상태에서 ‘내 프로필’로 표시</div></div></div>
@@ -1403,13 +1418,16 @@ function isDirectPointImage(src){
 }
 function fishingSpotItems(p){
   let a=Array.isArray(p?.fishingSpots)?p.fishingSpots:[];
-  return a.map((x,i)=>({
-    id:String(x?.id||('fs'+(i+1))),
-    x:Math.max(0,Math.min(1,Number(x?.x)||0)),
-    y:Math.max(0,Math.min(1,Number(x?.y)||0)),
-    note:String(x?.note||'').trim(),
-    angle:Number.isFinite(Number(x?.angle))?Number(x.angle):null
-  })).filter(x=>Number.isFinite(x.x)&&Number.isFinite(x.y));
+  return a.map((x,i)=>{
+    let nx=Number(x?.x),ny=Number(x?.y),rawAngle=x?.angle;
+    return {
+      id:String(x?.id||('fs'+(i+1))),
+      x:Number.isFinite(nx)?Math.max(0,Math.min(1,nx)):NaN,
+      y:Number.isFinite(ny)?Math.max(0,Math.min(1,ny)):NaN,
+      note:String(x?.note||'').trim(),
+      angle:(rawAngle===null||rawAngle===undefined||rawAngle==='')?null:(Number.isFinite(Number(rawAngle))?Number(rawAngle):null)
+    };
+  }).filter(x=>Number.isFinite(x.x)&&Number.isFinite(x.y));
 }
 function fishingSpotsVisible(){return settings.showFishingSpots!==false}
 function updateFishingSpotToggle(){let b=$('fishingSpotToggleBtn');if(!b)return;let on=fishingSpotsVisible();b.classList.toggle('on',on);b.textContent=on?'추천자리 ON':'추천자리 OFF'}
@@ -1430,7 +1448,9 @@ function showFishingSpotEditor(k){
   if(!isDirectPointImage(p.mapImage)){toast('추천자리를 표시하려면 포인트 수정에서 지도 사진을 먼저 등록해주세요');return}
   fishingSpotPointKey=k;fishingSpotDraft=fishingSpotItems(p).map(x=>({...x}));fishingSpotMoveId=null;fishingSpotDirectionId=null;
   $('fishingSpotTitle').textContent=`${p.name} · 추천 낚시자리`;
-  $('fishingSpotEditorImage').src=p.mapImage;
+  let editorImg=$('fishingSpotEditorImage');
+  editorImg.onload=()=>renderFishingSpotEditor();
+  editorImg.src=p.mapImage;
   $('fishingSpotMoveHint').textContent='빈 지도 부분을 누르면 새 추천자리가 추가됩니다.';
   renderFishingSpotEditor();$('fishingSpotDlg').showModal();
 }
@@ -1455,7 +1475,7 @@ function beginMoveFishingSpot(id){fishingSpotMoveId=id;fishingSpotDirectionId=nu
 function beginFishingSpotDirection(id){fishingSpotDirectionId=id;fishingSpotMoveId=null;let i=fishingSpotDraft.findIndex(x=>x.id===id);$('fishingSpotMoveHint').textContent=`${i+1}번 자리에서 캐스팅할 방향의 지점을 지도에서 눌러주세요.`;renderFishingSpotEditor()}
 function clearFishingSpotDirection(id){let x=fishingSpotDraft.find(v=>v.id===id);if(!x)return;x.angle=null;renderFishingSpotEditor()}
 function deleteFishingSpotDraft(id){let i=fishingSpotDraft.findIndex(x=>x.id===id);if(i<0)return;if(!confirm(`${i+1}번 추천자리를 삭제할까요?`))return;fishingSpotDraft.splice(i,1);if(fishingSpotMoveId===id)fishingSpotMoveId=null;if(fishingSpotDirectionId===id)fishingSpotDirectionId=null;renderFishingSpotEditor()}
-function saveFishingSpotEditor(){let p=findPointByKey(fishingSpotPointKey);if(!p)return;p.fishingSpots=fishingSpotDraft.map(x=>({...x}));persist();$('fishingSpotDlg').close();render();toast(`추천 낚시자리 ${p.fishingSpots.length}곳 저장됨`)}
+function saveFishingSpotEditor(){let p=findPointByKey(fishingSpotPointKey);if(!p)return;p.fishingSpots=fishingSpotDraft.map(x=>({...x}));settings.showFishingSpots=true;persist();$('fishingSpotDlg').close();updateFishingSpotToggle();render();toast(`추천 낚시자리 ${p.fishingSpots.length}곳 저장됨 · 지도에 표시됩니다`)}
 function cancelFishingSpotEditor(){fishingSpotPointKey=null;fishingSpotDraft=[];fishingSpotMoveId=null;fishingSpotDirectionId=null;$('fishingSpotDlg').close()}
 
 function pointMapIframe(p){
@@ -1467,7 +1487,7 @@ function pointMedia(p){
   let parts='';
 
   if(mapImg){
-    parts+=`<div class="imgLabel spotMapCanvas"><img loading="lazy" src="${mapImg}" onclick="openPhoto(this.src,'포인트 지도/이미지')" onerror="this.closest('.imgLabel').replaceWith(document.createRange().createContextualFragment(pointMapIframe(points.find(x=>pointKey(x)==='${esc(pointKey(p))}'))))"><div class="fishingSpotOverlay">${fishingSpotOverlayHtml(p)}</div><button type="button" class="fishingSpotEditBtn" onclick="event.stopPropagation();showFishingSpotEditor('${esc(pointKey(p))}')">추천자리 설정</button><span>포인트 지도/이미지</span></div>`;
+    parts+=`<div class="imgLabel spotMapCanvas"><div class="spotMapStage"><img loading="lazy" src="${mapImg}" onclick="openPhoto(this.src,'포인트 지도/이미지')" onerror="this.closest('.imgLabel').replaceWith(document.createRange().createContextualFragment(pointMapIframe(points.find(x=>pointKey(x)==='${esc(pointKey(p))}'))))"><div class="fishingSpotOverlay">${fishingSpotOverlayHtml(p)}</div><button type="button" class="fishingSpotEditBtn" onclick="event.stopPropagation();showFishingSpotEditor('${esc(pointKey(p))}')">추천자리 설정</button></div><span>포인트 지도/이미지</span></div>`;
   }else{
     parts+=pointMapIframe(p);
   }
@@ -1657,8 +1677,13 @@ function showStartChooser(){let s=activeStartInfo();$('startCatTitle').textConte
 async function rebuildFromCustomAddress(){let a=$('customStartAddr').value.trim();if(!a){toast('출발 주소를 입력해주세요');return}settings.activeStart=settings.activeStart||{};settings.activeStart[currentCat]={mode:'custom',address:a};settings.activeStartCoord=settings.activeStartCoord||{};delete settings.activeStartCoord[currentCat];settings.baseCoord=settings.baseCoord||{};delete settings.baseCoord[currentCat];settings._baseCoordAddress=settings._baseCoordAddress||{};delete settings._baseCoordAddress[currentCat];settings.roadMatrix={};persist();renderStartSummary();$('startDlg').close();await autoRebuildCurrent(false)}
 async function rebuildFromDefaultBase(){settings.activeStart=settings.activeStart||{};settings.activeStart[currentCat]={mode:'default',address:''};settings.activeStartCoord=settings.activeStartCoord||{};delete settings.activeStartCoord[currentCat];settings.baseCoord=settings.baseCoord||{};delete settings.baseCoord[currentCat];settings._baseCoordAddress=settings._baseCoordAddress||{};delete settings._baseCoordAddress[currentCat];settings.roadMatrix={};persist();renderStartSummary();$('startDlg').close();await autoRebuildCurrent(false)}
 function rebuildFromCurrentLocation(){if(!navigator.geolocation){toast('현재 위치를 지원하지 않는 브라우저입니다');return}status('현재 위치 확인 중...');navigator.geolocation.getCurrentPosition(async pos=>{let c={lat:pos.coords.latitude,lon:pos.coords.longitude};settings.activeStart=settings.activeStart||{};settings.activeStart[currentCat]={mode:'current',address:'현재 위치'};settings.activeStartCoord=settings.activeStartCoord||{};settings.activeStartCoord[currentCat]=c;settings.baseCoord=settings.baseCoord||{};settings.baseCoord[currentCat]=c;settings._baseCoordAddress=settings._baseCoordAddress||{};settings._baseCoordAddress[currentCat]='__current__';settings.roadMatrix={};persist();renderStartSummary();$('startDlg').close();await autoRebuildCurrent(false)},()=>{status('',false);toast('위치 권한을 허용해주세요')},{enableHighAccuracy:true,timeout:12000,maximumAge:30000})}
-function showManage(){$('baseFresh').value=settings.base?.freshwater||'';$('baseSea').value=settings.base?.sea||'';$('maxPerCourse').value=String(settings.maxPerCourse||6);$('splitLegKm').value=String(settings.splitLegKm||5);renderCloudPanel();$('manageDlg').showModal()}
-function saveRouteSettings(){settings.base={freshwater:$('baseFresh').value.trim(),sea:$('baseSea').value.trim()};settings.maxPerCourse=+$('maxPerCourse').value||6;settings.splitLegKm=+$('splitLegKm').value||5;settings.baseCoord={};settings._baseCoordAddress={};settings.roadMatrix={};persist();renderStartSummary();toast('자동 코스 설정 저장됨')}
+function fillCourseSettingsEditor(){$('baseFresh').value=settings.base?.freshwater||'';$('baseSea').value=settings.base?.sea||'';$('maxPerCourse').value=String(settings.maxPerCourse||6);$('splitLegKm').value=String(settings.splitLegKm||5)}
+function updateCourseSettingsSummary(){let f=$('courseSummaryFresh'),s=$('courseSummarySea'),m=$('courseSummaryMax'),l=$('courseSummaryLeg');if(f)f.textContent=settings.base?.freshwater||'미설정';if(s)s.textContent=settings.base?.sea||'미설정';if(m)m.textContent=String(settings.maxPerCourse||6)+'개';if(l)l.textContent=String(settings.splitLegKm||5)+'km'}
+function setCourseSettingsEditor(open){let e=$('courseSettingsEditor'),sum=$('courseSettingsSummary'),btn=$('courseSettingsEditBtn');if(!e)return;if(open)fillCourseSettingsEditor();e.classList.toggle('open',!!open);if(sum)sum.style.display=open?'none':'grid';if(btn)btn.style.display=open?'none':''}
+function cancelCourseSettingsEdit(){fillCourseSettingsEditor();setCourseSettingsEditor(false);updateCourseSettingsSummary()}
+function showManage(){setProfileEditor(false);setCourseSettingsEditor(false);updateCourseSettingsSummary();renderCloudPanel();$('manageDlg').showModal();requestAnimationFrame(()=>{let m=$('manageDlg')?.querySelector('.modal');if(m)m.scrollTop=0})}
+function saveRouteSettings(){settings.base={freshwater:$('baseFresh').value.trim(),sea:$('baseSea').value.trim()};settings.maxPerCourse=+$('maxPerCourse').value||6;settings.splitLegKm=+$('splitLegKm').value||5;settings.baseCoord={};settings._baseCoordAddress={};settings.roadMatrix={};persist();renderStartSummary();updateCourseSettingsSummary();toast('자동 코스 설정 저장됨')}
+function saveRouteSettingsFromEditor(){saveRouteSettings();setCourseSettingsEditor(false)}
 async function autoRebuildCurrent(fromManage=false){
   if(fromManage)saveRouteSettings();
 
@@ -1828,7 +1853,7 @@ async function buildPortableData(){
       if(m?.full)p.catchPhotos[i]={...x,src:m.full,thumb:m.thumb||'',storage:'backup'};
     }
   }
-  return {version:56,exportedAt:new Date().toISOString(),points:outPoints,settings:clone(settings),profile:clone(cloudProfile)};
+  return {version:59,exportedAt:new Date().toISOString(),points:outPoints,settings:clone(settings),profile:clone(cloudProfile)};
 }
 async function applyPortableData(d,fromCloud=false){
   if(!d||!Array.isArray(d.points))throw new Error('invalid data');
@@ -2116,7 +2141,7 @@ async function cloudPushNow(manual=false){
   if(cloudBusy&&!manual)return;
   try{
     cloudBusy=true;setCloudStatus('클라우드로 저장 중','포인트와 조과사진을 업로드하고 있습니다.','syncing');
-    let data=await buildPortableData(),updatedAt=Date.now(),env={meta:{updatedAt,deviceId:cloudDeviceId,appVersion:56,email:cloudUser.email||''},data};
+    let data=await buildPortableData(),updatedAt=Date.now(),env={meta:{updatedAt,deviceId:cloudDeviceId,appVersion:59,email:cloudUser.email||''},data};
     let approx=new Blob([JSON.stringify(env)]).size;
     if(approx>220*1024*1024)throw new Error('클라우드 데이터가 220MB를 넘어 한 번에 동기화할 수 없습니다. 조과사진을 일부 정리해주세요.');
     await cloudRequest('PUT',env);cloudLastSeen=updatedAt;localStorage.setItem(cloudSeenKey(),String(updatedAt));clearCloudDirty();
@@ -2161,8 +2186,8 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 function setControlPanel(open,remember=true){let p=$('controlPanel'),b=$('controlToggle');if(!p||!b)return;p.classList.toggle('open',!!open);b.classList.toggle('open',!!open);b.setAttribute('aria-expanded',open?'true':'false');b.querySelector('span:first-child').textContent=open?'도구 메뉴 접기':'도구 메뉴 펼치기';b.querySelector('.chev').textContent=open?'▲':'▼';if(remember)localStorage.setItem('fish_control_open',open?'1':'0')}
 function toggleControlPanel(){let p=$('controlPanel');setControlPanel(!p?.classList.contains('open'))}
 function initControlPanel(){setControlPanel(localStorage.getItem('fish_control_open')==='1',false)}
-function showPatchNotes(){localStorage.setItem('fish_seen_patch','58');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
-function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='58',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
+function showPatchNotes(){localStorage.setItem('fish_seen_patch','59');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
+function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='59',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}function showInstallHelp(){alert('휴대폰에서 GitHub Pages 주소를 연 뒤 브라우저 메뉴의 “홈 화면에 추가”를 누르면 앱처럼 사용할 수 있습니다. 회원가입 후 같은 계정으로 로그인하면 PC와 휴대폰에서 포인트·즐겨찾기·기록·조과사진을 자동으로 공유할 수 있습니다. 로그인하지 않으면 개인 설정과 기록은 저장되지 않으며 초기 상태로 이용합니다.');$('manageDlg').close()}
 
 function openPhoto(src,title='사진 보기'){
