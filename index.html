@@ -451,7 +451,7 @@ html,body{max-width:100%;overflow-x:hidden}
 @media(max-width:760px){#tideDlg{width:calc(100vw - 12px)}.tideSearchRow{grid-template-columns:1fr 1fr}.tideSearchRow label{grid-column:1/-1}.tideControls{grid-template-columns:1fr}.tideFrameWrap{height:61dvh}.catchPhotoGrid{grid-template-columns:1fr 1fr}.seaTideBar span{font-size:10px}}
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V50 · PC·휴대폰 클라우드 동기화</div></div><div class="titleActions"><button id="cloudBadge" class="cloudBadge local" type="button" onclick="showManage()">로컬 저장</button><button class="tool" onclick="showManage()">관리</button></div></div>
+<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V51 · 클라우드 로그인 수정</div></div><div class="titleActions"><button id="cloudBadge" class="cloudBadge local" type="button" onclick="showManage()">로컬 저장</button><button class="tool" onclick="showManage()">관리</button></div></div>
 <div class="tabs"><button id="tabFresh" class="tab on" onclick="setCat('freshwater')">민물</button><button id="tabSea" class="tab" onclick="setCat('sea')">바다</button></div>
 <div id="seaTideBar" class="seaTideBar" hidden><button class="tideMainBtn" type="button" onclick="showTide()">월간 물때표</button><span>바다 전용 · 물때 기준지역 직접 선택</span></div>
 <button id="regionScopeToggle" class="regionScopeToggle" type="button" aria-expanded="false" onclick="toggleRegionPanel()"><span id="regionScopeText" class="scopeText">지역 · 권역</span><span class="scopeChev">▼</span></button>
@@ -522,19 +522,19 @@ html,body{max-width:100%;overflow-x:hidden}
 <div class="cloudSyncStatus"><b id="cloudStatusTitle">로컬 저장 중</b><span id="cloudStatusText">Firebase 설정 후 같은 계정으로 로그인하면 기기 간 자동 공유됩니다.</span></div>
 <div class="cloudGrid">
 <label class="full">Firebase 웹 설정 붙여넣기<textarea id="cloudConfigArea" class="cloudConfigArea" placeholder="Firebase 콘솔의 firebaseConfig 내용을 그대로 붙여넣으세요. databaseURL이 포함되어야 합니다."></textarea></label>
-<button class="tool full" type="button" onclick="saveCloudConfig()">Firebase 설정 저장 · 연결</button>
+<button id="cloudSaveConfigBtn" class="tool full" type="button">Firebase 설정 저장 · 연결</button>
 <label>이메일<input id="cloudEmail" type="email" autocomplete="username" placeholder="동기화 계정 이메일"></label>
 <label>비밀번호<input id="cloudPassword" type="password" autocomplete="current-password" placeholder="비밀번호"></label>
 </div>
-<div class="cloudBtns"><button class="tool" type="button" onclick="cloudSignUp()">계정 만들기</button><button class="tool" type="button" onclick="cloudSignIn()">로그인</button><button class="tool" type="button" onclick="cloudSignOut()">로그아웃</button><button class="tool" type="button" onclick="cloudCheckRemote(true)">클라우드 새로고침</button></div>
-<label class="cloudCheck"><input id="cloudAutoSync" type="checkbox" onchange="setCloudAutoSync(this.checked)">자동 동기화 사용</label>
-<div class="cloudBtns"><button class="tool" type="button" onclick="cloudPushNow(true)">이 기기 자료를 클라우드에 올리기</button><button class="tool" type="button" onclick="cloudPullNow(true)">클라우드 자료를 이 기기로 받기</button></div>
+<div class="cloudBtns"><button id="cloudSignUpBtn" class="tool" type="button">계정 만들기</button><button id="cloudSignInBtn" class="tool" type="button">로그인</button><button id="cloudSignOutBtn" class="tool" type="button">로그아웃</button><button id="cloudRefreshBtn" class="tool" type="button">클라우드 새로고침</button></div>
+<label class="cloudCheck"><input id="cloudAutoSync" type="checkbox">자동 동기화 사용</label>
+<div class="cloudBtns"><button id="cloudPushBtn" class="tool" type="button">이 기기 자료를 클라우드에 올리기</button><button id="cloudPullBtn" class="tool" type="button">클라우드 자료를 이 기기로 받기</button></div>
 <div class="cloudHelp smallNote">포인트·즐겨찾기·메모·방문기록·조과사진을 함께 공유합니다. 인터넷이 끊겨도 현재 기기에는 계속 저장되고, 연결이 돌아오면 다시 동기화합니다. Firebase 최초 설정 방법은 ZIP의 ‘클라우드동기화_설정방법.txt’를 참고하세요.</div>
 </div>
 <button class="tool" onclick="showPatchNotes();manageDlg.close()">패치노트 / 업데이트 내역</button><button class="tool" onclick="exportData()">전체 데이터 백업(JSON)</button><button class="tool" onclick="document.getElementById('importFile').click();manageDlg.close()">백업 파일 복원</button><button class="tool" onclick="if(confirm('직접 추가/수정한 내용을 모두 지우고 최초 상태로 되돌릴까요?')) resetAll()">최초 상태로 복원</button>
 </div><div class="smallNote">주소 좌표 변환은 개인용 저빈도 사용을 전제로 OpenStreetMap Nominatim을 사용하며, 요청은 1초 이상 간격으로 보내고 결과를 브라우저에 저장합니다. © OpenStreetMap contributors.</div><div class="smallNote">V21 현재: 민물은 배스 고정, 바다는 주소의 지역을 기준으로 대상어종을 자동 세팅하며 직접 수정할 수 있습니다.</div><div class="modalBtns"><button class="cancel" onclick="manageDlg.close()">닫기</button><button class="save" onclick="showInstallHelp()">홈 화면 사용법</button></div></div></dialog>
 <dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V49</b><span>현재 설치 버전 · 2026-09-04</span></div><h2>패치노트</h2><div class="patchList">
-<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V50</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>PC·휴대폰 간 Firebase 클라우드 동기화 기능 추가</div><div>같은 이메일 계정으로 로그인하면 포인트·즐겨찾기·메모·방문기록·조과사진 자동 공유</div><div>인터넷 연결 중에는 약 5초 간격으로 다른 기기의 변경사항 자동 확인</div><div>로컬 우선 저장 후 클라우드로 업로드하여 일시적인 오프라인에서도 사용 가능</div><div>클라우드 기존 데이터와 최초 연결 시 덮어쓰기 방지를 위한 선택 확인 추가</div><div>Firebase 사용자 UID별 보안 규칙 구조 지원</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V49</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>낚시 포인트 관리 전용 앱 아이콘 적용</div><div>브라우저 탭 파비콘 추가</div><div>아이폰·아이패드 홈 화면 아이콘 추가</div><div>안드로이드 및 PWA 설치용 192px·512px 아이콘 추가</div><div>웹앱 manifest를 실제 패키지에 추가하고 standalone 실행 설정</div><div>서비스워커 캐시에 아이콘·manifest를 포함하도록 업데이트</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V48</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>월간 물때표에 물때 기준지역 검색창 추가</div><div>당진·태안·안면도·거제 주요 세부 물때지역을 검색 목록에 확대 등록</div><div>지역명 또는 권역명으로 입력 즉시 목록 필터링</div><div>Enter 입력 시 첫 검색결과를 바로 선택하고 물때표 자동 갱신</div><div>검색 초기화 버튼과 검색결과 개수 표시 추가</div><div>목록에 없는 지역은 바다타임 전국 지역검색을 바로 열 수 있도록 추가</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V47</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>민물 천수만 A지구(간월호)·B지구(부남호) 배스 워킹 포인트 추가</div><div>태안 인평지·수룡지·이원호와 서산 대표 배스터를 포함해 총 9곳 추가</div><div>각 포인트에 찾아갈 주소·주차 참고·공략 지형·공개 낚시자료 원문 링크 포함</div><div>현재 낚시금지구역인 풍전저수지와 잠홍저수지는 신규 목록에서 제외</div><div>기존 V46 바다 워킹 포인트·물때표·조과사진 기능 그대로 유지</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V46</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>태안 광어 워킹 포인트 8곳 추가 · 학암포·분점도·구례포·천리포·만리포·꾸지나무골 중심</div><div>당진 방파제뿐 아니라 석축·갯바위·방조제 워킹 포인트 5곳 추가</div><div>10월 거제 출조용 워킹 포인트 7곳 추가 · 무늬오징어 에깅과 연안 루어 중심</div><div>기존 장고항·신진도·구매항 및 기존 거제 5포인트와 중복되지 않도록 선별</div><div>도보 진입·물때 고립·갯바위 미끄럼·항만 통제 등 포인트별 안전 메모 포함</div><div>각 신규 포인트에 공개 낚시자료 원문 링크와 찾아갈 주소 포함</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V45</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>월간 물때표 팝업 최대 폭을 넓혀 조회월과 표 오른쪽이 잘리던 문제 수정</div><div>좁은 화면에서는 물때 기준지역과 조회월을 한 줄씩 배치해 입력영역 잘림 방지</div><div>외부 물때표가 화면보다 넓을 때 자동 축소해 표 전체 폭이 보이도록 개선</div><div>화면 크기 변경 시 물때표 표시 배율을 자동으로 다시 맞춤</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V51</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>Firebase 계정 만들기·로그인 버튼이 반응하지 않던 문제 수정</div><div>외부 Firebase SDK 동적 로딩을 제거하고 공식 REST 인증 방식으로 변경</div><div>클라우드 관련 버튼을 명시적 이벤트 방식으로 다시 연결</div><div>로그인 토큰 자동 갱신 및 로그인 상태 복원 추가</div><div>클라우드동기화_사용법.txt 추가</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V50</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>PC·휴대폰 간 Firebase 클라우드 동기화 기능 추가</div><div>같은 이메일 계정으로 로그인하면 포인트·즐겨찾기·메모·방문기록·조과사진 자동 공유</div><div>인터넷 연결 중에는 약 5초 간격으로 다른 기기의 변경사항 자동 확인</div><div>로컬 우선 저장 후 클라우드로 업로드하여 일시적인 오프라인에서도 사용 가능</div><div>클라우드 기존 데이터와 최초 연결 시 덮어쓰기 방지를 위한 선택 확인 추가</div><div>Firebase 사용자 UID별 보안 규칙 구조 지원</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V49</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>낚시 포인트 관리 전용 앱 아이콘 적용</div><div>브라우저 탭 파비콘 추가</div><div>아이폰·아이패드 홈 화면 아이콘 추가</div><div>안드로이드 및 PWA 설치용 192px·512px 아이콘 추가</div><div>웹앱 manifest를 실제 패키지에 추가하고 standalone 실행 설정</div><div>서비스워커 캐시에 아이콘·manifest를 포함하도록 업데이트</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V48</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>월간 물때표에 물때 기준지역 검색창 추가</div><div>당진·태안·안면도·거제 주요 세부 물때지역을 검색 목록에 확대 등록</div><div>지역명 또는 권역명으로 입력 즉시 목록 필터링</div><div>Enter 입력 시 첫 검색결과를 바로 선택하고 물때표 자동 갱신</div><div>검색 초기화 버튼과 검색결과 개수 표시 추가</div><div>목록에 없는 지역은 바다타임 전국 지역검색을 바로 열 수 있도록 추가</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V47</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>민물 천수만 A지구(간월호)·B지구(부남호) 배스 워킹 포인트 추가</div><div>태안 인평지·수룡지·이원호와 서산 대표 배스터를 포함해 총 9곳 추가</div><div>각 포인트에 찾아갈 주소·주차 참고·공략 지형·공개 낚시자료 원문 링크 포함</div><div>현재 낚시금지구역인 풍전저수지와 잠홍저수지는 신규 목록에서 제외</div><div>기존 V46 바다 워킹 포인트·물때표·조과사진 기능 그대로 유지</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V46</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>태안 광어 워킹 포인트 8곳 추가 · 학암포·분점도·구례포·천리포·만리포·꾸지나무골 중심</div><div>당진 방파제뿐 아니라 석축·갯바위·방조제 워킹 포인트 5곳 추가</div><div>10월 거제 출조용 워킹 포인트 7곳 추가 · 무늬오징어 에깅과 연안 루어 중심</div><div>기존 장고항·신진도·구매항 및 기존 거제 5포인트와 중복되지 않도록 선별</div><div>도보 진입·물때 고립·갯바위 미끄럼·항만 통제 등 포인트별 안전 메모 포함</div><div>각 신규 포인트에 공개 낚시자료 원문 링크와 찾아갈 주소 포함</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V45</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>월간 물때표 팝업 최대 폭을 넓혀 조회월과 표 오른쪽이 잘리던 문제 수정</div><div>좁은 화면에서는 물때 기준지역과 조회월을 한 줄씩 배치해 입력영역 잘림 방지</div><div>외부 물때표가 화면보다 넓을 때 자동 축소해 표 전체 폭이 보이도록 개선</div><div>화면 크기 변경 시 물때표 표시 배율을 자동으로 다시 맞춤</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V44</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>조과사진 추가 시 확대용 사진을 자동 압축해 저장</div><div>목록에는 별도의 작은 썸네일을 사용해 사진이 많아져도 가볍게 표시</div><div>조과사진 원본 데이터는 IndexedDB 사진 저장소로 분리해 기존 localStorage 용량 한계를 크게 완화</div><div>V43에서 이미 저장한 조과사진도 자동으로 새 사진 저장소로 이전</div><div>백업 저장 시 조과사진 원본·썸네일까지 JSON에 포함하고 복원 시 자동 재구성</div><div>조과사진함에서 저장된 사진 수와 대략적인 압축 용량 표시</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V43</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>민물 대호만 기존 고대면 포인트 권역을 ‘대호만 고대면’으로 자동 변경</div><div>바다 전용 월간 물때표 추가 · 물때 기준지역은 포인트 지역과 별도로 직접 선택</div><div>현재 월 자동 설정 및 이전달·이번달·다음달 이동 지원</div><div>민물·바다 공통 조과사진 보관함 추가 · 여러 장 저장/확대/삭제 지원</div><div>기존 방문/조과 입력은 방문 기록으로 단순화하고 조과는 사진으로 분리</div><div>최근 본 포인트 필터 추가</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V42</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>지역 → 권역 → 대상어종 → 낚시방식 4단계 필터 추가</div><div>루어낚시·에깅·원투낚시·찌낚시·구멍치기·카드채비 복수 선택 지원</div><div>모든 포인트 카드에 '추천 낚시방법' 표시</div><div>민물 배스 포인트는 루어낚시 자동 적용</div><div>바다는 대상어종·포인트 특장점·지형 설명을 기준으로 낚시방법 자동 추천</div><div>포인트 추가/수정에서 추천 낚시방법 직접 수정 가능 · 수동값 유지</div><div>마지막 낚시방식 필터도 민물/바다별로 저장·복원</div><div>검색 및 코스 자동정리에도 낚시방식 필터 적용</div><div>기존 중복 topStats 출력과 중복 대상어종 return 코드 정리</div></div></div>
@@ -636,7 +636,7 @@ html,body{max-width:100%;overflow-x:hidden}
 const DEFAULT_POINTS=[{"id":1,"name":"감옥골수로","address":"충남 당진시 고대면 옥현리 1015","course":"A","area":"옥현리","parking":"사진 추후 추가","note":"파란색 주차 · 노란색 진입로 · 빨간색 낚시구역","category":"freshwater","mapImage":"assets/p01_map.webp","parkingImage":"","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":2,"name":"큰골 수로","address":"충남 당진시 고대면 옥현리 1001","course":"A","area":"옥현리","parking":"사진 추후 추가","note":"곶부리 형태 연안 낚시구역","category":"freshwater","mapImage":"assets/p02_map.webp","parkingImage":"","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":3,"name":"딴산삼거리","address":"충남 당진시 고대면 옥현리 830-6","course":"A","area":"옥현리","parking":"사진 추후 추가","note":"대호만 본류 서쪽 연안","category":"freshwater","mapImage":"assets/p03_map.webp","parkingImage":"","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":4,"name":"딴산","address":"충남 당진시 고대면 옥현리 산 209","course":"A","area":"옥현리","parking":"도로 우측 비포장 갓길","note":"곶부리와 좌우 본류 연안","category":"freshwater","mapImage":"assets/p04_map.webp","parkingImage":"assets/p04_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":5,"name":"독창골 수로","address":"충남 당진시 고대면 옥현리 963","course":"A","area":"옥현리","parking":"도로 옆 넓은 비포장 공간","note":"수로 입구와 본류가 만나는 연안","category":"freshwater","mapImage":"assets/p05_map.webp","parkingImage":"assets/p05_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":6,"name":"금산미산 수로","address":"충남 당진시 고대면 당진포리 2116","course":"A","area":"당진포리","parking":"농로 폭 넓어진 구간","note":"수로 입구와 본류가 만나는 연안","category":"freshwater","mapImage":"assets/p06_map.webp","parkingImage":"assets/p06_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":7,"name":"안대산 수로","address":"충남 당진시 고대면 당진포리 2099","course":"A","area":"당진포리","parking":"농로 가장자리 확장 공간","note":"수로 입구 주변","category":"freshwater","mapImage":"assets/p07_map.webp","parkingImage":"assets/p07_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":8,"name":"안쟁이길","address":"충남 당진시 고대면 당진포리 2093","course":"A","area":"당진포리","parking":"전봇대 옆 농로 교차부","note":"대호만 본류 연안","category":"freshwater","mapImage":"assets/p08_map.webp","parkingImage":"assets/p08_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":9,"name":"온동매운탕","address":"충남 당진시 고대면 당진포리 2092","course":"A","area":"당진포리","parking":"콘크리트 도로 가장자리","note":"대호만 본류 서쪽 연안","category":"freshwater","mapImage":"assets/p09_map.webp","parkingImage":"assets/p09_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":10,"name":"감산매운탕","address":"충남 당진시 고대면 당진포리 2084","course":"A","area":"당진포리","parking":"논둑 농로 폭 확보 구간","note":"대호만 본류 직선형 연안","category":"freshwater","mapImage":"assets/p10_map.webp","parkingImage":"assets/p10_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":11,"name":"어선득호","address":"충남 당진시 고대면 당진포리 2080","course":"A","area":"당진포리","parking":"좋음 · 넓은 흙/자갈 공터","note":"대호만 본류 연안","category":"freshwater","mapImage":"assets/p11_map.webp","parkingImage":"assets/p11_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":12,"name":"대호대교 캠핑장","address":"충청남도 당진시 고대면 대호로 953","course":"A","area":"당진포리","parking":"제일 좋음 · 대호대교 아래 넓은 포장공간","note":"대호대교 인근 본류 포인트","start":true,"category":"freshwater","mapImage":"assets/p12_map.webp","parkingImage":"assets/p12_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":13,"name":"석문양수장","address":"충남 당진시 고대면 당진포리 2160-1","course":"A","area":"당진포리","parking":"지도/주차사진 저장","note":"슬로프 포함 · 본류 탐색","category":"freshwater","mapImage":"assets/p13_map.webp","parkingImage":"assets/p13_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":14,"name":"송전탑","address":"충남 당진시 고대면 당진포리 1883-1","course":"A","area":"당진포리","parking":"자갈 농로 주차공간","note":"송전탑 인근 본류 연안","category":"freshwater","mapImage":"assets/p14_map.webp","parkingImage":"assets/p14_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":15,"name":"노적봉","address":"충청남도 당진시 고대면 해창길 114","course":"A","area":"당진포리","parking":"좋음 · 건물 옆 도로 갓길","note":"농막 근거리 본류","category":"freshwater","mapImage":"assets/p15_map.webp","parkingImage":"assets/p15_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":1,"name":"지세포항","address":"경남 거제시 일운면 지세포리 929-76","course":"A","area":"지세포리","parking":"현장 확인","note":"사용자 제공 지도 기준 · 빨간선 낚시구역","category":"sea","mapImage":"assets/sea_jisepo_map.jpg","parkingImage":"","region":"거제","zone":"지세포항","targetSpecies":"우럭, 광어, 볼락, 농어, 감성돔, 참돔, 벵에돔, 고등어, 삼치, 전갱이, 전어, 학공치, 도다리, 노래미, 붕장어, 망상어, 무늬오징어","routeOrder":1,"courseStart":true}];
 const KEY='fishingPointManager_v4', OLD_KEY='fishingPointManager_v3', SETTINGS_KEY='fishingRouteSettings_v4';
 const CATCH_DB_NAME='FishingPointMedia_v1', CATCH_DB_STORE='catchPhotos', CATCH_V44_MIGRATION_KEY='fish_catch_media_v44';
-const CLOUD_CONFIG_KEY='fish_cloud_firebase_config_v50', CLOUD_AUTO_KEY='fish_cloud_auto_v50', CLOUD_LAST_KEY='fish_cloud_last_seen_v50', CLOUD_DIRTY_KEY='fish_cloud_dirty_v50', CLOUD_DEVICE_KEY='fish_cloud_device_v50';
+const CLOUD_CONFIG_KEY='fish_cloud_firebase_config_v50', CLOUD_AUTO_KEY='fish_cloud_auto_v50', CLOUD_LAST_KEY='fish_cloud_last_seen_v50', CLOUD_DIRTY_KEY='fish_cloud_dirty_v50', CLOUD_DEVICE_KEY='fish_cloud_device_v50', CLOUD_AUTH_KEY='fish_cloud_auth_v51';
 let cloudConfig=null, cloudAuth=null, cloudUser=null, cloudAuto=localStorage.getItem(CLOUD_AUTO_KEY)==='1', cloudApplying=false, cloudBooting=true, cloudPushTimer=null, cloudPollTimer=null, cloudBusy=false, cloudLastSeen=0, cloudDirtyAt=Number(localStorage.getItem(CLOUD_DIRTY_KEY)||0)||0, cloudLastError='';
 let cloudDeviceId=localStorage.getItem(CLOUD_DEVICE_KEY)||('dev_'+cryptoRandomId(18));localStorage.setItem(CLOUD_DEVICE_KEY,cloudDeviceId);
 
@@ -1742,49 +1742,89 @@ function renderCloudPanel(){
 }
 async function saveCloudConfig(){
   try{
-    let c=parseFirebaseConfig($('cloudConfigArea').value);localStorage.setItem(CLOUD_CONFIG_KEY,JSON.stringify(c));cloudConfig=c;
-    cloudAuth=null;await initCloudAuth(true);toast('Firebase 설정 저장됨');renderCloudPanel();
-  }catch(e){console.error(e);alert(e.message||'Firebase 설정을 확인해주세요.')}
+    setCloudStatus('Firebase 설정 확인 중','설정값을 저장하고 있습니다.','syncing');
+    let c=parseFirebaseConfig($('cloudConfigArea').value);
+    localStorage.setItem(CLOUD_CONFIG_KEY,JSON.stringify(c));cloudConfig=c;cloudAuth={ready:true};
+    let sess=loadCloudSession();
+    if(sess&&sess.apiKey===c.apiKey&&sess.refreshToken){
+      try{await restoreCloudSession(true)}catch(_){clearCloudSession()}
+    }else if(sess&&sess.apiKey!==c.apiKey){clearCloudSession()}
+    toast('Firebase 설정 저장됨');renderCloudPanel();
+    if(!cloudUser)setCloudStatus('Firebase 설정됨','이제 이메일과 비밀번호를 입력한 뒤 계정 만들기 또는 로그인을 누르세요.','local');
+  }catch(e){console.error(e);setCloudStatus('Firebase 설정 오류',e.message||'설정을 확인해주세요.','error');alert(e.message||'Firebase 설정을 확인해주세요.')}
+}
+function loadCloudSession(){
+  try{return JSON.parse(localStorage.getItem(CLOUD_AUTH_KEY)||'null')}catch(_){return null}
+}
+function saveCloudSession(){
+  if(!cloudUser){localStorage.removeItem(CLOUD_AUTH_KEY);return}
+  localStorage.setItem(CLOUD_AUTH_KEY,JSON.stringify({uid:cloudUser.uid,email:cloudUser.email||'',idToken:cloudUser.idToken||'',refreshToken:cloudUser.refreshToken||'',expiresAt:Number(cloudUser.expiresAt||0),apiKey:cloudConfig?.apiKey||''}));
+}
+function clearCloudSession(){localStorage.removeItem(CLOUD_AUTH_KEY);cloudUser=null;cloudLastSeen=0}
+async function firebaseAuthPost(action,email,password){
+  if(!cloudConfig?.apiKey)throw new Error('먼저 Firebase 설정을 저장해주세요.');
+  let url=`https://identitytoolkit.googleapis.com/v1/accounts:${action}?key=${encodeURIComponent(cloudConfig.apiKey)}`;
+  let r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password,returnSecureToken:true}),cache:'no-store'});
+  let data={};try{data=await r.json()}catch(_){ }
+  if(!r.ok)throw new Error(firebaseRestError(data?.error?.message||`HTTP ${r.status}`));
+  return data;
+}
+function firebaseRestError(msg){
+  let m=String(msg||'');
+  if(m.includes('EMAIL_EXISTS'))return '이미 가입된 이메일입니다. 로그인 버튼을 눌러주세요.';
+  if(m.includes('OPERATION_NOT_ALLOWED'))return 'Firebase Authentication에서 이메일/비밀번호 로그인을 활성화해주세요.';
+  if(m.includes('INVALID_LOGIN_CREDENTIALS')||m.includes('INVALID_PASSWORD')||m.includes('EMAIL_NOT_FOUND'))return '이메일 또는 비밀번호를 확인해주세요.';
+  if(m.includes('WEAK_PASSWORD'))return '비밀번호는 6자 이상으로 입력해주세요.';
+  if(m.includes('TOO_MANY_ATTEMPTS'))return '로그인 시도가 너무 많습니다. 잠시 후 다시 시도해주세요.';
+  if(m.includes('API_KEY_INVALID')||m.includes('API key not valid'))return 'Firebase Web API Key를 확인해주세요.';
+  return m||'Firebase 인증 오류가 발생했습니다.';
+}
+async function refreshCloudToken(force=false){
+  if(!cloudUser?.refreshToken)throw new Error('다시 로그인해주세요.');
+  if(!force&&cloudUser.idToken&&Date.now()<Number(cloudUser.expiresAt||0)-120000)return cloudUser.idToken;
+  let body=new URLSearchParams({grant_type:'refresh_token',refresh_token:cloudUser.refreshToken});
+  let r=await fetch(`https://securetoken.googleapis.com/v1/token?key=${encodeURIComponent(cloudConfig.apiKey)}`,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body,cache:'no-store'});
+  let data={};try{data=await r.json()}catch(_){ }
+  if(!r.ok)throw new Error(firebaseRestError(data?.error?.message||`토큰 갱신 HTTP ${r.status}`));
+  cloudUser={...cloudUser,uid:data.user_id||cloudUser.uid,idToken:data.id_token,refreshToken:data.refresh_token||cloudUser.refreshToken,expiresAt:Date.now()+Math.max(300,Number(data.expires_in||3600))*1000};
+  saveCloudSession();return cloudUser.idToken;
+}
+async function restoreCloudSession(forceRefresh=false){
+  let sess=loadCloudSession();
+  if(!sess||!cloudConfig||sess.apiKey!==cloudConfig.apiKey||!sess.uid||!sess.refreshToken){clearCloudSession();return false}
+  cloudUser={uid:sess.uid,email:sess.email||'',idToken:sess.idToken||'',refreshToken:sess.refreshToken,expiresAt:Number(sess.expiresAt||0)};
+  try{await refreshCloudToken(forceRefresh);cloudLastSeen=Number(localStorage.getItem(cloudSeenKey(cloudUser.uid))||0)||0;renderCloudPanel();startCloudPolling();return true}
+  catch(e){console.warn('클라우드 로그인 복원 실패',e);clearCloudSession();renderCloudPanel();return false}
 }
 async function initCloudAuth(force=false){
-  cloudConfig=cloudConfig||loadCloudConfig();if(!cloudConfig){renderCloudPanel();return false}
-  if(cloudAuth&&!force)return true;
-  try{
-    setCloudStatus('Firebase 연결 중','인증 모듈을 불러오는 중입니다.','syncing');
-    const appMod=await import('https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js');
-    const authMod=await import('https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js');
-    const appName='fishing-sync-v50-'+String(cloudConfig.projectId||cloudConfig.apiKey||'default').replace(/[^a-zA-Z0-9_-]/g,'').slice(-32);
-    let app;
-    try{app=appMod.getApp(appName)}catch(_){app=appMod.initializeApp(cloudConfig,appName)}
-    cloudAuth={...authMod,auth:authMod.getAuth(app)};
-    authMod.setPersistence(cloudAuth.auth,authMod.browserLocalPersistence).catch(()=>{});
-    authMod.onAuthStateChanged(cloudAuth.auth,async u=>{
-      cloudUser=u||null;
-      if(cloudUser)cloudLastSeen=Number(localStorage.getItem(cloudSeenKey(cloudUser.uid))||0)||0;else cloudLastSeen=0;
-      renderCloudPanel();
-      if(cloudUser){startCloudPolling();await cloudFirstConnect()}else stopCloudPolling();
-    });
-    return true;
-  }catch(e){cloudLastError=e.message||String(e);setCloudStatus('Firebase 연결 실패',cloudLastError,'error');return false}
+  cloudConfig=cloudConfig||loadCloudConfig();if(!cloudConfig){renderCloudPanel();if(force)alert('먼저 Firebase 웹 설정을 붙여넣고 설정 저장 · 연결을 눌러주세요.');return false}
+  cloudAuth={ready:true};
+  if(cloudUser)return true;
+  await restoreCloudSession(force);
+  return true;
+}
+async function finishCloudLogin(data){
+  cloudUser={uid:data.localId||data.user_id,email:data.email||$('cloudEmail')?.value.trim()||'',idToken:data.idToken||data.id_token||'',refreshToken:data.refreshToken||data.refresh_token||'',expiresAt:Date.now()+Math.max(300,Number(data.expiresIn||data.expires_in||3600))*1000};
+  if(!cloudUser.uid||!cloudUser.idToken||!cloudUser.refreshToken)throw new Error('Firebase 로그인 응답을 확인할 수 없습니다.');
+  saveCloudSession();cloudLastSeen=Number(localStorage.getItem(cloudSeenKey(cloudUser.uid))||0)||0;
+  $('cloudPassword').value='';cloudAuto=true;localStorage.setItem(CLOUD_AUTO_KEY,'1');renderCloudPanel();startCloudPolling();await cloudFirstConnect();
 }
 async function cloudSignUp(){
-  if(!await initCloudAuth())return;
+  if(!await initCloudAuth(true))return;
   let email=$('cloudEmail').value.trim(),pw=$('cloudPassword').value;if(!email||pw.length<6){alert('이메일과 6자 이상 비밀번호를 입력해주세요.');return}
-  try{setCloudStatus('계정 생성 중','','syncing');await cloudAuth.createUserWithEmailAndPassword(cloudAuth.auth,email,pw);$('cloudPassword').value='';cloudAuto=true;localStorage.setItem(CLOUD_AUTO_KEY,'1');renderCloudPanel();toast('동기화 계정 생성 완료')}
-  catch(e){console.error(e);alert('계정 생성 실패: '+cloudErrorText(e))}
+  try{setCloudStatus('계정 생성 중','Firebase에 계정을 만들고 있습니다.','syncing');let data=await firebaseAuthPost('signUp',email,pw);await finishCloudLogin(data);toast('동기화 계정 생성 완료')}
+  catch(e){console.error(e);setCloudStatus('계정 생성 실패',e.message||'오류','error');alert('계정 생성 실패: '+(e.message||'오류가 발생했습니다.'))}
 }
 async function cloudSignIn(){
-  if(!await initCloudAuth())return;
+  if(!await initCloudAuth(true))return;
   let email=$('cloudEmail').value.trim(),pw=$('cloudPassword').value;if(!email||!pw){alert('이메일과 비밀번호를 입력해주세요.');return}
-  try{setCloudStatus('로그인 중','','syncing');await cloudAuth.signInWithEmailAndPassword(cloudAuth.auth,email,pw);$('cloudPassword').value='';cloudAuto=true;localStorage.setItem(CLOUD_AUTO_KEY,'1');renderCloudPanel();toast('클라우드 로그인 완료')}
-  catch(e){console.error(e);alert('로그인 실패: '+cloudErrorText(e))}
+  try{setCloudStatus('로그인 중','Firebase 계정을 확인하고 있습니다.','syncing');let data=await firebaseAuthPost('signInWithPassword',email,pw);await finishCloudLogin(data);toast('클라우드 로그인 완료')}
+  catch(e){console.error(e);setCloudStatus('로그인 실패',e.message||'오류','error');alert('로그인 실패: '+(e.message||'오류가 발생했습니다.'))}
 }
 async function cloudSignOut(){
-  if(!cloudAuth?.auth)return;try{await cloudAuth.signOut(cloudAuth.auth);cloudUser=null;stopCloudPolling();setCloudStatus('로그아웃됨','현재 기기에는 기존 데이터가 그대로 남아 있습니다.','local');toast('클라우드 로그아웃')}catch(e){}
+  clearCloudSession();stopCloudPolling();setCloudStatus('로그아웃됨','현재 기기에는 기존 데이터가 그대로 남아 있습니다.','local');renderCloudPanel();toast('클라우드 로그아웃');
 }
-function cloudErrorText(e){
-  let c=String(e?.code||'');if(c.includes('invalid-credential')||c.includes('wrong-password'))return '이메일 또는 비밀번호를 확인해주세요.';if(c.includes('email-already-in-use'))return '이미 가입된 이메일입니다.';if(c.includes('operation-not-allowed'))return 'Firebase Authentication에서 이메일/비밀번호 로그인을 활성화해주세요.';return e?.message||'오류가 발생했습니다.';
-}
+function cloudErrorText(e){return e?.message||'오류가 발생했습니다.'}
 function setCloudAutoSync(v){
   cloudAuto=!!v;localStorage.setItem(CLOUD_AUTO_KEY,cloudAuto?'1':'0');renderCloudPanel();if(cloudAuto&&cloudUser){startCloudPolling();scheduleCloudSync()}else if(!cloudAuto)stopCloudPolling();
 }
@@ -1792,7 +1832,18 @@ function scheduleCloudSync(){
   if(!cloudAuto||!cloudUser||cloudApplying)return;clearTimeout(cloudPushTimer);cloudPushTimer=setTimeout(()=>cloudPushNow(false),1800);
 }
 async function cloudToken(){
-  if(!cloudUser)return null;return await cloudUser.getIdToken();
+  if(!cloudUser)return null;return await refreshCloudToken(false);
+}
+function wireCloudControls(){
+  const on=(id,fn)=>{let el=$(id);if(el&&!el.dataset.bound){el.addEventListener('click',fn);el.dataset.bound='1'}};
+  on('cloudSaveConfigBtn',()=>saveCloudConfig());
+  on('cloudSignUpBtn',()=>cloudSignUp());
+  on('cloudSignInBtn',()=>cloudSignIn());
+  on('cloudSignOutBtn',()=>cloudSignOut());
+  on('cloudRefreshBtn',()=>cloudCheckRemote(true));
+  on('cloudPushBtn',()=>cloudPushNow(true));
+  on('cloudPullBtn',()=>cloudPullNow(true));
+  let chk=$('cloudAutoSync');if(chk&&!chk.dataset.bound){chk.addEventListener('change',()=>setCloudAutoSync(chk.checked));chk.dataset.bound='1'}
 }
 function cloudPath(){
   return `${cloudConfig.databaseURL}/users/${encodeURIComponent(cloudUser.uid)}/fishing.json`;
@@ -1833,7 +1884,7 @@ async function cloudPushNow(manual=false){
   if(cloudBusy&&!manual)return;
   try{
     cloudBusy=true;setCloudStatus('클라우드로 저장 중','포인트와 조과사진을 업로드하고 있습니다.','syncing');
-    let data=await buildPortableData(),updatedAt=Date.now(),env={meta:{updatedAt,deviceId:cloudDeviceId,appVersion:50,email:cloudUser.email||''},data};
+    let data=await buildPortableData(),updatedAt=Date.now(),env={meta:{updatedAt,deviceId:cloudDeviceId,appVersion:51,email:cloudUser.email||''},data};
     let approx=new Blob([JSON.stringify(env)]).size;
     if(approx>220*1024*1024)throw new Error('클라우드 데이터가 220MB를 넘어 한 번에 동기화할 수 없습니다. 조과사진을 일부 정리해주세요.');
     await cloudRequest('PUT',env);cloudLastSeen=updatedAt;localStorage.setItem(cloudSeenKey(),String(updatedAt));clearCloudDirty();
@@ -2355,5 +2406,5 @@ async function buildMissingGeojeMaps(){
 ensureV22Settings();
 ensureV23Settings();
 
-migrateV20Defaults();migrateV24GeojePoints();migrateGeojeFeaturesV39();migrateDaehoGodaeV43();migrateRouteFixV33();migrateV34SeaPoints();migrateV46WalkSeaPoints();migrateV47FreshBassPoints();migrateClassifications();migrateUniquePointKeysV41();migrateFishingMethodsV42();persist(true);restoreLastUiState();render();renderStartSummary();updateSeaOnlyUi();initControlPanel();applyRegionPanelState();initPatchBadge();installDialogUX();migrateCatchPhotosV44().then(()=>render()).catch(e=>console.warn('조과사진 저장소 이전 실패',e));cloudBooting=false;cloudConfig=loadCloudConfig();renderCloudPanel();if(cloudConfig)initCloudAuth(false);if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').then(r=>r.update()).catch(()=>{});
+migrateV20Defaults();migrateV24GeojePoints();migrateGeojeFeaturesV39();migrateDaehoGodaeV43();migrateRouteFixV33();migrateV34SeaPoints();migrateV46WalkSeaPoints();migrateV47FreshBassPoints();migrateClassifications();migrateUniquePointKeysV41();migrateFishingMethodsV42();persist(true);restoreLastUiState();render();renderStartSummary();updateSeaOnlyUi();initControlPanel();applyRegionPanelState();initPatchBadge();installDialogUX();migrateCatchPhotosV44().then(()=>render()).catch(e=>console.warn('조과사진 저장소 이전 실패',e));cloudBooting=false;cloudConfig=loadCloudConfig();wireCloudControls();renderCloudPanel();if(cloudConfig)initCloudAuth(false);if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').then(r=>r.update()).catch(()=>{});
 </script></body></html>
