@@ -24,6 +24,29 @@ button,input,select,textarea{font:inherit}.wrap{max-width:760px;margin:auto;padd
 .fab{position:fixed;right:18px;bottom:20px;z-index:40;border:0;background:#0d63cc;color:#fff;border-radius:999px;padding:14px 18px;font-weight:900;box-shadow:0 6px 18px #0004}
 .empty{background:#fff;border:1px dashed #bbc2ca;border-radius:14px;padding:25px;text-align:center;color:var(--muted)}
 dialog{width:min(94vw,620px);border:0;border-radius:18px;padding:0;box-shadow:0 20px 70px #0006}dialog::backdrop{background:#0008}.modal{padding:16px}.modal h2{margin:0 0 12px}.grid{display:grid;gap:10px}.grid label{font-size:12px;color:var(--muted);font-weight:700}.grid input,.grid select,.grid textarea{width:100%;border:1px solid #ccd2d8;border-radius:10px;padding:11px;margin-top:4px;background:#fff}.grid textarea{min-height:74px;resize:vertical}.modalBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.modalBtns button{border:0;border-radius:11px;padding:12px;font-weight:800}.save{background:#0d63cc;color:#fff}.cancel{background:#edf0f3}.toast{position:fixed;left:50%;bottom:82px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 14px;border-radius:10px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;z-index:99}.toast.show{opacity:1}.photoHint{font-size:11px;color:var(--muted);margin-top:4px}.autoStatus{display:none;margin:10px 0;padding:11px 12px;border-radius:12px;background:#fff7d6;border:1px solid #ead27b;font-size:13px;line-height:1.45}.autoStatus.show{display:block}.courseInfo{font-size:12px;opacity:.92;margin-top:4px}.addr{cursor:pointer;text-decoration:underline;text-decoration-color:#c8d4e3;text-underline-offset:3px}.manageBox{border:1px solid #d8dee5;border-radius:14px;padding:12px;background:#f8fafb}.manageBox h3{margin:0 0 8px;font-size:15px}.smallNote{font-size:11px;color:var(--muted);line-height:1.45;margin-top:6px}
+.titleActions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.cloudBadge{border:1px solid #cbd5e1;background:#f8fafc;color:#475569;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:900;white-space:nowrap}
+.cloudBadge.on{background:#e9f9ef;border-color:#89c99d;color:#17632f}
+.cloudBadge.syncing{background:#fff7d6;border-color:#e1c85f;color:#735d00}
+.cloudBadge.error{background:#fff0f0;border-color:#e6a3a3;color:#9b2525}
+.cloudSyncBox{background:#f5f9ff;border-color:#cfdff2}
+.cloudSyncStatus{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #d7e0ea;border-radius:11px;padding:10px 11px;background:#fff;margin-bottom:10px}
+.cloudSyncStatus b{font-size:13px}.cloudSyncStatus span{font-size:11px;color:var(--muted);text-align:right}
+.cloudGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cloudGrid .full{grid-column:1/-1}
+.cloudBtns{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
+.cloudBtns button{min-width:0}
+.cloudConfigArea{min-height:100px!important;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px!important}
+.cloudCheck{display:flex!important;align-items:center;gap:7px;margin-top:8px;color:#334155!important}
+.cloudCheck input{width:auto!important;margin:0!important}
+.cloudHelp{padding:8px 9px;background:#fff;border:1px solid #e2e8f0;border-radius:9px;margin-top:8px}
+@media(max-width:520px){
+ .titleActions{gap:5px}.cloudBadge{padding:7px 9px;font-size:10px}
+ .cloudGrid,.cloudBtns{grid-template-columns:1fr}
+ .cloudGrid .full{grid-column:auto}
+ .cloudSyncStatus{align-items:flex-start;flex-direction:column}.cloudSyncStatus span{text-align:left}
+}
+
 
 .searchBox{margin-top:8px;display:flex;gap:7px}.searchBox input{flex:1;min-width:0;border:1px solid var(--line);background:#fff;border-radius:11px;padding:10px 12px;font-size:14px}.quickFilters{display:flex;gap:6px;margin-top:7px;overflow:auto;padding-bottom:1px}.qf{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800}.qf.on{background:#263445;color:#fff;border-color:#263445}.sectionTop{display:flex;justify-content:space-between;align-items:center;gap:8px}.courseStart{border:1px solid #ffffff66;background:#ffffff18;color:#fff;border-radius:10px;padding:8px 10px;font-weight:900;font-size:12px;white-space:nowrap}.starBtn{margin-left:auto;border:0;background:transparent;font-size:25px;line-height:1;padding:0 2px;color:#aab2bc}.starBtn.on{color:#f1b900}.distance{display:inline-block;margin-top:5px;background:#eef5ff;color:#145ba6;border-radius:99px;padding:3px 7px;font-size:11px;font-weight:800}.logSummary{display:inline-block;margin-top:5px;margin-left:4px;background:#edf8ef;color:#26723a;border-radius:99px;padding:3px 7px;font-size:11px;font-weight:800}.routeBar{display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:10px;width:min(calc(100% - 18px),742px);z-index:55;background:#101827;color:#fff;border-radius:16px;padding:10px;box-shadow:0 7px 25px #0007}.routeBar.show{display:block}.routeTitle{font-size:13px;font-weight:900;margin-bottom:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.routeBtns{display:grid;grid-template-columns:.8fr 1.2fr .8fr .7fr;gap:6px}.routeBtns button{border:0;border-radius:9px;padding:9px 4px;font-weight:800}.routeOpen{background:#1871d8;color:#fff}.routeNav{background:#e9edf2;color:#17202b}.routeStop{background:#4a5360;color:#fff}.miniCount{font-size:11px;opacity:.8;margin-left:5px}.logList{display:grid;gap:7px;margin-top:8px}.logItem{border:1px solid #dde3e8;border-radius:10px;padding:9px;background:#f8fafb;font-size:12px;line-height:1.5}.logItem b{font-size:13px}.warn{background:#fff3cd;border:1px solid #efd17a;border-radius:10px;padding:9px;font-size:12px;line-height:1.45}.topStats{font-size:11px;color:var(--muted);margin-top:6px}.head .row>div:nth-child(2){min-width:0;flex:1}
 
@@ -428,7 +451,7 @@ html,body{max-width:100%;overflow-x:hidden}
 @media(max-width:760px){#tideDlg{width:calc(100vw - 12px)}.tideSearchRow{grid-template-columns:1fr 1fr}.tideSearchRow label{grid-column:1/-1}.tideControls{grid-template-columns:1fr}.tideFrameWrap{height:61dvh}.catchPhotoGrid{grid-template-columns:1fr 1fr}.seaTideBar span{font-size:10px}}
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V49 · 전용 앱 아이콘 적용</div></div><button class="tool" onclick="showManage()">관리</button></div>
+<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V50 · PC·휴대폰 클라우드 동기화</div></div><div class="titleActions"><button id="cloudBadge" class="cloudBadge local" type="button" onclick="showManage()">로컬 저장</button><button class="tool" onclick="showManage()">관리</button></div></div>
 <div class="tabs"><button id="tabFresh" class="tab on" onclick="setCat('freshwater')">민물</button><button id="tabSea" class="tab" onclick="setCat('sea')">바다</button></div>
 <div id="seaTideBar" class="seaTideBar" hidden><button class="tideMainBtn" type="button" onclick="showTide()">월간 물때표</button><span>바다 전용 · 물때 기준지역 직접 선택</span></div>
 <button id="regionScopeToggle" class="regionScopeToggle" type="button" aria-expanded="false" onclick="toggleRegionPanel()"><span id="regionScopeText" class="scopeText">지역 · 권역</span><span class="scopeChev">▼</span></button>
@@ -447,7 +470,7 @@ html,body{max-width:100%;overflow-x:hidden}
 </div>
 <button id="controlToggle" class="controlToggle" type="button" aria-expanded="false" onclick="toggleControlPanel()"><span>도구 메뉴 펼치기</span><span class="chev">▼</span></button>
 <div id="controlPanel" class="controlPanel">
-<div class="tools"><button id="patchBtn" class="tool patchBtn" onclick="showPatchNotes()">패치노트</button><button class="tool" onclick="showCafeImport()">카페 링크 추가</button><button class="tool" onclick="exportData()">백업 저장</button><button class="tool" onclick="document.getElementById('importFile').click()">백업 복원</button><input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)"><button class="tool" onclick="showAllPointsMap()">전체 지도</button><button class="tool" onclick="locateMe()">내 위치 거리</button><button class="tool" onclick="scrollToTop()">맨 위</button></div>
+<div class="tools"><button id="patchBtn" class="tool patchBtn" onclick="showPatchNotes()">패치노트</button><button class="tool" onclick="showCafeImport()">카페 링크 추가</button><button id="cloudToolBtn" class="tool" onclick="showManage();setTimeout(()=>document.getElementById('cloudConfigArea')?.scrollIntoView({behavior:'smooth',block:'center'}),120)">클라우드 동기화</button><button class="tool" onclick="exportData()">백업 저장</button><button class="tool" onclick="document.getElementById('importFile').click()">백업 복원</button><input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)"><button class="tool" onclick="showAllPointsMap()">전체 지도</button><button class="tool" onclick="locateMe()">내 위치 거리</button><button class="tool" onclick="scrollToTop()">맨 위</button></div>
 </div></div>
 <div id="autoStatus" class="autoStatus"></div><div id="courseDisplayControl" class="courseDisplayControl"><button id="courseDisplayBtn" class="courseDisplayBtn" type="button" onclick="toggleCourseInfoDisplay()"><span id="courseDisplayLabel">전체 코스 정보 접기</span><span id="courseDisplayArrow" aria-hidden="true">▲</span></button><div id="courseInfoTools" class="courseInfoTools"><button type="button" onclick="showStartChooser()">출발지 변경</button><button type="button" onclick="autoRebuildCurrent()">코스 자동정리</button><button type="button" onclick="showCourseMap()">코스 지도</button></div></div><div id="courseNav" class="courseNav"></div><div id="list"></div></div>
 <button class="fab" onclick="openForm()">+ 포인트 추가</button><div id="toast" class="toast"></div>
@@ -495,10 +518,23 @@ html,body{max-width:100%;overflow-x:hidden}
 <button class="tool" onclick="saveRouteSettings()">자동 코스 설정 저장</button>
 <button class="tool" onclick="autoRebuildCurrent(true)">현재 카테고리 전체 코스 자동 재구성</button>
 <div class="smallNote">출발지(민물 기본값: 농막)에서 실제 도로 주행거리 기준으로 가장 가까운 포인트를 먼저 찾고, 그 지점에서 다음으로 가까운 포인트를 이어 코스를 만듭니다. 도로거리 계산이 일시적으로 실패하면 직선거리 방식으로 자동 대체됩니다.</div></div>
+<div class="manageBox cloudSyncBox"><h3>PC · 휴대폰 클라우드 동기화</h3>
+<div class="cloudSyncStatus"><b id="cloudStatusTitle">로컬 저장 중</b><span id="cloudStatusText">Firebase 설정 후 같은 계정으로 로그인하면 기기 간 자동 공유됩니다.</span></div>
+<div class="cloudGrid">
+<label class="full">Firebase 웹 설정 붙여넣기<textarea id="cloudConfigArea" class="cloudConfigArea" placeholder="Firebase 콘솔의 firebaseConfig 내용을 그대로 붙여넣으세요. databaseURL이 포함되어야 합니다."></textarea></label>
+<button class="tool full" type="button" onclick="saveCloudConfig()">Firebase 설정 저장 · 연결</button>
+<label>이메일<input id="cloudEmail" type="email" autocomplete="username" placeholder="동기화 계정 이메일"></label>
+<label>비밀번호<input id="cloudPassword" type="password" autocomplete="current-password" placeholder="비밀번호"></label>
+</div>
+<div class="cloudBtns"><button class="tool" type="button" onclick="cloudSignUp()">계정 만들기</button><button class="tool" type="button" onclick="cloudSignIn()">로그인</button><button class="tool" type="button" onclick="cloudSignOut()">로그아웃</button><button class="tool" type="button" onclick="cloudCheckRemote(true)">클라우드 새로고침</button></div>
+<label class="cloudCheck"><input id="cloudAutoSync" type="checkbox" onchange="setCloudAutoSync(this.checked)">자동 동기화 사용</label>
+<div class="cloudBtns"><button class="tool" type="button" onclick="cloudPushNow(true)">이 기기 자료를 클라우드에 올리기</button><button class="tool" type="button" onclick="cloudPullNow(true)">클라우드 자료를 이 기기로 받기</button></div>
+<div class="cloudHelp smallNote">포인트·즐겨찾기·메모·방문기록·조과사진을 함께 공유합니다. 인터넷이 끊겨도 현재 기기에는 계속 저장되고, 연결이 돌아오면 다시 동기화합니다. Firebase 최초 설정 방법은 ZIP의 ‘클라우드동기화_설정방법.txt’를 참고하세요.</div>
+</div>
 <button class="tool" onclick="showPatchNotes();manageDlg.close()">패치노트 / 업데이트 내역</button><button class="tool" onclick="exportData()">전체 데이터 백업(JSON)</button><button class="tool" onclick="document.getElementById('importFile').click();manageDlg.close()">백업 파일 복원</button><button class="tool" onclick="if(confirm('직접 추가/수정한 내용을 모두 지우고 최초 상태로 되돌릴까요?')) resetAll()">최초 상태로 복원</button>
 </div><div class="smallNote">주소 좌표 변환은 개인용 저빈도 사용을 전제로 OpenStreetMap Nominatim을 사용하며, 요청은 1초 이상 간격으로 보내고 결과를 브라우저에 저장합니다. © OpenStreetMap contributors.</div><div class="smallNote">V21 현재: 민물은 배스 고정, 바다는 주소의 지역을 기준으로 대상어종을 자동 세팅하며 직접 수정할 수 있습니다.</div><div class="modalBtns"><button class="cancel" onclick="manageDlg.close()">닫기</button><button class="save" onclick="showInstallHelp()">홈 화면 사용법</button></div></div></dialog>
 <dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V49</b><span>현재 설치 버전 · 2026-09-04</span></div><h2>패치노트</h2><div class="patchList">
-<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V49</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>낚시 포인트 관리 전용 앱 아이콘 적용</div><div>브라우저 탭 파비콘 추가</div><div>아이폰·아이패드 홈 화면 아이콘 추가</div><div>안드로이드 및 PWA 설치용 192px·512px 아이콘 추가</div><div>웹앱 manifest를 실제 패키지에 추가하고 standalone 실행 설정</div><div>서비스워커 캐시에 아이콘·manifest를 포함하도록 업데이트</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V48</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>월간 물때표에 물때 기준지역 검색창 추가</div><div>당진·태안·안면도·거제 주요 세부 물때지역을 검색 목록에 확대 등록</div><div>지역명 또는 권역명으로 입력 즉시 목록 필터링</div><div>Enter 입력 시 첫 검색결과를 바로 선택하고 물때표 자동 갱신</div><div>검색 초기화 버튼과 검색결과 개수 표시 추가</div><div>목록에 없는 지역은 바다타임 전국 지역검색을 바로 열 수 있도록 추가</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V47</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>민물 천수만 A지구(간월호)·B지구(부남호) 배스 워킹 포인트 추가</div><div>태안 인평지·수룡지·이원호와 서산 대표 배스터를 포함해 총 9곳 추가</div><div>각 포인트에 찾아갈 주소·주차 참고·공략 지형·공개 낚시자료 원문 링크 포함</div><div>현재 낚시금지구역인 풍전저수지와 잠홍저수지는 신규 목록에서 제외</div><div>기존 V46 바다 워킹 포인트·물때표·조과사진 기능 그대로 유지</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V46</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>태안 광어 워킹 포인트 8곳 추가 · 학암포·분점도·구례포·천리포·만리포·꾸지나무골 중심</div><div>당진 방파제뿐 아니라 석축·갯바위·방조제 워킹 포인트 5곳 추가</div><div>10월 거제 출조용 워킹 포인트 7곳 추가 · 무늬오징어 에깅과 연안 루어 중심</div><div>기존 장고항·신진도·구매항 및 기존 거제 5포인트와 중복되지 않도록 선별</div><div>도보 진입·물때 고립·갯바위 미끄럼·항만 통제 등 포인트별 안전 메모 포함</div><div>각 신규 포인트에 공개 낚시자료 원문 링크와 찾아갈 주소 포함</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V45</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>월간 물때표 팝업 최대 폭을 넓혀 조회월과 표 오른쪽이 잘리던 문제 수정</div><div>좁은 화면에서는 물때 기준지역과 조회월을 한 줄씩 배치해 입력영역 잘림 방지</div><div>외부 물때표가 화면보다 넓을 때 자동 축소해 표 전체 폭이 보이도록 개선</div><div>화면 크기 변경 시 물때표 표시 배율을 자동으로 다시 맞춤</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V50</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>PC·휴대폰 간 Firebase 클라우드 동기화 기능 추가</div><div>같은 이메일 계정으로 로그인하면 포인트·즐겨찾기·메모·방문기록·조과사진 자동 공유</div><div>인터넷 연결 중에는 약 5초 간격으로 다른 기기의 변경사항 자동 확인</div><div>로컬 우선 저장 후 클라우드로 업로드하여 일시적인 오프라인에서도 사용 가능</div><div>클라우드 기존 데이터와 최초 연결 시 덮어쓰기 방지를 위한 선택 확인 추가</div><div>Firebase 사용자 UID별 보안 규칙 구조 지원</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V49</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>낚시 포인트 관리 전용 앱 아이콘 적용</div><div>브라우저 탭 파비콘 추가</div><div>아이폰·아이패드 홈 화면 아이콘 추가</div><div>안드로이드 및 PWA 설치용 192px·512px 아이콘 추가</div><div>웹앱 manifest를 실제 패키지에 추가하고 standalone 실행 설정</div><div>서비스워커 캐시에 아이콘·manifest를 포함하도록 업데이트</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V48</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>월간 물때표에 물때 기준지역 검색창 추가</div><div>당진·태안·안면도·거제 주요 세부 물때지역을 검색 목록에 확대 등록</div><div>지역명 또는 권역명으로 입력 즉시 목록 필터링</div><div>Enter 입력 시 첫 검색결과를 바로 선택하고 물때표 자동 갱신</div><div>검색 초기화 버튼과 검색결과 개수 표시 추가</div><div>목록에 없는 지역은 바다타임 전국 지역검색을 바로 열 수 있도록 추가</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V47</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>민물 천수만 A지구(간월호)·B지구(부남호) 배스 워킹 포인트 추가</div><div>태안 인평지·수룡지·이원호와 서산 대표 배스터를 포함해 총 9곳 추가</div><div>각 포인트에 찾아갈 주소·주차 참고·공략 지형·공개 낚시자료 원문 링크 포함</div><div>현재 낚시금지구역인 풍전저수지와 잠홍저수지는 신규 목록에서 제외</div><div>기존 V46 바다 워킹 포인트·물때표·조과사진 기능 그대로 유지</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V46</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>태안 광어 워킹 포인트 8곳 추가 · 학암포·분점도·구례포·천리포·만리포·꾸지나무골 중심</div><div>당진 방파제뿐 아니라 석축·갯바위·방조제 워킹 포인트 5곳 추가</div><div>10월 거제 출조용 워킹 포인트 7곳 추가 · 무늬오징어 에깅과 연안 루어 중심</div><div>기존 장고항·신진도·구매항 및 기존 거제 5포인트와 중복되지 않도록 선별</div><div>도보 진입·물때 고립·갯바위 미끄럼·항만 통제 등 포인트별 안전 메모 포함</div><div>각 신규 포인트에 공개 낚시자료 원문 링크와 찾아갈 주소 포함</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V45</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>월간 물때표 팝업 최대 폭을 넓혀 조회월과 표 오른쪽이 잘리던 문제 수정</div><div>좁은 화면에서는 물때 기준지역과 조회월을 한 줄씩 배치해 입력영역 잘림 방지</div><div>외부 물때표가 화면보다 넓을 때 자동 축소해 표 전체 폭이 보이도록 개선</div><div>화면 크기 변경 시 물때표 표시 배율을 자동으로 다시 맞춤</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V44</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>조과사진 추가 시 확대용 사진을 자동 압축해 저장</div><div>목록에는 별도의 작은 썸네일을 사용해 사진이 많아져도 가볍게 표시</div><div>조과사진 원본 데이터는 IndexedDB 사진 저장소로 분리해 기존 localStorage 용량 한계를 크게 완화</div><div>V43에서 이미 저장한 조과사진도 자동으로 새 사진 저장소로 이전</div><div>백업 저장 시 조과사진 원본·썸네일까지 JSON에 포함하고 복원 시 자동 재구성</div><div>조과사진함에서 저장된 사진 수와 대략적인 압축 용량 표시</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V43</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>민물 대호만 기존 고대면 포인트 권역을 ‘대호만 고대면’으로 자동 변경</div><div>바다 전용 월간 물때표 추가 · 물때 기준지역은 포인트 지역과 별도로 직접 선택</div><div>현재 월 자동 설정 및 이전달·이번달·다음달 이동 지원</div><div>민물·바다 공통 조과사진 보관함 추가 · 여러 장 저장/확대/삭제 지원</div><div>기존 방문/조과 입력은 방문 기록으로 단순화하고 조과는 사진으로 분리</div><div>최근 본 포인트 필터 추가</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V42</span></div><span class="patchDate">2026-09-03</span></div><div class="patchChanges"><div>지역 → 권역 → 대상어종 → 낚시방식 4단계 필터 추가</div><div>루어낚시·에깅·원투낚시·찌낚시·구멍치기·카드채비 복수 선택 지원</div><div>모든 포인트 카드에 '추천 낚시방법' 표시</div><div>민물 배스 포인트는 루어낚시 자동 적용</div><div>바다는 대상어종·포인트 특장점·지형 설명을 기준으로 낚시방법 자동 추천</div><div>포인트 추가/수정에서 추천 낚시방법 직접 수정 가능 · 수동값 유지</div><div>마지막 낚시방식 필터도 민물/바다별로 저장·복원</div><div>검색 및 코스 자동정리에도 낚시방식 필터 적용</div><div>기존 중복 topStats 출력과 중복 대상어종 return 코드 정리</div></div></div>
@@ -600,6 +636,10 @@ html,body{max-width:100%;overflow-x:hidden}
 const DEFAULT_POINTS=[{"id":1,"name":"감옥골수로","address":"충남 당진시 고대면 옥현리 1015","course":"A","area":"옥현리","parking":"사진 추후 추가","note":"파란색 주차 · 노란색 진입로 · 빨간색 낚시구역","category":"freshwater","mapImage":"assets/p01_map.webp","parkingImage":"","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":2,"name":"큰골 수로","address":"충남 당진시 고대면 옥현리 1001","course":"A","area":"옥현리","parking":"사진 추후 추가","note":"곶부리 형태 연안 낚시구역","category":"freshwater","mapImage":"assets/p02_map.webp","parkingImage":"","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":3,"name":"딴산삼거리","address":"충남 당진시 고대면 옥현리 830-6","course":"A","area":"옥현리","parking":"사진 추후 추가","note":"대호만 본류 서쪽 연안","category":"freshwater","mapImage":"assets/p03_map.webp","parkingImage":"","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":4,"name":"딴산","address":"충남 당진시 고대면 옥현리 산 209","course":"A","area":"옥현리","parking":"도로 우측 비포장 갓길","note":"곶부리와 좌우 본류 연안","category":"freshwater","mapImage":"assets/p04_map.webp","parkingImage":"assets/p04_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":5,"name":"독창골 수로","address":"충남 당진시 고대면 옥현리 963","course":"A","area":"옥현리","parking":"도로 옆 넓은 비포장 공간","note":"수로 입구와 본류가 만나는 연안","category":"freshwater","mapImage":"assets/p05_map.webp","parkingImage":"assets/p05_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":6,"name":"금산미산 수로","address":"충남 당진시 고대면 당진포리 2116","course":"A","area":"당진포리","parking":"농로 폭 넓어진 구간","note":"수로 입구와 본류가 만나는 연안","category":"freshwater","mapImage":"assets/p06_map.webp","parkingImage":"assets/p06_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":7,"name":"안대산 수로","address":"충남 당진시 고대면 당진포리 2099","course":"A","area":"당진포리","parking":"농로 가장자리 확장 공간","note":"수로 입구 주변","category":"freshwater","mapImage":"assets/p07_map.webp","parkingImage":"assets/p07_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":8,"name":"안쟁이길","address":"충남 당진시 고대면 당진포리 2093","course":"A","area":"당진포리","parking":"전봇대 옆 농로 교차부","note":"대호만 본류 연안","category":"freshwater","mapImage":"assets/p08_map.webp","parkingImage":"assets/p08_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":9,"name":"온동매운탕","address":"충남 당진시 고대면 당진포리 2092","course":"A","area":"당진포리","parking":"콘크리트 도로 가장자리","note":"대호만 본류 서쪽 연안","category":"freshwater","mapImage":"assets/p09_map.webp","parkingImage":"assets/p09_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":10,"name":"감산매운탕","address":"충남 당진시 고대면 당진포리 2084","course":"A","area":"당진포리","parking":"논둑 농로 폭 확보 구간","note":"대호만 본류 직선형 연안","category":"freshwater","mapImage":"assets/p10_map.webp","parkingImage":"assets/p10_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":11,"name":"어선득호","address":"충남 당진시 고대면 당진포리 2080","course":"A","area":"당진포리","parking":"좋음 · 넓은 흙/자갈 공터","note":"대호만 본류 연안","category":"freshwater","mapImage":"assets/p11_map.webp","parkingImage":"assets/p11_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":12,"name":"대호대교 캠핑장","address":"충청남도 당진시 고대면 대호로 953","course":"A","area":"당진포리","parking":"제일 좋음 · 대호대교 아래 넓은 포장공간","note":"대호대교 인근 본류 포인트","start":true,"category":"freshwater","mapImage":"assets/p12_map.webp","parkingImage":"assets/p12_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":13,"name":"석문양수장","address":"충남 당진시 고대면 당진포리 2160-1","course":"A","area":"당진포리","parking":"지도/주차사진 저장","note":"슬로프 포함 · 본류 탐색","category":"freshwater","mapImage":"assets/p13_map.webp","parkingImage":"assets/p13_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":14,"name":"송전탑","address":"충남 당진시 고대면 당진포리 1883-1","course":"A","area":"당진포리","parking":"자갈 농로 주차공간","note":"송전탑 인근 본류 연안","category":"freshwater","mapImage":"assets/p14_map.webp","parkingImage":"assets/p14_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":15,"name":"노적봉","address":"충청남도 당진시 고대면 해창길 114","course":"A","area":"당진포리","parking":"좋음 · 건물 옆 도로 갓길","note":"농막 근거리 본류","category":"freshwater","mapImage":"assets/p15_map.webp","parkingImage":"assets/p15_parking.webp","region":"당진","zone":"대호만 고대면","targetSpecies":"배스"},{"id":1,"name":"지세포항","address":"경남 거제시 일운면 지세포리 929-76","course":"A","area":"지세포리","parking":"현장 확인","note":"사용자 제공 지도 기준 · 빨간선 낚시구역","category":"sea","mapImage":"assets/sea_jisepo_map.jpg","parkingImage":"","region":"거제","zone":"지세포항","targetSpecies":"우럭, 광어, 볼락, 농어, 감성돔, 참돔, 벵에돔, 고등어, 삼치, 전갱이, 전어, 학공치, 도다리, 노래미, 붕장어, 망상어, 무늬오징어","routeOrder":1,"courseStart":true}];
 const KEY='fishingPointManager_v4', OLD_KEY='fishingPointManager_v3', SETTINGS_KEY='fishingRouteSettings_v4';
 const CATCH_DB_NAME='FishingPointMedia_v1', CATCH_DB_STORE='catchPhotos', CATCH_V44_MIGRATION_KEY='fish_catch_media_v44';
+const CLOUD_CONFIG_KEY='fish_cloud_firebase_config_v50', CLOUD_AUTO_KEY='fish_cloud_auto_v50', CLOUD_LAST_KEY='fish_cloud_last_seen_v50', CLOUD_DIRTY_KEY='fish_cloud_dirty_v50', CLOUD_DEVICE_KEY='fish_cloud_device_v50';
+let cloudConfig=null, cloudAuth=null, cloudUser=null, cloudAuto=localStorage.getItem(CLOUD_AUTO_KEY)==='1', cloudApplying=false, cloudBooting=true, cloudPushTimer=null, cloudPollTimer=null, cloudBusy=false, cloudLastSeen=0, cloudDirtyAt=Number(localStorage.getItem(CLOUD_DIRTY_KEY)||0)||0, cloudLastError='';
+let cloudDeviceId=localStorage.getItem(CLOUD_DEVICE_KEY)||('dev_'+cryptoRandomId(18));localStorage.setItem(CLOUD_DEVICE_KEY,cloudDeviceId);
+
 let currentCat='freshwater', editKey=null, logKey=null, catchPhotoKey=null, lastGeoAt=0;
 let searchQuery='', quickFilter='all', currentRegion='ALL', currentZone='ALL', currentSpecies='ALL', currentMethod='ALL', currentPos=null, activeRoute=[], routePos=0;
 
@@ -844,7 +884,7 @@ const clone=x=>JSON.parse(JSON.stringify(x));
 function load(){try{let v=localStorage.getItem(KEY);if(v)return JSON.parse(v);let old=localStorage.getItem(OLD_KEY);if(old)return JSON.parse(old);return clone(DEFAULT_POINTS)}catch(e){return clone(DEFAULT_POINTS)}}
 function loadSettings(){try{let d=JSON.parse(localStorage.getItem(SETTINGS_KEY)||'{}');let s=clone(DEFAULT_SETTINGS);return {...s,...d,base:{...s.base,...(d.base||{})},activeStart:{freshwater:{...s.activeStart.freshwater,...(d.activeStart?.freshwater||{})},sea:{...s.activeStart.sea,...(d.activeStart?.sea||{})}},activeStartCoord:{...(d.activeStartCoord||{})},autoMode:{...s.autoMode,...(d.autoMode||{})},baseCoord:{...(d.baseCoord||{})},roadMatrix:{...(d.roadMatrix||{})},routeMode:{...s.routeMode,...(d.routeMode||{})}}}catch(e){return clone(DEFAULT_SETTINGS)}}
 let points=load(), settings=loadSettings();
-function persist(){localStorage.setItem(KEY,JSON.stringify(points));localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings))}
+function persist(localOnly=false){localStorage.setItem(KEY,JSON.stringify(points));localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings));if(!localOnly&&!cloudApplying&&!cloudBooting){markCloudDirty();scheduleCloudSync()}}
 const $=id=>document.getElementById(id); function toast(t){let x=$('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1800)}
 function status(t,on=true){let x=$('autoStatus');x.textContent=t;x.classList.toggle('show',on)}
 function activeStartInfo(cat=currentCat){let a=settings.activeStart?.[cat]||{mode:'default',address:''};if(a.mode==='current'&&settings.activeStartCoord?.[cat])return {mode:'current',address:'현재 위치',coord:settings.activeStartCoord[cat],label:'현재 위치'};if(a.mode==='custom'&&a.address?.trim())return {mode:'custom',address:a.address.trim(),coord:settings.activeStartCoord?.[cat]||null,label:a.address.trim()};let address=settings.base?.[cat]?.trim()||'';return {mode:'default',address,coord:settings.baseCoord?.[cat]||null,label:address||'출발지 미설정'}}
@@ -1352,7 +1392,7 @@ async function fetchCafeArticle(url){let tries=[url,'https://r.jina.ai/'+url,'ht
 async function importCafeLink(){let url=normalizeCafeUrl($('cafeUrl').value),pasted=$('cafePaste').value.trim();if(!url){toast('카페 글 링크를 입력해주세요');return}$('cafeImportStatus').textContent='카페 글 정보를 불러오는 중...';let raw=pasted;if(!raw)raw=await fetchCafeArticle(url);let info=parseCafePoint(raw,url);if(!info.name&&!info.address){$('cafeImportStatus').textContent='네이버에서 글 내용을 막아 자동 추출하지 못했습니다. 아래 본문 칸에 글의 제목과 주소 부분만 복사해 붙인 뒤 다시 자동 불러오기를 누르세요.';return}openForm(null);$('fSource').value=url;$('fCat').value=info.category||currentCat;let wanted=Number(info.id);let duplicateId=points.some(p=>p.category===$('fCat').value&&Number(p.id)===wanted);$('fId').value=wanted&&!duplicateId?wanted:nextId($('fCat').value);$('fName').value=info.name||'';$('fAddr').value=info.address||'';$('fRegion').value=info.region||inferRegion(info.address||'');$('fRegion').dataset.auto='1';$('fZone').value=info.zone||'미분류';$('fZone').dataset.auto='1';$('fSpecies').value=info.targetSpecies||'미지정';$('fSpecies').dataset.auto='1';$('fMethods').value=joinMethods(inferFishingMethods({category:info.category||currentCat,name:info.name||'',note:info.note||'',area:info.area||'',zone:info.zone||'',targetSpecies:info.targetSpecies||''}));$('fMethods').dataset.auto='1';renderMethodPreset();$('fArea').value=info.area||'';$('fNote').value=info.note||'';$('fCourse').value='AUTO';$('cafeDlg').close();toast(info.address?'카페 글에서 포인트 정보를 불러왔습니다':'제목은 찾았습니다. 주소만 확인해서 입력해주세요')}
 function clearSearch(){searchQuery='';$('searchInput').value='';saveLastUiState();render()}
 function setQuickFilter(f){quickFilter=f;document.querySelectorAll('.qf').forEach(x=>x.classList.toggle('on',x.id==='qf-'+f));saveLastUiState();render()}
-function markViewed(k){let p=findPointByKey(k);if(!p)return;let now=Date.now(),last=Date.parse(p.lastViewedAt||'')||0;if(now-last<30000)return;p.lastViewedAt=new Date(now).toISOString();try{persist()}catch(e){}}
+function markViewed(k){let p=findPointByKey(k);if(!p)return;let now=Date.now(),last=Date.parse(p.lastViewedAt||'')||0;if(now-last<30000)return;p.lastViewedAt=new Date(now).toISOString();try{persist(true)}catch(e){}}
 function catchDbOpen(){return new Promise((res,rej)=>{if(!('indexedDB'in window)){rej(new Error('IndexedDB unsupported'));return}let q=indexedDB.open(CATCH_DB_NAME,1);q.onupgradeneeded=()=>{let db=q.result;if(!db.objectStoreNames.contains(CATCH_DB_STORE))db.createObjectStore(CATCH_DB_STORE,{keyPath:'id'})};q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error||new Error('IndexedDB open failed'))})}
 async function catchDbPut(record){let db=await catchDbOpen();return await new Promise((res,rej)=>{let tx=db.transaction(CATCH_DB_STORE,'readwrite');tx.objectStore(CATCH_DB_STORE).put(record);tx.oncomplete=()=>{db.close();res(true)};tx.onerror=()=>{let e=tx.error;db.close();rej(e||new Error('IndexedDB write failed'))}})}
 async function catchDbGet(id){try{let db=await catchDbOpen();return await new Promise((res,rej)=>{let tx=db.transaction(CATCH_DB_STORE,'readonly'),q=tx.objectStore(CATCH_DB_STORE).get(id);q.onsuccess=()=>{let v=q.result;db.close();res(v||null)};q.onerror=()=>{let e=q.error;db.close();rej(e)}})}catch(e){return null}}
@@ -1467,7 +1507,7 @@ function showStartChooser(){let s=activeStartInfo();$('startCatTitle').textConte
 async function rebuildFromCustomAddress(){let a=$('customStartAddr').value.trim();if(!a){toast('출발 주소를 입력해주세요');return}settings.activeStart=settings.activeStart||{};settings.activeStart[currentCat]={mode:'custom',address:a};settings.activeStartCoord=settings.activeStartCoord||{};delete settings.activeStartCoord[currentCat];settings.baseCoord=settings.baseCoord||{};delete settings.baseCoord[currentCat];settings._baseCoordAddress=settings._baseCoordAddress||{};delete settings._baseCoordAddress[currentCat];settings.roadMatrix={};persist();renderStartSummary();$('startDlg').close();await autoRebuildCurrent(false)}
 async function rebuildFromDefaultBase(){settings.activeStart=settings.activeStart||{};settings.activeStart[currentCat]={mode:'default',address:''};settings.activeStartCoord=settings.activeStartCoord||{};delete settings.activeStartCoord[currentCat];settings.baseCoord=settings.baseCoord||{};delete settings.baseCoord[currentCat];settings._baseCoordAddress=settings._baseCoordAddress||{};delete settings._baseCoordAddress[currentCat];settings.roadMatrix={};persist();renderStartSummary();$('startDlg').close();await autoRebuildCurrent(false)}
 function rebuildFromCurrentLocation(){if(!navigator.geolocation){toast('현재 위치를 지원하지 않는 브라우저입니다');return}status('현재 위치 확인 중...');navigator.geolocation.getCurrentPosition(async pos=>{let c={lat:pos.coords.latitude,lon:pos.coords.longitude};settings.activeStart=settings.activeStart||{};settings.activeStart[currentCat]={mode:'current',address:'현재 위치'};settings.activeStartCoord=settings.activeStartCoord||{};settings.activeStartCoord[currentCat]=c;settings.baseCoord=settings.baseCoord||{};settings.baseCoord[currentCat]=c;settings._baseCoordAddress=settings._baseCoordAddress||{};settings._baseCoordAddress[currentCat]='__current__';settings.roadMatrix={};persist();renderStartSummary();$('startDlg').close();await autoRebuildCurrent(false)},()=>{status('',false);toast('위치 권한을 허용해주세요')},{enableHighAccuracy:true,timeout:12000,maximumAge:30000})}
-function showManage(){$('baseFresh').value=settings.base?.freshwater||'';$('baseSea').value=settings.base?.sea||'';$('maxPerCourse').value=String(settings.maxPerCourse||6);$('splitLegKm').value=String(settings.splitLegKm||5);$('manageDlg').showModal()}
+function showManage(){$('baseFresh').value=settings.base?.freshwater||'';$('baseSea').value=settings.base?.sea||'';$('maxPerCourse').value=String(settings.maxPerCourse||6);$('splitLegKm').value=String(settings.splitLegKm||5);renderCloudPanel();$('manageDlg').showModal()}
 function saveRouteSettings(){settings.base={freshwater:$('baseFresh').value.trim(),sea:$('baseSea').value.trim()};settings.maxPerCourse=+$('maxPerCourse').value||6;settings.splitLegKm=+$('splitLegKm').value||5;settings.baseCoord={};settings._baseCoordAddress={};settings.roadMatrix={};persist();renderStartSummary();toast('자동 코스 설정 저장됨')}
 async function autoRebuildCurrent(fromManage=false){
   if(fromManage)saveRouteSettings();
@@ -1627,15 +1667,220 @@ async function autoRebuildCurrent(fromManage=false){
   }
 }
 
-async function exportData(){settings.lastBackupAt=new Date().toISOString();persist();toast('사진 포함 백업 준비 중...');let outPoints=clone(points),ids=[];for(const p of outPoints)for(const x of (p.catchPhotos||[]))if(x.storage==='idb')ids.push(x.id);let mediaMap=await catchDbGetMany(ids);for(const p of outPoints){if(!Array.isArray(p.catchPhotos))continue;for(let i=0;i<p.catchPhotos.length;i++){let x=p.catchPhotos[i],m=x.storage==='idb'?(mediaMap[x.id]||null):(x.src?{full:x.src,thumb:x.thumb||x.src}:null);if(m?.full)p.catchPhotos[i]={...x,src:m.full,thumb:m.thumb||'',storage:'backup'}}}let blob=new Blob([JSON.stringify({version:44,exportedAt:settings.lastBackupAt,points:outPoints,settings},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='낚시포인트_백업_'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('조과사진 포함 백업 파일 저장')}
-function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=async()=>{try{let d=JSON.parse(r.result);if(!Array.isArray(d.points))throw 0;await catchDbClear();points=d.points;for(const p of points){if(!Array.isArray(p.catchPhotos))continue;for(let i=0;i<p.catchPhotos.length;i++){let x=p.catchPhotos[i];if(!x?.src)continue;let full=x.src,thumb=x.thumb||'';if(!thumb){let t=await shrinkToTarget(full,320,.56,24576);thumb=t.src}try{await catchDbPut({id:x.id,full,thumb,createdAt:x.createdAt||new Date().toISOString()});p.catchPhotos[i]={id:x.id,createdAt:x.createdAt||new Date().toISOString(),storage:'idb',bytes:dataUrlBytes(full),thumbBytes:dataUrlBytes(thumb),originalBytes:x.originalBytes||0}}catch(dbErr){p.catchPhotos[i]={...x,storage:'local',src:full,thumb}}}}if((+d.version||0)<20){localStorage.removeItem(V20_MIGRATION_KEY);migrateV20Defaults()}migrateDaehoGodaeV43();migrateClassifications();if(d.settings)settings={...clone(DEFAULT_SETTINGS),...d.settings,base:{...DEFAULT_SETTINGS.base,...(d.settings.base||{})},activeStart:{freshwater:{...DEFAULT_SETTINGS.activeStart.freshwater,...(d.settings.activeStart?.freshwater||{})},sea:{...DEFAULT_SETTINGS.activeStart.sea,...(d.settings.activeStart?.sea||{})}}};persist();localStorage.setItem(CATCH_V44_MIGRATION_KEY,'1');saveLastUiState();render();toast('조과사진 포함 백업 복원 완료')}catch(x){console.error(x);alert('올바른 백업 파일이 아니거나 사진 복원 중 오류가 발생했습니다.')}e.target.value=''};r.readAsText(f)}
+async function buildPortableData(){
+  let outPoints=clone(points),ids=[];
+  for(const p of outPoints)for(const x of (p.catchPhotos||[]))if(x.storage==='idb')ids.push(x.id);
+  let mediaMap=await catchDbGetMany(ids);
+  for(const p of outPoints){
+    if(!Array.isArray(p.catchPhotos))continue;
+    for(let i=0;i<p.catchPhotos.length;i++){
+      let x=p.catchPhotos[i],m=x.storage==='idb'?(mediaMap[x.id]||null):(x.src?{full:x.src,thumb:x.thumb||x.src}:null);
+      if(m?.full)p.catchPhotos[i]={...x,src:m.full,thumb:m.thumb||'',storage:'backup'};
+    }
+  }
+  return {version:50,exportedAt:new Date().toISOString(),points:outPoints,settings:clone(settings)};
+}
+async function applyPortableData(d,fromCloud=false){
+  if(!d||!Array.isArray(d.points))throw new Error('invalid data');
+  cloudApplying=!!fromCloud;
+  try{
+    await catchDbClear();
+    points=d.points;
+    for(const p of points){
+      if(!Array.isArray(p.catchPhotos))continue;
+      for(let i=0;i<p.catchPhotos.length;i++){
+        let x=p.catchPhotos[i];if(!x?.src)continue;
+        let full=x.src,thumb=x.thumb||'';
+        if(!thumb){let t=await shrinkToTarget(full,320,.56,24576);thumb=t.src}
+        try{
+          await catchDbPut({id:x.id,full,thumb,createdAt:x.createdAt||new Date().toISOString()});
+          p.catchPhotos[i]={id:x.id,createdAt:x.createdAt||new Date().toISOString(),storage:'idb',bytes:dataUrlBytes(full),thumbBytes:dataUrlBytes(thumb),originalBytes:x.originalBytes||0};
+        }catch(dbErr){p.catchPhotos[i]={...x,storage:'local',src:full,thumb}}
+      }
+    }
+    if((+d.version||0)<20){localStorage.removeItem(V20_MIGRATION_KEY);migrateV20Defaults()}
+    migrateDaehoGodaeV43();migrateClassifications();
+    if(d.settings)settings={...clone(DEFAULT_SETTINGS),...d.settings,base:{...DEFAULT_SETTINGS.base,...(d.settings.base||{})},activeStart:{freshwater:{...DEFAULT_SETTINGS.activeStart.freshwater,...(d.settings.activeStart?.freshwater||{})},sea:{...DEFAULT_SETTINGS.activeStart.sea,...(d.settings.activeStart?.sea||{})}}};
+    persist(true);localStorage.setItem(CATCH_V44_MIGRATION_KEY,'1');saveLastUiState();render();renderStartSummary();updateSeaOnlyUi();
+  }finally{cloudApplying=false}
+}
+async function exportData(){settings.lastBackupAt=new Date().toISOString();persist(true);toast('사진 포함 백업 준비 중...');let d=await buildPortableData();d.exportedAt=settings.lastBackupAt;let blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='낚시포인트_백업_'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('조과사진 포함 백업 파일 저장')}
+function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=async()=>{try{let d=JSON.parse(r.result);await applyPortableData(d,false);persist();toast('조과사진 포함 백업 복원 완료')}catch(x){console.error(x);alert('올바른 백업 파일이 아니거나 사진 복원 중 오류가 발생했습니다.')}e.target.value=''};r.readAsText(f)}
 async function resetAll(){await catchDbClear();localStorage.removeItem(CATCH_V44_MIGRATION_KEY);points=clone(DEFAULT_POINTS);settings=clone(DEFAULT_SETTINGS);persist();render();$('manageDlg').close();toast('최초 상태로 복원됨')}
+
+function cryptoRandomId(len=24){
+  const a=new Uint8Array(len);crypto.getRandomValues(a);return Array.from(a,b=>(b%36).toString(36)).join('');
+}
+function cloudSeenKey(uid=cloudUser?.uid||''){return CLOUD_LAST_KEY+'_'+String(uid||'none')}
+function markCloudDirty(){cloudDirtyAt=Date.now();localStorage.setItem(CLOUD_DIRTY_KEY,String(cloudDirtyAt))}
+function clearCloudDirty(){cloudDirtyAt=0;localStorage.removeItem(CLOUD_DIRTY_KEY)}
+function parseFirebaseConfig(raw){
+  let t=String(raw||'').trim();if(!t)throw new Error('Firebase 설정을 붙여넣어주세요.');
+  let a=t.indexOf('{'),b=t.lastIndexOf('}');if(a<0||b<a)throw new Error('firebaseConfig의 { } 부분을 확인해주세요.');
+  t=t.slice(a,b+1).replace(/([{,]\s*)([A-Za-z_$][\w$]*)(\s*:)/g,'$1"$2"$3').replace(/,\s*}/g,'}');
+  let c=JSON.parse(t);if(!c.apiKey||!c.authDomain||!c.databaseURL)throw new Error('apiKey, authDomain, databaseURL이 필요합니다.');
+  c.databaseURL=String(c.databaseURL).replace(/\/+$/,'');return c;
+}
+function loadCloudConfig(){
+  try{let c=JSON.parse(localStorage.getItem(CLOUD_CONFIG_KEY)||'null');if(c?.apiKey&&c?.authDomain&&c?.databaseURL){c.databaseURL=String(c.databaseURL).replace(/\/+$/,'');return c}}catch(e){}
+  return null;
+}
+function setCloudBadge(mode='local',text='로컬 저장'){
+  let b=$('cloudBadge');if(!b)return;b.className='cloudBadge '+mode;b.textContent=text;
+}
+function setCloudStatus(title,text='',mode='local'){
+  let a=$('cloudStatusTitle'),b=$('cloudStatusText');if(a)a.textContent=title;if(b)b.textContent=text;setCloudBadge(mode,mode==='on'?'클라우드 연결':mode==='syncing'?'동기화 중':mode==='error'?'동기화 오류':'로컬 저장');
+}
+function renderCloudPanel(){
+  cloudConfig=cloudConfig||loadCloudConfig();
+  if($('cloudConfigArea'))$('cloudConfigArea').value=cloudConfig?JSON.stringify(cloudConfig,null,2):'';
+  if($('cloudAutoSync'))$('cloudAutoSync').checked=!!cloudAuto;
+  if($('cloudEmail')&&cloudUser?.email)$('cloudEmail').value=cloudUser.email;
+  if(cloudUser)setCloudStatus('클라우드 연결됨',`${cloudUser.email||'계정'} · 자동 동기화 ${cloudAuto?'켜짐':'꺼짐'}`,'on');
+  else if(cloudConfig)setCloudStatus('Firebase 설정됨','같은 계정으로 PC와 휴대폰에서 로그인하세요.','local');
+  else setCloudStatus('로컬 저장 중','Firebase 설정 후 같은 계정으로 로그인하면 기기 간 자동 공유됩니다.','local');
+}
+async function saveCloudConfig(){
+  try{
+    let c=parseFirebaseConfig($('cloudConfigArea').value);localStorage.setItem(CLOUD_CONFIG_KEY,JSON.stringify(c));cloudConfig=c;
+    cloudAuth=null;await initCloudAuth(true);toast('Firebase 설정 저장됨');renderCloudPanel();
+  }catch(e){console.error(e);alert(e.message||'Firebase 설정을 확인해주세요.')}
+}
+async function initCloudAuth(force=false){
+  cloudConfig=cloudConfig||loadCloudConfig();if(!cloudConfig){renderCloudPanel();return false}
+  if(cloudAuth&&!force)return true;
+  try{
+    setCloudStatus('Firebase 연결 중','인증 모듈을 불러오는 중입니다.','syncing');
+    const appMod=await import('https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js');
+    const authMod=await import('https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js');
+    const appName='fishing-sync-v50-'+String(cloudConfig.projectId||cloudConfig.apiKey||'default').replace(/[^a-zA-Z0-9_-]/g,'').slice(-32);
+    let app;
+    try{app=appMod.getApp(appName)}catch(_){app=appMod.initializeApp(cloudConfig,appName)}
+    cloudAuth={...authMod,auth:authMod.getAuth(app)};
+    authMod.setPersistence(cloudAuth.auth,authMod.browserLocalPersistence).catch(()=>{});
+    authMod.onAuthStateChanged(cloudAuth.auth,async u=>{
+      cloudUser=u||null;
+      if(cloudUser)cloudLastSeen=Number(localStorage.getItem(cloudSeenKey(cloudUser.uid))||0)||0;else cloudLastSeen=0;
+      renderCloudPanel();
+      if(cloudUser){startCloudPolling();await cloudFirstConnect()}else stopCloudPolling();
+    });
+    return true;
+  }catch(e){cloudLastError=e.message||String(e);setCloudStatus('Firebase 연결 실패',cloudLastError,'error');return false}
+}
+async function cloudSignUp(){
+  if(!await initCloudAuth())return;
+  let email=$('cloudEmail').value.trim(),pw=$('cloudPassword').value;if(!email||pw.length<6){alert('이메일과 6자 이상 비밀번호를 입력해주세요.');return}
+  try{setCloudStatus('계정 생성 중','','syncing');await cloudAuth.createUserWithEmailAndPassword(cloudAuth.auth,email,pw);$('cloudPassword').value='';cloudAuto=true;localStorage.setItem(CLOUD_AUTO_KEY,'1');renderCloudPanel();toast('동기화 계정 생성 완료')}
+  catch(e){console.error(e);alert('계정 생성 실패: '+cloudErrorText(e))}
+}
+async function cloudSignIn(){
+  if(!await initCloudAuth())return;
+  let email=$('cloudEmail').value.trim(),pw=$('cloudPassword').value;if(!email||!pw){alert('이메일과 비밀번호를 입력해주세요.');return}
+  try{setCloudStatus('로그인 중','','syncing');await cloudAuth.signInWithEmailAndPassword(cloudAuth.auth,email,pw);$('cloudPassword').value='';cloudAuto=true;localStorage.setItem(CLOUD_AUTO_KEY,'1');renderCloudPanel();toast('클라우드 로그인 완료')}
+  catch(e){console.error(e);alert('로그인 실패: '+cloudErrorText(e))}
+}
+async function cloudSignOut(){
+  if(!cloudAuth?.auth)return;try{await cloudAuth.signOut(cloudAuth.auth);cloudUser=null;stopCloudPolling();setCloudStatus('로그아웃됨','현재 기기에는 기존 데이터가 그대로 남아 있습니다.','local');toast('클라우드 로그아웃')}catch(e){}
+}
+function cloudErrorText(e){
+  let c=String(e?.code||'');if(c.includes('invalid-credential')||c.includes('wrong-password'))return '이메일 또는 비밀번호를 확인해주세요.';if(c.includes('email-already-in-use'))return '이미 가입된 이메일입니다.';if(c.includes('operation-not-allowed'))return 'Firebase Authentication에서 이메일/비밀번호 로그인을 활성화해주세요.';return e?.message||'오류가 발생했습니다.';
+}
+function setCloudAutoSync(v){
+  cloudAuto=!!v;localStorage.setItem(CLOUD_AUTO_KEY,cloudAuto?'1':'0');renderCloudPanel();if(cloudAuto&&cloudUser){startCloudPolling();scheduleCloudSync()}else if(!cloudAuto)stopCloudPolling();
+}
+function scheduleCloudSync(){
+  if(!cloudAuto||!cloudUser||cloudApplying)return;clearTimeout(cloudPushTimer);cloudPushTimer=setTimeout(()=>cloudPushNow(false),1800);
+}
+async function cloudToken(){
+  if(!cloudUser)return null;return await cloudUser.getIdToken();
+}
+function cloudPath(){
+  return `${cloudConfig.databaseURL}/users/${encodeURIComponent(cloudUser.uid)}/fishing.json`;
+}
+async function cloudRequest(method,body){
+  if(!cloudUser||!cloudConfig)throw new Error('클라우드 로그인이 필요합니다.');
+  let token=await cloudToken(),url=cloudPath()+'?auth='+encodeURIComponent(token);
+  let opt={method,headers:{'Content-Type':'application/json'},cache:'no-store'};
+  if(body!==undefined)opt.body=JSON.stringify(body);
+  let r=await fetch(url,opt);if(!r.ok){let tx=await r.text();throw new Error(`Firebase ${r.status} ${tx.slice(0,180)}`)}
+  if(method==='DELETE')return null;let tx=await r.text();return tx?JSON.parse(tx):null;
+}
+function localHasPersonalData(){
+  return points.some(p=>p.fav||p.visited||(p.logs&&p.logs.length)||(p.catchPhotos&&p.catchPhotos.length)||String(p._key||'').startsWith('u'));
+}
+async function cloudFirstConnect(){
+  if(!cloudUser||cloudBusy)return;
+  try{
+    cloudBusy=true;setCloudStatus('클라우드 확인 중','저장된 데이터를 확인하고 있습니다.','syncing');
+    let remote=await cloudRequest('GET'),remoteAt=Number(remote?.meta?.updatedAt||0)||0;
+    if(remote?.data?.points){
+      let firstForThisAccount=localStorage.getItem('fish_cloud_uid_v50')!==cloudUser.uid;
+      if(firstForThisAccount&&localHasPersonalData()){
+        let useRemote=confirm('클라우드에 기존 낚시 데이터가 있습니다.\n\n확인: 클라우드 자료를 이 기기로 받기\n취소: 이 기기의 현재 자료를 클라우드에 올리기');
+        if(useRemote){await applyCloudEnvelope(remote,true);clearCloudDirty()}else await cloudPushNow(true);
+      }else if(cloudDirtyAt&&cloudDirtyAt>remoteAt){
+        await cloudPushNow(true);
+      }else{await applyCloudEnvelope(remote,true);clearCloudDirty()}
+    }else if(localHasPersonalData()||points.length)await cloudPushNow(true);
+    localStorage.setItem('fish_cloud_uid_v50',cloudUser.uid);
+    cloudLastSeen=remoteAt||cloudLastSeen;localStorage.setItem(cloudSeenKey(),String(cloudLastSeen));
+    renderCloudPanel();
+  }catch(e){console.error(e);cloudLastError=e.message||String(e);setCloudStatus('클라우드 확인 실패',cloudLastError,'error')}
+  finally{cloudBusy=false}
+}
+async function cloudPushNow(manual=false){
+  if(!cloudUser||!cloudConfig){if(manual)alert('먼저 Firebase 설정을 저장하고 로그인해주세요.');return}
+  if(cloudBusy&&!manual)return;
+  try{
+    cloudBusy=true;setCloudStatus('클라우드로 저장 중','포인트와 조과사진을 업로드하고 있습니다.','syncing');
+    let data=await buildPortableData(),updatedAt=Date.now(),env={meta:{updatedAt,deviceId:cloudDeviceId,appVersion:50,email:cloudUser.email||''},data};
+    let approx=new Blob([JSON.stringify(env)]).size;
+    if(approx>220*1024*1024)throw new Error('클라우드 데이터가 220MB를 넘어 한 번에 동기화할 수 없습니다. 조과사진을 일부 정리해주세요.');
+    await cloudRequest('PUT',env);cloudLastSeen=updatedAt;localStorage.setItem(cloudSeenKey(),String(updatedAt));clearCloudDirty();
+    setCloudStatus('클라우드 연결됨',`마지막 업로드 ${new Date(updatedAt).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}`,'on');
+    if(manual)toast('클라우드 업로드 완료');
+  }catch(e){console.error(e);cloudLastError=e.message||String(e);setCloudStatus('클라우드 업로드 실패',cloudLastError,'error');if(manual)alert('업로드 실패: '+cloudLastError)}
+  finally{cloudBusy=false}
+}
+async function applyCloudEnvelope(remote,force=false){
+  if(!remote?.data?.points)return false;let remoteAt=Number(remote.meta?.updatedAt||0)||0;
+  if(!force&&remoteAt<=cloudLastSeen)return false;
+  if(remote.meta?.deviceId===cloudDeviceId&&!force){cloudLastSeen=remoteAt||cloudLastSeen;localStorage.setItem(cloudSeenKey(),String(cloudLastSeen));return false}
+  setCloudStatus('다른 기기 자료 받는 중','클라우드 변경사항을 적용하고 있습니다.','syncing');
+  await applyPortableData(remote.data,true);cloudLastSeen=remoteAt||Date.now();localStorage.setItem(cloudSeenKey(),String(cloudLastSeen));clearCloudDirty();
+  setCloudStatus('클라우드 연결됨',`다른 기기 변경사항 적용 ${new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})}`,'on');return true;
+}
+async function cloudCheckRemote(manual=false){
+  if(!cloudUser||!cloudConfig){if(manual)alert('먼저 클라우드에 로그인해주세요.');return}
+  if(cloudBusy)return;
+  if(manual&&cloudDirtyAt){
+    let uploadFirst=confirm('이 기기에 아직 클라우드로 올라가지 않은 변경사항이 있습니다.\n\n확인을 누르면 현재 자료를 먼저 클라우드에 올립니다.\n취소하면 새로고침을 중단합니다.');
+    if(uploadFirst)await cloudPushNow(true);return;
+  }
+  try{cloudBusy=true;let r=await cloudRequest('GET');let changed=await applyCloudEnvelope(r,manual);if(manual&&!changed){setCloudStatus('클라우드 연결됨','현재 기기와 클라우드가 최신 상태입니다.','on');toast('최신 상태입니다.')}}
+  catch(e){console.error(e);cloudLastError=e.message||String(e);setCloudStatus('클라우드 확인 실패',cloudLastError,'error')}
+  finally{cloudBusy=false}
+}
+async function cloudPullNow(manual=false){
+  if(!cloudUser||!cloudConfig){if(manual)alert('먼저 클라우드에 로그인해주세요.');return}
+  if(manual&&!confirm('클라우드에 저장된 자료로 이 기기의 포인트·기록·조과사진을 교체할까요?'))return;
+  try{cloudBusy=true;let r=await cloudRequest('GET');if(!r?.data?.points){alert('클라우드에 저장된 데이터가 없습니다.');return}await applyCloudEnvelope(r,true);if(manual)toast('클라우드 자료 받기 완료')}
+  catch(e){console.error(e);alert('클라우드 자료 받기 실패: '+(e.message||e))}
+  finally{cloudBusy=false}
+}
+function startCloudPolling(){
+  stopCloudPolling();if(!cloudAuto||!cloudUser)return;cloudPollTimer=setInterval(()=>{if(document.visibilityState!=='visible'||!navigator.onLine)return;if(cloudDirtyAt)scheduleCloudSync();else cloudCheckRemote(false)},5000);
+}
+function stopCloudPolling(){if(cloudPollTimer){clearInterval(cloudPollTimer);cloudPollTimer=null}}
+window.addEventListener('online',()=>{if(cloudAuto&&cloudUser){if(cloudDirtyAt)scheduleCloudSync();else cloudCheckRemote(false)}});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&cloudAuto&&cloudUser){if(cloudDirtyAt)scheduleCloudSync();else cloudCheckRemote(false)}});
+
 function setControlPanel(open,remember=true){let p=$('controlPanel'),b=$('controlToggle');if(!p||!b)return;p.classList.toggle('open',!!open);b.classList.toggle('open',!!open);b.setAttribute('aria-expanded',open?'true':'false');b.querySelector('span:first-child').textContent=open?'도구 메뉴 접기':'도구 메뉴 펼치기';b.querySelector('.chev').textContent=open?'▲':'▼';if(remember)localStorage.setItem('fish_control_open',open?'1':'0')}
 function toggleControlPanel(){let p=$('controlPanel');setControlPanel(!p?.classList.contains('open'))}
 function initControlPanel(){setControlPanel(localStorage.getItem('fish_control_open')==='1',false)}
-function showPatchNotes(){localStorage.setItem('fish_seen_patch','49');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
-function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='49',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
-function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}function showInstallHelp(){alert('휴대폰에서 GitHub Pages 주소를 연 뒤 브라우저 메뉴의 “홈 화면에 추가”를 누르면 앱처럼 사용할 수 있습니다. 추가/수정한 데이터, 즐겨찾기, 방문기록과 사진은 현재 휴대폰 브라우저에 저장되므로 정기적으로 백업 저장을 권장합니다.');$('manageDlg').close()}
+function showPatchNotes(){localStorage.setItem('fish_seen_patch','50');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
+function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='50',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}function showInstallHelp(){alert('휴대폰에서 GitHub Pages 주소를 연 뒤 브라우저 메뉴의 “홈 화면에 추가”를 누르면 앱처럼 사용할 수 있습니다. V50부터 Firebase 클라우드 동기화를 설정하면 같은 계정으로 로그인한 PC와 휴대폰에서 포인트·즐겨찾기·기록·조과사진을 공유할 수 있습니다. 클라우드를 설정하지 않으면 기존처럼 현재 기기에만 저장됩니다.');$('manageDlg').close()}
 
 function openPhoto(src,title='사진 보기'){
   const d=$('photoDlg'),img=$('photoFull');
@@ -2110,5 +2355,5 @@ async function buildMissingGeojeMaps(){
 ensureV22Settings();
 ensureV23Settings();
 
-migrateV20Defaults();migrateV24GeojePoints();migrateGeojeFeaturesV39();migrateDaehoGodaeV43();migrateRouteFixV33();migrateV34SeaPoints();migrateV46WalkSeaPoints();migrateV47FreshBassPoints();migrateClassifications();migrateUniquePointKeysV41();migrateFishingMethodsV42();persist();restoreLastUiState();render();renderStartSummary();updateSeaOnlyUi();initControlPanel();applyRegionPanelState();initPatchBadge();installDialogUX();migrateCatchPhotosV44().then(()=>render()).catch(e=>console.warn('조과사진 저장소 이전 실패',e));if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').then(r=>r.update()).catch(()=>{});
+migrateV20Defaults();migrateV24GeojePoints();migrateGeojeFeaturesV39();migrateDaehoGodaeV43();migrateRouteFixV33();migrateV34SeaPoints();migrateV46WalkSeaPoints();migrateV47FreshBassPoints();migrateClassifications();migrateUniquePointKeysV41();migrateFishingMethodsV42();persist(true);restoreLastUiState();render();renderStartSummary();updateSeaOnlyUi();initControlPanel();applyRegionPanelState();initPatchBadge();installDialogUX();migrateCatchPhotosV44().then(()=>render()).catch(e=>console.warn('조과사진 저장소 이전 실패',e));cloudBooting=false;cloudConfig=loadCloudConfig();renderCloudPanel();if(cloudConfig)initCloudAuth(false);if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').then(r=>r.update()).catch(()=>{});
 </script></body></html>

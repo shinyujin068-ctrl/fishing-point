@@ -1,7 +1,7 @@
 {
   "name": "낚시 포인트 관리",
   "short_name": "낚시포인트",
-  "description": "민물·바다 낚시 포인트, 물때표, 조과사진을 관리하는 웹앱",
+  "description": "민물·바다 낚시 포인트, 물때표, 조과사진과 PC·휴대폰 동기화를 지원하는 웹앱",
   "lang": "ko-KR",
   "start_url": "./index.html",
   "scope": "./",
