@@ -1,0 +1,80 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+    "community": {
+      "publishedPoints": {
+        ".read": true,
+        "$point": {
+          ".write": "auth != null && auth.token.email === 'jj909212@naver.com'"
+        }
+      },
+      "pointOverrides": {
+        ".read": true,
+        "$point": {
+          ".write": "auth != null && auth.token.email === 'jj909212@naver.com'"
+        }
+      },
+      "deletedPoints": {
+        ".read": true,
+        "$point": {
+          ".write": "auth != null && auth.token.email === 'jj909212@naver.com'"
+        }
+      },
+      "pointStatus": {
+        ".read": true,
+        "$point": {
+          ".write": "auth != null && auth.token.email === 'jj909212@naver.com'"
+        }
+      },
+      "spots": {
+        ".read": true,
+        "$point": {
+          "$spot": {
+            ".write": "auth != null && (auth.token.email === 'jj909212@naver.com' || (!data.exists() && newData.child('createdByUid').val() === auth.uid))"
+          }
+        }
+      },
+      "votes": {
+        ".read": true,
+        "$point": {
+          "$spot": {
+            "$uid": {
+              ".write": "auth != null && auth.uid === $uid"
+            }
+          }
+        }
+      },
+      "pointSubmissions": {
+        ".read": "auth != null && auth.token.email === 'jj909212@naver.com'",
+        "$item": {
+          ".write": "auth != null && (auth.token.email === 'jj909212@naver.com' || (!data.exists() && newData.child('createdByUid').val() === auth.uid))"
+        }
+      },
+      "reports": {
+        ".read": "auth != null && auth.token.email === 'jj909212@naver.com'",
+        "$item": {
+          ".write": "auth != null && (auth.token.email === 'jj909212@naver.com' || (!data.exists() && newData.child('createdByUid').val() === auth.uid))"
+        }
+      },
+      "corrections": {
+        ".read": "auth != null && auth.token.email === 'jj909212@naver.com'",
+        "$item": {
+          ".write": "auth != null && (auth.token.email === 'jj909212@naver.com' || (!data.exists() && newData.child('createdByUid').val() === auth.uid))"
+        }
+      },
+      "audit": {
+        ".read": "auth != null && auth.token.email === 'jj909212@naver.com'",
+        "$item": {
+          ".write": "auth != null && auth.token.email === 'jj909212@naver.com'"
+        }
+      }
+    }
+  }
+}
