@@ -1,4 +1,4 @@
-const C='fish-v68';
+const C='fish-v69';
 const CORE=['./','./index.html'];
 const OPTIONAL=['./manifest.webmanifest','./favicon.ico','./favicon-32.png','./favicon-16.png','./apple-touch-icon.png','./icon-192.png','./icon-512.png'];
 
