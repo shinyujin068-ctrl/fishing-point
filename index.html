@@ -532,9 +532,89 @@ html,body{max-width:100%;overflow-x:hidden}
 .backupList{display:grid;gap:8px;margin-top:12px}.backupRow{border:1px solid #dce3eb;border-radius:12px;padding:11px;display:flex;align-items:center;justify-content:space-between;gap:8px}.backupRowText b{display:block;font-size:13px}.backupRowText span{display:block;font-size:11px;color:#64748b;margin-top:3px}.backupRow button{padding:7px 10px;border-radius:9px;border:1px solid #d3dce6;background:#fff;font-weight:800}
 .spotHelpful{display:inline-flex;align-items:center;gap:4px;margin-top:5px;padding:4px 7px;border-radius:999px;background:#f1f5f9;color:#475569;font-size:11px;font-weight:800}.spotHelpful.on{background:#e7f0ff;color:#1d4ed8}.communityNote{font-size:11px;color:#64748b;margin-top:5px}
 @media(max-width:600px){.nearbyChoices,.backupActions{grid-template-columns:1fr}.opsList{max-height:64dvh}.statusBadge,.verifyStamp{font-size:10px}}
+
+
+/* V67 UI 정리 · 모바일 최적화 · 안정화 */
+html,body{max-width:100%;overflow-x:hidden}
+body{-webkit-tap-highlight-color:transparent}
+button,.tab,.tool,.qf,.act,.regionChip,.controlToggle,.courseDisplayBtn{touch-action:manipulation}
+button:disabled{opacity:.55;cursor:not-allowed}
+.wrap{width:100%;padding-left:clamp(8px,3vw,12px);padding-right:clamp(8px,3vw,12px);padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+.top{top:0;padding-top:max(8px,env(safe-area-inset-top));box-shadow:0 1px 0 rgba(17,24,39,.06)}
+.title{align-items:center}.title h1{line-height:1.18;letter-spacing:-.3px}.titleActions{flex-wrap:nowrap;min-width:0}.titleActions .tool,.titleActions .cloudBadge{min-height:38px}
+.cloudBadge{max-width:150px;overflow:hidden;text-overflow:ellipsis}
+.tabs .tab{min-height:44px}
+.searchBox input{min-height:42px}
+.quickFilters{flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;padding:1px 1px 3px!important}
+.quickFilters::-webkit-scrollbar{display:none}.quickFilters .qf{flex:0 0 auto;min-height:36px}
+.regionScopeToggle,.controlToggle,.courseDisplayBtn{min-height:42px}
+.card{overflow:hidden}
+.card .head{padding:13px 13px 10px}.card .nm,.card .addr,.card .meta,.pointContent{overflow-wrap:anywhere;word-break:keep-all}.card .meta{line-height:1.55}
+.statusBadge,.verifyStamp,.distance,.logSummary,.catchCount,.fishingSpotCount,.recentStamp,.routeMode,.visitedBadge,.pendingBadge{vertical-align:middle}
+.actionRow .act{line-height:1.25;white-space:normal;word-break:keep-all}
+.imgs img{max-width:100%}
+.fab{bottom:calc(18px + env(safe-area-inset-bottom));right:max(14px,env(safe-area-inset-right));min-height:48px}
+.routeBar{bottom:calc(8px + env(safe-area-inset-bottom))}
+body.v67DialogOpen{overflow:hidden;overscroll-behavior:none}
+dialog{overscroll-behavior:contain}
+dialog>.modal,dialog>form.modal{scrollbar-gutter:stable}
+.mapPointList{scrollbar-width:none;-webkit-overflow-scrolling:touch}.mapPointList::-webkit-scrollbar{display:none}
+.opsTabs{scrollbar-width:none;-webkit-overflow-scrolling:touch}.opsTabs::-webkit-scrollbar{display:none}
+
+@media(max-width:600px){
+  .top{padding-bottom:6px}
+  .title h1{font-size:19px}.title .tiny{font-size:10px}
+  .titleActions{gap:5px}.titleActions .tool{padding:7px 9px;font-size:11px;min-height:36px}.titleActions .cloudBadge{max-width:105px;padding:7px 8px;min-height:36px}
+  .tabs{gap:6px;margin-top:8px}.tabs .tab{padding:9px 8px;min-height:42px}
+  .regionScopeToggle{margin-top:5px}
+  .regionPanel .regionFilters{display:grid!important;grid-template-columns:1fr!important;gap:8px!important;overflow:visible!important;white-space:normal!important;width:100%}
+  .regionPanel .filterLine{display:grid!important;grid-template-columns:54px minmax(0,1fr);align-items:center;gap:6px;width:100%}
+  .regionPanel .filterLabel{min-width:0!important;font-size:13px!important}
+  .regionPanel .filterChips{min-width:0;max-width:100%;overflow-x:auto!important;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .regionPanel .filterChips::-webkit-scrollbar{display:none}
+  .regionPanel .regionChip{font-size:12px!important;padding:8px 10px!important}
+  .alwaysControls{margin-top:5px}.alwaysControls .searchBox{gap:5px}.alwaysControls .searchBox .tool{min-width:52px}
+  .quickFilters{margin-top:5px!important;gap:5px!important}
+  .quickFilters .qf{font-size:11px;padding:6px 9px}
+  .controlToggle{margin-top:5px}
+  .tools{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.tools .tool{min-height:42px}
+  .courseDisplayControl{margin-top:7px}
+  .section{margin-top:12px;border-radius:13px;padding:11px 12px}.section h2{font-size:16px}.section p{font-size:12px;line-height:1.45}.courseStart{min-height:38px}
+  .card{margin:8px 0;border-radius:14px}.card .head{padding:12px 11px 9px}.card .nm{font-size:16px}.card .addr{font-size:13px}.card .meta{font-size:12px}.methodRecommend{padding:8px 9px}.methodTag{font-size:11px}
+  .actions{padding:0 10px 11px!important}.actionRow{gap:6px;margin-top:6px}.actionRow .act{min-height:44px;font-size:12px;padding:9px 5px}
+  .imgs img{height:165px}
+  dialog:not(#photoDlg){width:calc(100vw - 10px)!important;max-width:none!important;max-height:calc(100dvh - 10px)!important;margin:5px auto!important;border-radius:16px!important}
+  dialog:not(#photoDlg)>.modal,dialog:not(#photoDlg)>form.modal{max-height:calc(100dvh - 10px)!important;padding:52px 12px calc(15px + env(safe-area-inset-bottom))!important}
+  .dlgClose{top:7px;right:7px;width:42px;height:42px}
+  .modal h2{font-size:19px;line-height:1.25}.grid{gap:9px}.grid label{line-height:1.35}
+  .modalBtns{gap:7px;margin-top:12px}.modalBtns button{min-height:46px}
+  .cloudProfileCard{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;padding:12px}.cloudProfileAvatar{width:54px;height:54px;flex-basis:54px}.cloudProfileEditBtn{grid-column:1/-1;width:100%;min-height:42px}.cloudProfileNickname{font-size:15px}
+  .courseSettingsSummaryRow{grid-template-columns:92px minmax(0,1fr);padding:8px 9px}
+  .liveMap,.fishingSpotLiveMap{height:50dvh!important;min-height:285px!important}.fishingSpotLiveMap{height:52dvh!important}
+  .courseMap{height:52dvh!important;min-height:285px!important}.mapFrame{min-height:285px}
+  .tideFrameWrap{height:58dvh!important}.tideSearchRow{gap:6px}.tideNav{gap:6px}
+  .opsList{max-height:54dvh}.opsItem{padding:10px}.opsItemHead{gap:6px}.opsBtns button{min-height:38px}
+  .catchUpload{grid-template-columns:1fr}.catchUpload .save{min-height:44px}.catchPhotoGrid{gap:7px}
+  .nearbyChoices,.backupActions{gap:7px}.nearbyChoices button,.backupActions button{min-height:46px}
+}
+@media(max-width:380px){
+  .title h1{font-size:18px}.titleActions .cloudBadge{max-width:88px}
+  .tools{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .actionRow.cols3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .actionRow.cols3>.act:nth-child(3){grid-column:1/-1}
+  .imgs:not(.one){grid-template-columns:1fr}.imgs img{height:auto;aspect-ratio:4/3}
+  .catchPhotoGrid{grid-template-columns:1fr}
+  .routeBtns{grid-template-columns:1fr 1fr}.routeBtns .routeStop{grid-column:1/-1}
+}
+@media(orientation:landscape) and (max-height:520px){
+  dialog:not(#photoDlg)>.modal,dialog:not(#photoDlg)>form.modal{padding-top:48px!important}
+  .liveMap,.fishingSpotLiveMap,.courseMap{height:58dvh!important;min-height:220px!important}
+  .tideFrameWrap{height:55dvh!important}
+}
+
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V66 · 포인트 코스 ON/OFF</div></div><div class="titleActions"><button id="cloudBadge" class="cloudBadge local" type="button" onclick="showManage()">로컬 저장</button><button class="tool" onclick="showManage()">관리</button></div></div>
+<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V67 · UI·모바일 안정화</div></div><div class="titleActions"><button id="cloudBadge" class="cloudBadge local" type="button" onclick="showManage()">로컬 저장</button><button class="tool" onclick="showManage()">관리</button></div></div>
 <div class="tabs"><button id="tabFresh" class="tab on" onclick="setCat('freshwater')">민물</button><button id="tabSea" class="tab" onclick="setCat('sea')">바다</button></div>
 <div id="seaTideBar" class="seaTideBar" hidden><button class="tideMainBtn" type="button" onclick="showTide()">월간 물때표</button><span>바다 전용 · 물때 기준지역 직접 선택</span></div>
 <button id="regionScopeToggle" class="regionScopeToggle" type="button" aria-expanded="false" onclick="toggleRegionPanel()"><span id="regionScopeText" class="scopeText">지역 · 권역</span><span class="scopeChev">▼</span></button>
@@ -641,8 +721,9 @@ html,body{max-width:100%;overflow-x:hidden}
 <div class="smallNote courseSettingsNote">코스 설정은 자동으로 수정 상태가 되지 않습니다. 위의 ‘수정’을 눌렀을 때만 값을 변경할 수 있습니다. 출발지에서 실제 도로 주행거리 기준으로 가까운 포인트부터 코스를 구성하며, 도로거리 계산 실패 시 직선거리 방식으로 대체됩니다.</div></div>
 <button class="tool" onclick="showPatchNotes();manageDlg.close()">패치노트 / 업데이트 내역</button><button class="tool memberOnly" hidden onclick="exportData()">전체 데이터 백업(JSON)</button><button class="tool memberOnly" hidden onclick="document.getElementById('importFile').click();manageDlg.close()">백업 파일 복원</button><button id="adminResetBtn" class="tool adminOnly" hidden onclick="if(requireAdmin('초기 상태 복원')&&confirm('직접 추가/수정한 내용을 모두 지우고 최초 상태로 되돌릴까요?')) resetAll()">최초 상태로 복원</button>
 </div><div class="smallNote">주소 좌표 변환은 개인용 저빈도 사용을 전제로 OpenStreetMap Nominatim을 사용하며, 요청은 1초 이상 간격으로 보내고 결과를 브라우저에 저장합니다. © OpenStreetMap contributors.</div><div class="smallNote">V21 현재: 민물은 배스 고정, 바다는 주소의 지역을 기준으로 대상어종을 자동 세팅하며 직접 수정할 수 있습니다.</div><div class="modalBtns"><button class="cancel" onclick="manageDlg.close()">닫기</button><button class="save" onclick="showInstallHelp()">홈 화면 사용법</button></div></div></dialog>
-<dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V66</b><span>현재 설치 버전 · 2026-09-07</span></div><h2>패치노트</h2><div class="patchList">
-<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V66</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>포인트명 옆 START 배지 표시 제거</div><div>상단 빠른 메뉴에 포인트 코스 ON/OFF 추가</div><div>코스 OFF 시 코스 구분·순서·코스 도구를 숨기고 포인트만 일반 목록으로 표시</div><div>코스 ON 시 기존 자동정리·코스 지도·출발지 기능을 그대로 복원</div><div>코스 사용 상태를 저장해 다음 접속에도 유지</div></div></div>
+<dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V67</b><span>현재 설치 버전 · 2026-09-07</span></div><h2>패치노트</h2><div class="patchList">
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V67</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>전체 UI 간격과 버튼 크기를 정리하고 모바일 상단 영역을 컴팩트하게 안정화</div><div>빠른 필터를 한 줄 가로 스크롤로 고정해 아이폰에서 상단이 과도하게 길어지는 문제 방지</div><div>지역·권역·어종·낚시방식 선택창과 프로필·관리 팝업의 모바일 배치를 재정리</div><div>팝업 높이·안전영역·지도 크기·회전 후 지도 갱신을 보강해 Safari 잘림과 빈 지도 가능성 감소</div><div>패치 NEW 표시 버전 오류, 서비스워커 캐시 설치 실패 가능성, 외부 지도 타일 과다 캐시 문제 수정</div><div>사용되지 않는 구형 카드 렌더러를 제거하고 JS 문법·중복 ID·필수 요소 참조를 점검</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V66</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>포인트명 옆 START 배지 표시 제거</div><div>상단 빠른 메뉴에 포인트 코스 ON/OFF 추가</div><div>코스 OFF 시 코스 구분·순서·코스 도구를 숨기고 포인트만 일반 목록으로 표시</div><div>코스 ON 시 기존 자동정리·코스 지도·출발지 기능을 그대로 복원</div><div>코스 사용 상태를 저장해 다음 접속에도 유지</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V65</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>회원 포인트 등록을 승인대기 방식으로 보강하고 관리자 운영 처리함 추가</div><div>잘못된 정보 신고·정보 수정 제보·포인트 상태·최근 현장 확인일 관리 추가</div><div>반경 300m 중복 포인트 경고와 내 주변 5/10/30km 검색, 수로·본류 빠른 필터 추가</div><div>회원 추천자리 도움돼요 평가와 공용 추천자리 동기화 구조 추가</div><div>관리자 변경이력과 브라우저 자동 스냅샷 백업·복원 기능 추가</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V64</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>비회원·회원·관리자 권한을 3단계로 분리</div><div>조과사진·지도·물때표·추천자리 보기·링크 공유는 모든 이용자 공통 유지</div><div>회원은 즐겨찾기·방문기록·포인트 추가·추천자리 직접 찍기·개인 코스 설정 사용 가능</div><div>관리자는 기존 포인트 수정·삭제와 기존 추천자리 수정·이동·삭제 가능</div><div>추천자리 지도에서 관리자 추천과 회원 추천을 구분 표시</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V63</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>상단 도구 메뉴에 사이트 링크 공유하기 기능 추가</div><div>각 포인트 카드에 해당 포인트 링크 공유 기능 추가</div><div>공유받은 링크를 열면 해당 포인트로 자동 이동하고 강조 표시</div><div>모바일은 기기 공유창, 미지원 브라우저는 링크 자동 복사 방식으로 동작</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V62</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>관리자 계정 프로필에서 관리자 배지를 닉네임 바로 옆으로 이동</div><div>기존 관리자 권한과 일반 회원 포인트 추가 권한은 그대로 유지</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V61</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>현재 사용자 계정을 관리자 계정으로 지정하고 관리자 배지 표시</div><div>일반 회원은 포인트 추가를 계속 사용할 수 있게 유지</div><div>기존 포인트 수정·삭제, 추천자리 편집, 기존 지도/주차사진 삭제는 관리자만 가능하도록 제한</div><div>관리자용 최초 상태 복원 버튼도 관리자 계정에서만 표시</div></div></div>
@@ -1634,40 +1715,7 @@ function pointMedia(p){
   return parts;
 }
 
-function card(p){
-  let media=pointMedia(p);
-  let d=currentPos&&coord(p)?hav(currentPos,coord(p)):Infinity;
-  let lg=latestLog(p),k=pointKey(p);
-  let isStart=!!(p.courseStart||p.start);
-  let courseBits=isCourseEnabled()&&Number.isFinite(+p.routeOrder)?`<span class="routeMode">코스 ${p.routeOrder}번째</span>`:'';
-  let feature=p.content?`<div class="pointContent"><div class="pointContentTitle">포인트 특장점</div>${esc(p.content).replace(/\n/g,'<br>')}</div>`:'';
-  let spots=fishingSpotItems(p),member=isMember(),admin=isAdmin();
-  let personalRow=member
-    ?`<div class="actionRow cols3"><button class="act visitAct ${p.visited?'on':''}" onclick="toggleVisited('${esc(k)}')">${p.visited?'방문 취소':'방문 완료'}</button><button class="act" onclick="openLog('${esc(k)}')">방문 기록</button><button class="act" onclick="openCatchPhotos('${esc(k)}')">조과사진${p.catchPhotos?.length?` ${p.catchPhotos.length}`:''}</button></div>`
-    :`<div class="actionRow cols1"><button class="act" onclick="openCatchPhotos('${esc(k)}')">조과사진${p.catchPhotos?.length?` ${p.catchPhotos.length}`:''}</button></div>`;
-  let roleRow=admin
-    ?`<div class="actionRow cols3"><button class="act" onclick="showFishingSpotEditor('${esc(k)}')">추천자리 관리${spots.length?` ${spots.length}`:''}</button><button class="act edit" onclick="editPoint('${esc(k)}')">수정</button><button class="act danger" onclick="deletePoint('${esc(k)}')">삭제</button></div>`
-    :member
-      ?`<div class="actionRow ${spots.length?'cols2':'cols1'}"><button class="act" onclick="showFishingSpotEditor('${esc(k)}')">추천자리 찍기</button>${spots.length?`<button class="act" onclick="showAllPointsMap('${esc(k)}')">추천자리 보기 ${spots.length}</button>`:''}</div>`
-      :(spots.length?`<div class="actionRow cols1"><button class="act" onclick="showAllPointsMap('${esc(k)}')">추천자리 보기 ${spots.length}</button></div>`:'');
-
-  return `<article id="point-${esc(k)}" class="card ${p.visited?'visited':''}" onpointerdown="markViewed('${esc(k)}')">
-    <div class="head"><div class="row"><div>
-      <div class="nm">${esc(p.name)}${p.visited?'<span class="visitedBadge">방문완료</span>':''}</div>
-      <div class="addr" onclick='openTmap(${JSON.stringify(p.address)})'>${esc(p.address)}</div>
-      <div class="meta">${esc(pointRegion(p))} · ${esc(pointZone(p))} · ${speciesSummaryHtml(p)}${p.area?` · ${esc(p.area)}`:''}<br>주차: ${esc(p.parking||'-')}${p.note?`<br>${esc(p.note)}`:''}</div>
-      ${methodRecommendHtml(p)}${feature}
-      ${Number.isFinite(d)?`<span class="distance">내 위치 ${d.toFixed(d<10?1:0)}km</span>`:''}
-      ${lg?`<span class="logSummary">최근 방문 ${esc(lg.date)}</span>`:''}${(p.catchPhotos?.length)?`<span class="catchCount">조과사진 ${p.catchPhotos.length}장</span>`:''}${spots.length?`<span class="fishingSpotCount">추천자리 ${spots.length}곳</span>`:''}${member&&p.lastViewedAt?`<span class="recentStamp">최근 확인</span>`:''}${courseBits}
-    </div>${member?`<button class="starBtn ${p.favorite?'on':''}" onclick="toggleFav('${esc(k)}')" aria-label="즐겨찾기">★</button>`:''}</div></div>
-    <div class="actions">
-      <div class="actionRow cols3"><button class="act primary" onclick='openTmap(${JSON.stringify(p.address)})'>티맵 열기</button><button class="act" onclick='copyAddr(${JSON.stringify(p.address)})'>주소 복사</button><button class="act mapFocusBtn" onclick="showAllPointsMap('${esc(k)}')">지도 보기</button></div>
-      ${personalRow}${roleRow}
-      <div class="actionRow ${p.sourceUrl?'cols2':'cols1'}"><button class="act" onclick="sharePointLink('${esc(k)}')">링크 공유</button>${p.sourceUrl?`<button class="act" onclick='openSource(${JSON.stringify(p.sourceUrl)})'>원문 보기</button>`:''}</div>
-    </div>${media}
-  </article>`;
-}
-
+/* V67: 구형 card() 렌더러 제거 - 하단 통합 card 렌더러만 사용 */
 let sharedPreviewData=null,sharedLinkResolved=false,sharedFallbackShown=false;
 function copyTextFallback(text){let t=document.createElement('textarea');t.value=text;t.setAttribute('readonly','');t.style.position='fixed';t.style.left='-9999px';document.body.append(t);t.select();try{document.execCommand('copy')}catch(e){}t.remove()}
 function baseShareUrl(){
@@ -2391,8 +2439,8 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 function setControlPanel(open,remember=true){let p=$('controlPanel'),b=$('controlToggle');if(!p||!b)return;p.classList.toggle('open',!!open);b.classList.toggle('open',!!open);b.setAttribute('aria-expanded',open?'true':'false');b.querySelector('span:first-child').textContent=open?'도구 메뉴 접기':'도구 메뉴 펼치기';b.querySelector('.chev').textContent=open?'▲':'▼';if(remember)localStorage.setItem('fish_control_open',open?'1':'0')}
 function toggleControlPanel(){let p=$('controlPanel');setControlPanel(!p?.classList.contains('open'))}
 function initControlPanel(){setControlPanel(localStorage.getItem('fish_control_open')==='1',false)}
-function showPatchNotes(){localStorage.setItem('fish_seen_patch','65');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
-function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='65',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
+function showPatchNotes(){localStorage.setItem('fish_seen_patch','67');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
+function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='67',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}function showInstallHelp(){alert('휴대폰에서 GitHub Pages 주소를 연 뒤 브라우저 메뉴의 “홈 화면에 추가”를 누르면 앱처럼 사용할 수 있습니다. 회원가입 후 같은 계정으로 로그인하면 PC와 휴대폰에서 포인트·즐겨찾기·기록·조과사진을 자동으로 공유할 수 있습니다. 로그인하지 않으면 개인 설정과 기록은 저장되지 않으며 초기 상태로 이용합니다. 일반 회원은 포인트 추가가 가능하고 기존 포인트 관리 기능은 관리자 계정에서만 표시됩니다.');$('manageDlg').close()}
 
 function openPhoto(src,title='사진 보기'){
@@ -3080,8 +3128,34 @@ async function migrateLocalSpotsV65(){if(!cloudUser)return;for(const p of points
 function v65DailyInit(){loadCommunityData(false);let tries=0,t=setInterval(async()=>{tries++;if(cloudUser){createAutoSnapshot('일일 자동백업');clearInterval(t);await loadCommunityData(false);await migrateLocalSpotsV65()}else if(tries>12)clearInterval(t)},1000);setInterval(()=>{if(document.visibilityState==='visible')loadCommunityData(false)},60000)}
 setTimeout(v65DailyInit,500);
 
+
+// ===== V67 UI / mobile stabilization =====
+function v67InvalidateVisibleMaps(){
+  for(const m of [typeof allLeafletMap!=='undefined'?allLeafletMap:null,typeof fishingSpotMap!=='undefined'?fishingSpotMap:null]){
+    if(m)try{m.invalidateSize()}catch(_){ }
+  }
+  let td=$('tideDlg');if(td?.open)try{fitTideFrame()}catch(_){ }
+}
+function v67SyncDialogLock(){document.body.classList.toggle('v67DialogOpen',!!document.querySelector('dialog[open]'))}
+function initV67UX(){
+  document.querySelectorAll('dialog').forEach(d=>{
+    if(d.dataset.v67ux==='1')return;d.dataset.v67ux='1';
+    d.addEventListener('close',()=>{let m=d.querySelector(':scope > .modal, :scope > form.modal');if(m)m.scrollTop=0;setTimeout(v67SyncDialogLock,0)});
+  });
+  const observer=new MutationObserver(list=>{
+    let opened=false;
+    for(const m of list){if(m.type==='attributes'&&m.attributeName==='open'&&m.target.open){opened=true;let box=m.target.querySelector(':scope > .modal, :scope > form.modal');if(box)box.scrollTop=0}}
+    v67SyncDialogLock();if(opened)setTimeout(v67InvalidateVisibleMaps,120);
+  });
+  document.querySelectorAll('dialog').forEach(d=>observer.observe(d,{attributes:true,attributeFilter:['open']}));
+  let resizeTimer=0;const refresh=()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(v67InvalidateVisibleMaps,160)};
+  window.addEventListener('resize',refresh,{passive:true});window.addEventListener('orientationchange',refresh,{passive:true});
+}
+const __v67SetQuickFilter=setQuickFilter;
+setQuickFilter=function(f){__v67SetQuickFilter(f);requestAnimationFrame(()=>{let b=$('qf-'+f);if(b)try{b.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'})}catch(_){}})};
+
 ensureV22Settings();
 ensureV23Settings();
 
-migrateV20Defaults();migrateV24GeojePoints();migrateGeojeFeaturesV39();migrateDaehoGodaeV43();migrateRouteFixV33();migrateV34SeaPoints();migrateV46WalkSeaPoints();migrateV47FreshBassPoints();migrateClassifications();migrateUniquePointKeysV41();migrateFishingMethodsV42();persist(true);if(!hasSavedCloudSessionV54())enterGuestModeV54(false);else restoreLastUiState();render();renderStartSummary();updateSeaOnlyUi();initControlPanel();applyRegionPanelState();initPatchBadge();installDialogUX();handleSharedLink(false);setTimeout(()=>handleSharedLink(true),2200);if(hasSavedCloudSessionV54())migrateCatchPhotosV44().then(()=>render()).catch(e=>console.warn('조과사진 저장소 이전 실패',e));cloudBooting=false;cloudConfig=FIXED_FIREBASE_CONFIG;cloudAuto=true;localStorage.setItem(CLOUD_AUTO_KEY,'1');wireCloudControls();renderCloudPanel();initCloudAuth(false);if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').then(r=>r.update()).catch(()=>{});
+migrateV20Defaults();migrateV24GeojePoints();migrateGeojeFeaturesV39();migrateDaehoGodaeV43();migrateRouteFixV33();migrateV34SeaPoints();migrateV46WalkSeaPoints();migrateV47FreshBassPoints();migrateClassifications();migrateUniquePointKeysV41();migrateFishingMethodsV42();persist(true);if(!hasSavedCloudSessionV54())enterGuestModeV54(false);else restoreLastUiState();render();renderStartSummary();updateSeaOnlyUi();initControlPanel();applyRegionPanelState();initPatchBadge();installDialogUX();initV67UX();handleSharedLink(false);setTimeout(()=>handleSharedLink(true),2200);if(hasSavedCloudSessionV54())migrateCatchPhotosV44().then(()=>render()).catch(e=>console.warn('조과사진 저장소 이전 실패',e));cloudBooting=false;cloudConfig=FIXED_FIREBASE_CONFIG;cloudAuto=true;localStorage.setItem(CLOUD_AUTO_KEY,'1');wireCloudControls();renderCloudPanel();initCloudAuth(false);if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').then(r=>r.update()).catch(()=>{});
 </script></body></html>
