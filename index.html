@@ -502,13 +502,15 @@ html,body{max-width:100%;overflow-x:hidden}
 /* V61 관리자 권한 */
 .adminBadge{display:none;align-items:center;padding:3px 8px;border-radius:999px;background:#111827;color:#fff;font-size:11px;font-weight:800;margin-left:6px;vertical-align:middle}
 .adminBadge.show{display:inline-flex}
+.cloudProfileNicknameLine{display:flex;align-items:center;gap:6px;min-width:0}
+.cloudProfileNicknameLine .adminBadge{margin-left:0;flex:0 0 auto}
 .adminOnly[hidden]{display:none!important}
 .adminPhotoActions{display:flex;gap:6px;margin-top:6px}
 .adminPhotoActions button{font-size:12px;padding:7px 10px}
 .adminLockNote{font-size:12px;color:#64748b;margin-top:5px}
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V61 · 관리자 권한 · 포인트 추가 공개</div></div><div class="titleActions"><button id="cloudBadge" class="cloudBadge local" type="button" onclick="showManage()">로컬 저장</button><button class="tool" onclick="showManage()">관리</button></div></div>
+<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V62 · 관리자 배지 위치 수정</div></div><div class="titleActions"><button id="cloudBadge" class="cloudBadge local" type="button" onclick="showManage()">로컬 저장</button><button class="tool" onclick="showManage()">관리</button></div></div>
 <div class="tabs"><button id="tabFresh" class="tab on" onclick="setCat('freshwater')">민물</button><button id="tabSea" class="tab" onclick="setCat('sea')">바다</button></div>
 <div id="seaTideBar" class="seaTideBar" hidden><button class="tideMainBtn" type="button" onclick="showTide()">월간 물때표</button><span>바다 전용 · 물때 기준지역 직접 선택</span></div>
 <button id="regionScopeToggle" class="regionScopeToggle" type="button" aria-expanded="false" onclick="toggleRegionPanel()"><span id="regionScopeText" class="scopeText">지역 · 권역</span><span class="scopeChev">▼</span></button>
@@ -580,7 +582,7 @@ html,body{max-width:100%;overflow-x:hidden}
 <div id="cloudLoggedInPanel" class="cloudProfileView">
 <div class="cloudProfileCard">
 <div id="cloudProfileAvatar" class="cloudProfileAvatar"><img id="cloudProfilePhoto" alt="프로필 사진"><span id="cloudProfileInitial">U</span></div>
-<div class="cloudProfileBody"><div class="cloudProfileLabel">내 프로필 <span id="cloudAdminBadge" class="adminBadge">관리자</span></div><div id="cloudProfileNickname" class="cloudProfileNickname">낚시인</div><div id="cloudProfileEmail" class="cloudProfileEmail">-</div><div class="cloudProfileState"><span class="cloudProfileDot"></span><span id="cloudProfileSync">자동 동기화 중</span></div></div>
+<div class="cloudProfileBody"><div class="cloudProfileLabel">내 프로필</div><div class="cloudProfileNicknameLine"><div id="cloudProfileNickname" class="cloudProfileNickname">낚시인</div><span id="cloudAdminBadge" class="adminBadge">관리자</span></div><div id="cloudProfileEmail" class="cloudProfileEmail">-</div><div class="cloudProfileState"><span class="cloudProfileDot"></span><span id="cloudProfileSync">자동 동기화 중</span></div></div>
 <button id="cloudProfileEditBtn" class="tool cloudProfileEditBtn" type="button">프로필 수정</button>
 </div>
 <div id="cloudProfileEditor" class="cloudProfileEditor">
@@ -613,7 +615,7 @@ html,body{max-width:100%;overflow-x:hidden}
 <button class="tool" onclick="showPatchNotes();manageDlg.close()">패치노트 / 업데이트 내역</button><button class="tool" onclick="exportData()">전체 데이터 백업(JSON)</button><button class="tool" onclick="document.getElementById('importFile').click();manageDlg.close()">백업 파일 복원</button><button id="adminResetBtn" class="tool adminOnly" hidden onclick="if(requireAdmin('초기 상태 복원')&&confirm('직접 추가/수정한 내용을 모두 지우고 최초 상태로 되돌릴까요?')) resetAll()">최초 상태로 복원</button>
 </div><div class="smallNote">주소 좌표 변환은 개인용 저빈도 사용을 전제로 OpenStreetMap Nominatim을 사용하며, 요청은 1초 이상 간격으로 보내고 결과를 브라우저에 저장합니다. © OpenStreetMap contributors.</div><div class="smallNote">V21 현재: 민물은 배스 고정, 바다는 주소의 지역을 기준으로 대상어종을 자동 세팅하며 직접 수정할 수 있습니다.</div><div class="modalBtns"><button class="cancel" onclick="manageDlg.close()">닫기</button><button class="save" onclick="showInstallHelp()">홈 화면 사용법</button></div></div></dialog>
 <dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V61</b><span>현재 설치 버전 · 2026-09-07</span></div><h2>패치노트</h2><div class="patchList">
-<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V61</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>현재 사용자 계정을 관리자 계정으로 지정하고 관리자 배지 표시</div><div>일반 회원은 포인트 추가를 계속 사용할 수 있게 유지</div><div>기존 포인트 수정·삭제, 추천자리 편집, 기존 지도/주차사진 삭제는 관리자만 가능하도록 제한</div><div>관리자용 최초 상태 복원 버튼도 관리자 계정에서만 표시</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V62</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>관리자 계정 프로필에서 관리자 배지를 닉네임 바로 옆으로 이동</div><div>기존 관리자 권한과 일반 회원 포인트 추가 권한은 그대로 유지</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V61</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>현재 사용자 계정을 관리자 계정으로 지정하고 관리자 배지 표시</div><div>일반 회원은 포인트 추가를 계속 사용할 수 있게 유지</div><div>기존 포인트 수정·삭제, 추천자리 편집, 기존 지도/주차사진 삭제는 관리자만 가능하도록 제한</div><div>관리자용 최초 상태 복원 버튼도 관리자 계정에서만 표시</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V60</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>추천 낚시자리를 포인트 이미지가 아닌 실제 지도 위 위도·경도 좌표로 저장하도록 변경</div><div>지도 확대·축소·이동 후에도 초록색 번호 핀이 정확한 위치에 유지되도록 수정</div><div>추천자리 메모·이동·삭제·캐스팅 방향을 실제 지도에서 편집하도록 변경</div><div>V59의 내 프로필 최상단 배치와 코스 설정 수동 수정 방식 유지</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V59</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>사이트 관리 화면에서 내 프로필을 다시 최상단으로 복원</div><div>코스 설정은 현재값 보기 상태로 두고 수정 버튼을 눌렀을 때만 편집되도록 복원</div><div>추천 낚시자리 오버레이를 실제 지도 이미지 영역에 고정해 번호 핀이 안 보이거나 위치가 어긋나는 문제 수정</div><div>추천자리 저장 시 표시 ON으로 자동 전환하고 Safari에서도 저장 직후 지도에 바로 표시되도록 보강</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V58</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>포인트 지도 사진에 초록색 번호로 추천 낚시자리 표시 기능 추가</div><div>추천자리별 메모·위치 이동·삭제·캐스팅 방향 화살표 설정 지원</div><div>추천자리 표시 ON/OFF 및 PC·휴대폰 계정 자동 동기화 지원</div><div>이전 버전의 중복 지도 CSS와 패치 버전 상태를 정리해 충돌 가능성 감소</div></div></div>
