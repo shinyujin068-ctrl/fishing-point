@@ -614,7 +614,7 @@ dialog>.modal,dialog>form.modal{scrollbar-gutter:stable}
 
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V67 · UI·모바일 안정화</div></div><div class="titleActions"><button id="cloudBadge" class="cloudBadge local" type="button" onclick="showManage()">로컬 저장</button><button class="tool" onclick="showManage()">관리</button></div></div>
+<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V68 · 민물/바다 코스 분리</div></div><div class="titleActions"><button id="cloudBadge" class="cloudBadge local" type="button" onclick="showManage()">로컬 저장</button><button class="tool" onclick="showManage()">관리</button></div></div>
 <div class="tabs"><button id="tabFresh" class="tab on" onclick="setCat('freshwater')">민물</button><button id="tabSea" class="tab" onclick="setCat('sea')">바다</button></div>
 <div id="seaTideBar" class="seaTideBar" hidden><button class="tideMainBtn" type="button" onclick="showTide()">월간 물때표</button><span>바다 전용 · 물때 기준지역 직접 선택</span></div>
 <button id="regionScopeToggle" class="regionScopeToggle" type="button" aria-expanded="false" onclick="toggleRegionPanel()"><span id="regionScopeText" class="scopeText">지역 · 권역</span><span class="scopeChev">▼</span></button>
@@ -628,7 +628,7 @@ dialog>.modal,dialog>form.modal{scrollbar-gutter:stable}
 </div>
 <div class="alwaysControls">
 <div class="searchBox"><input id="searchInput" type="search" placeholder="포인트명 · 주소 · 지역 · 대상어종 · 낚시방법 · 메모 검색" oninput="setSearchQuery(this.value)"><button class="tool" onclick="clearSearch()">지우기</button></div>
-<div class="quickFilters"><button id="qf-all" class="qf on" onclick="setQuickFilter('all')">전체</button><button id="qf-fav" class="qf memberOnly" hidden onclick="setQuickFilter('fav')">★ 즐겨찾기</button><button id="qf-parking" class="qf" onclick="setQuickFilter('parking')">주차 좋음</button><button id="qf-waterway" class="qf" onclick="setQuickFilter('waterway')">수로</button><button id="qf-mainstream" class="qf" onclick="setQuickFilter('mainstream')">본류</button><button id="qf-nearby" class="qf" onclick="showNearbyChooser()">내 주변</button><button id="qf-logged" class="qf memberOnly" hidden onclick="setQuickFilter('logged')">방문기록 있음</button><button id="qf-recent" class="qf memberOnly" hidden onclick="setQuickFilter('recent')">최근 본 포인트</button><button id="courseToggleBtn" class="qf on" type="button" aria-pressed="true" onclick="toggleCourseEnabled()">포인트 코스 ON</button><button id="fishingSpotToggleBtn" class="qf fishingSpotToggle" type="button" onclick="toggleFishingSpots()">추천자리 ON</button></div>
+<div class="quickFilters"><button id="qf-all" class="qf on" onclick="setQuickFilter('all')">전체</button><button id="qf-fav" class="qf memberOnly" hidden onclick="setQuickFilter('fav')">★ 즐겨찾기</button><button id="qf-parking" class="qf" onclick="setQuickFilter('parking')">주차 좋음</button><button id="qf-waterway" class="qf" onclick="setQuickFilter('waterway')">수로</button><button id="qf-mainstream" class="qf" onclick="setQuickFilter('mainstream')">본류</button><button id="qf-nearby" class="qf" onclick="showNearbyChooser()">내 주변</button><button id="qf-logged" class="qf memberOnly" hidden onclick="setQuickFilter('logged')">방문기록 있음</button><button id="qf-recent" class="qf memberOnly" hidden onclick="setQuickFilter('recent')">최근 본 포인트</button><button id="courseToggleFreshBtn" class="qf on" type="button" aria-pressed="true" onclick="toggleCourseEnabled('freshwater')">민물 코스 ON</button><button id="courseToggleSeaBtn" class="qf on" type="button" aria-pressed="true" onclick="toggleCourseEnabled('sea')">바다 코스 ON</button><button id="fishingSpotToggleBtn" class="qf fishingSpotToggle" type="button" onclick="toggleFishingSpots()">추천자리 ON</button></div>
 <div id="topStats" class="topStats"></div>
 </div>
 <button id="controlToggle" class="controlToggle" type="button" aria-expanded="false" onclick="toggleControlPanel()"><span>도구 메뉴 펼치기</span><span class="chev">▼</span></button>
@@ -721,8 +721,9 @@ dialog>.modal,dialog>form.modal{scrollbar-gutter:stable}
 <div class="smallNote courseSettingsNote">코스 설정은 자동으로 수정 상태가 되지 않습니다. 위의 ‘수정’을 눌렀을 때만 값을 변경할 수 있습니다. 출발지에서 실제 도로 주행거리 기준으로 가까운 포인트부터 코스를 구성하며, 도로거리 계산 실패 시 직선거리 방식으로 대체됩니다.</div></div>
 <button class="tool" onclick="showPatchNotes();manageDlg.close()">패치노트 / 업데이트 내역</button><button class="tool memberOnly" hidden onclick="exportData()">전체 데이터 백업(JSON)</button><button class="tool memberOnly" hidden onclick="document.getElementById('importFile').click();manageDlg.close()">백업 파일 복원</button><button id="adminResetBtn" class="tool adminOnly" hidden onclick="if(requireAdmin('초기 상태 복원')&&confirm('직접 추가/수정한 내용을 모두 지우고 최초 상태로 되돌릴까요?')) resetAll()">최초 상태로 복원</button>
 </div><div class="smallNote">주소 좌표 변환은 개인용 저빈도 사용을 전제로 OpenStreetMap Nominatim을 사용하며, 요청은 1초 이상 간격으로 보내고 결과를 브라우저에 저장합니다. © OpenStreetMap contributors.</div><div class="smallNote">V21 현재: 민물은 배스 고정, 바다는 주소의 지역을 기준으로 대상어종을 자동 세팅하며 직접 수정할 수 있습니다.</div><div class="modalBtns"><button class="cancel" onclick="manageDlg.close()">닫기</button><button class="save" onclick="showInstallHelp()">홈 화면 사용법</button></div></div></dialog>
-<dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V67</b><span>현재 설치 버전 · 2026-09-07</span></div><h2>패치노트</h2><div class="patchList">
-<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V67</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>전체 UI 간격과 버튼 크기를 정리하고 모바일 상단 영역을 컴팩트하게 안정화</div><div>빠른 필터를 한 줄 가로 스크롤로 고정해 아이폰에서 상단이 과도하게 길어지는 문제 방지</div><div>지역·권역·어종·낚시방식 선택창과 프로필·관리 팝업의 모바일 배치를 재정리</div><div>팝업 높이·안전영역·지도 크기·회전 후 지도 갱신을 보강해 Safari 잘림과 빈 지도 가능성 감소</div><div>패치 NEW 표시 버전 오류, 서비스워커 캐시 설치 실패 가능성, 외부 지도 타일 과다 캐시 문제 수정</div><div>사용되지 않는 구형 카드 렌더러를 제거하고 JS 문법·중복 ID·필수 요소 참조를 점검</div></div></div>
+<dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V68</b><span>현재 설치 버전 · 2026-09-07</span></div><h2>패치노트</h2><div class="patchList">
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V68</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>포인트 코스 ON/OFF를 민물 코스와 바다 코스로 완전히 분리</div><div>민물 OFF·바다 ON 또는 민물 ON·바다 OFF처럼 각각 독립 설정 가능</div><div>각 코스 사용 상태를 별도로 저장해 다음 접속에도 그대로 유지</div><div>V67의 기존 통합 코스 상태는 최초 1회 민물·바다 설정으로 자동 승계</div><div>현재 보고 있는 민물/바다 탭의 코스가 OFF이면 해당 코스 정보·도구만 숨김</div></div></div>
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V67</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>전체 UI 간격과 버튼 크기를 정리하고 모바일 상단 영역을 컴팩트하게 안정화</div><div>빠른 필터를 한 줄 가로 스크롤로 고정해 아이폰에서 상단이 과도하게 길어지는 문제 방지</div><div>지역·권역·어종·낚시방식 선택창과 프로필·관리 팝업의 모바일 배치를 재정리</div><div>팝업 높이·안전영역·지도 크기·회전 후 지도 갱신을 보강해 Safari 잘림과 빈 지도 가능성 감소</div><div>패치 NEW 표시 버전 오류, 서비스워커 캐시 설치 실패 가능성, 외부 지도 타일 과다 캐시 문제 수정</div><div>사용되지 않는 구형 카드 렌더러를 제거하고 JS 문법·중복 ID·필수 요소 참조를 점검</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V66</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>포인트명 옆 START 배지 표시 제거</div><div>상단 빠른 메뉴에 포인트 코스 ON/OFF 추가</div><div>코스 OFF 시 코스 구분·순서·코스 도구를 숨기고 포인트만 일반 목록으로 표시</div><div>코스 ON 시 기존 자동정리·코스 지도·출발지 기능을 그대로 복원</div><div>코스 사용 상태를 저장해 다음 접속에도 유지</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V65</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>회원 포인트 등록을 승인대기 방식으로 보강하고 관리자 운영 처리함 추가</div><div>잘못된 정보 신고·정보 수정 제보·포인트 상태·최근 현장 확인일 관리 추가</div><div>반경 300m 중복 포인트 경고와 내 주변 5/10/30km 검색, 수로·본류 빠른 필터 추가</div><div>회원 추천자리 도움돼요 평가와 공용 추천자리 동기화 구조 추가</div><div>관리자 변경이력과 브라우저 자동 스냅샷 백업·복원 기능 추가</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V64</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>비회원·회원·관리자 권한을 3단계로 분리</div><div>조과사진·지도·물때표·추천자리 보기·링크 공유는 모든 이용자 공통 유지</div><div>회원은 즐겨찾기·방문기록·포인트 추가·추천자리 직접 찍기·개인 코스 설정 사용 가능</div><div>관리자는 기존 포인트 수정·삭제와 기존 추천자리 수정·이동·삭제 가능</div><div>추천자리 지도에서 관리자 추천과 회원 추천을 구분 표시</div></div></div>
@@ -1134,8 +1135,8 @@ function migrateRouteFixV33(){
   persist();
 }
 
-const DEFAULT_SETTINGS={base:{freshwater:'충남 당진시 석문면 통정리 358-3',sea:''},activeStart:{freshwater:{mode:'default',address:''},sea:{mode:'default',address:''}},activeStartCoord:{},maxPerCourse:6,splitLegKm:5,autoMode:{freshwater:false,sea:false},baseCoord:{},roadMatrix:{},routeMode:{}};
-const GUEST_DEFAULT_SETTINGS={base:{freshwater:'',sea:''},activeStart:{freshwater:{mode:'default',address:''},sea:{mode:'default',address:''}},activeStartCoord:{},maxPerCourse:6,splitLegKm:5,autoMode:{freshwater:false,sea:false},baseCoord:{},roadMatrix:{},routeMode:{}};
+const DEFAULT_SETTINGS={base:{freshwater:'충남 당진시 석문면 통정리 358-3',sea:''},activeStart:{freshwater:{mode:'default',address:''},sea:{mode:'default',address:''}},activeStartCoord:{},maxPerCourse:6,splitLegKm:5,autoMode:{freshwater:false,sea:false},courseEnabled:{freshwater:true,sea:true},baseCoord:{},roadMatrix:{},routeMode:{}};
+const GUEST_DEFAULT_SETTINGS={base:{freshwater:'',sea:''},activeStart:{freshwater:{mode:'default',address:''},sea:{mode:'default',address:''}},activeStartCoord:{},maxPerCourse:6,splitLegKm:5,autoMode:{freshwater:false,sea:false},courseEnabled:{freshwater:true,sea:true},baseCoord:{},roadMatrix:{},routeMode:{}};
 const V54_PENDING_OWNER_KEY='fish_pending_owner_v54';
 function savedCloudSessionV54(){try{let s=JSON.parse(localStorage.getItem(CLOUD_AUTH_KEY)||'null');return s&&s.uid&&s.refreshToken?s:null}catch(_){return null}}
 function hasSavedCloudSessionV54(){return !!savedCloudSessionV54()}
@@ -2439,8 +2440,8 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 function setControlPanel(open,remember=true){let p=$('controlPanel'),b=$('controlToggle');if(!p||!b)return;p.classList.toggle('open',!!open);b.classList.toggle('open',!!open);b.setAttribute('aria-expanded',open?'true':'false');b.querySelector('span:first-child').textContent=open?'도구 메뉴 접기':'도구 메뉴 펼치기';b.querySelector('.chev').textContent=open?'▲':'▼';if(remember)localStorage.setItem('fish_control_open',open?'1':'0')}
 function toggleControlPanel(){let p=$('controlPanel');setControlPanel(!p?.classList.contains('open'))}
 function initControlPanel(){setControlPanel(localStorage.getItem('fish_control_open')==='1',false)}
-function showPatchNotes(){localStorage.setItem('fish_seen_patch','67');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
-function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='67',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
+function showPatchNotes(){localStorage.setItem('fish_seen_patch','68');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
+function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='68',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}function showInstallHelp(){alert('휴대폰에서 GitHub Pages 주소를 연 뒤 브라우저 메뉴의 “홈 화면에 추가”를 누르면 앱처럼 사용할 수 있습니다. 회원가입 후 같은 계정으로 로그인하면 PC와 휴대폰에서 포인트·즐겨찾기·기록·조과사진을 자동으로 공유할 수 있습니다. 로그인하지 않으면 개인 설정과 기록은 저장되지 않으며 초기 상태로 이용합니다. 일반 회원은 포인트 추가가 가능하고 기존 포인트 관리 기능은 관리자 계정에서만 표시됩니다.');$('manageDlg').close()}
 
 function openPhoto(src,title='사진 보기'){
@@ -2479,29 +2480,46 @@ function ensureV22Settings(){
   settings.activeStart=settings.activeStart||clone(DEFAULT_SETTINGS.activeStart);
 }
 function ensureCourseEnabledSetting(){
-  if(typeof settings.courseEnabledGlobal!=='boolean')settings.courseEnabledGlobal=true;
+  settings.courseEnabled=settings.courseEnabled||{};
+  const hasLegacy=typeof settings.courseEnabledGlobal==='boolean';
+  if(hasLegacy&&settings.courseEnabledMigratedV68!==true){
+    settings.courseEnabled.freshwater=settings.courseEnabledGlobal;
+    settings.courseEnabled.sea=settings.courseEnabledGlobal;
+    settings.courseEnabledMigratedV68=true;
+    try{persist(true)}catch(_){ }
+  }
+  if(typeof settings.courseEnabled.freshwater!=='boolean')settings.courseEnabled.freshwater=true;
+  if(typeof settings.courseEnabled.sea!=='boolean')settings.courseEnabled.sea=true;
 }
-function isCourseEnabled(){
+function isCourseEnabled(cat=currentCat){
   ensureCourseEnabledSetting();
-  return settings.courseEnabledGlobal!==false;
+  cat=cat==='sea'?'sea':'freshwater';
+  return settings.courseEnabled[cat]!==false;
 }
 function updateCourseToggleButtons(){
-  const on=isCourseEnabled();
-  const btn=$('courseToggleBtn');
-  const box=$('courseDisplayControl');
-  if(btn){
-    btn.textContent=`포인트 코스 ${on?'ON':'OFF'}`;
-    btn.classList.toggle('on',on);
-    btn.setAttribute('aria-pressed',on?'true':'false');
-  }
-  if(box)box.style.display=on?'block':'none';
-}
-function toggleCourseEnabled(){
   ensureCourseEnabledSetting();
-  settings.courseEnabledGlobal=!settings.courseEnabledGlobal;
+  const configs=[
+    ['freshwater','courseToggleFreshBtn','민물 코스'],
+    ['sea','courseToggleSeaBtn','바다 코스']
+  ];
+  for(const [cat,id,label] of configs){
+    const on=isCourseEnabled(cat),btn=$(id);
+    if(btn){
+      btn.textContent=`${label} ${on?'ON':'OFF'}`;
+      btn.classList.toggle('on',on);
+      btn.setAttribute('aria-pressed',on?'true':'false');
+    }
+  }
+  const box=$('courseDisplayControl');
+  if(box)box.style.display=isCourseEnabled(currentCat)?'block':'none';
+}
+function toggleCourseEnabled(cat=currentCat){
+  ensureCourseEnabledSetting();
+  cat=cat==='sea'?'sea':'freshwater';
+  settings.courseEnabled[cat]=!settings.courseEnabled[cat];
   persist();
   render();
-  toast(`포인트 코스 ${settings.courseEnabledGlobal?'ON':'OFF'}`);
+  toast(`${cat==='freshwater'?'민물':'바다'} 코스 ${settings.courseEnabled[cat]?'ON':'OFF'}`);
 }
 function toggleCustomCourseInput(){let w=$('customCourseWrap');if(w)w.style.display=$('fCourse').value==='CUSTOM'?'block':'none'}
 
