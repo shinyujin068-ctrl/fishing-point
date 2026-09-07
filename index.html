@@ -508,9 +508,15 @@ html,body{max-width:100%;overflow-x:hidden}
 .adminPhotoActions{display:flex;gap:6px;margin-top:6px}
 .adminPhotoActions button{font-size:12px;padding:7px 10px}
 .adminLockNote{font-size:12px;color:#64748b;margin-top:5px}
+/* V63 링크 공유 */
+.sharedPointFocus{outline:3px solid #2f80ed;outline-offset:2px;box-shadow:0 0 0 7px rgba(47,128,237,.13),0 8px 28px rgba(0,0,0,.10);transition:box-shadow .25s ease,outline-color .25s ease}
+.sharePreview{padding:13px;border:1px solid #d8dee5;border-radius:13px;background:#f8fafc}
+.sharePreviewName{font-size:18px;font-weight:900;color:#111827;line-height:1.35}
+.sharePreviewAddr{margin-top:7px;font-size:13px;color:#475569;line-height:1.5;word-break:keep-all}
+.sharePreviewMeta{margin-top:6px;font-size:12px;color:#64748b}
 </style></head>
 <body><div class="wrap">
-<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V62 · 관리자 배지 위치 수정</div></div><div class="titleActions"><button id="cloudBadge" class="cloudBadge local" type="button" onclick="showManage()">로컬 저장</button><button class="tool" onclick="showManage()">관리</button></div></div>
+<div class="top"><div class="title"><div><h1>낚시 포인트 관리</h1><div class="tiny">V63 · 링크 공유 기능 추가</div></div><div class="titleActions"><button id="cloudBadge" class="cloudBadge local" type="button" onclick="showManage()">로컬 저장</button><button class="tool" onclick="showManage()">관리</button></div></div>
 <div class="tabs"><button id="tabFresh" class="tab on" onclick="setCat('freshwater')">민물</button><button id="tabSea" class="tab" onclick="setCat('sea')">바다</button></div>
 <div id="seaTideBar" class="seaTideBar" hidden><button class="tideMainBtn" type="button" onclick="showTide()">월간 물때표</button><span>바다 전용 · 물때 기준지역 직접 선택</span></div>
 <button id="regionScopeToggle" class="regionScopeToggle" type="button" aria-expanded="false" onclick="toggleRegionPanel()"><span id="regionScopeText" class="scopeText">지역 · 권역</span><span class="scopeChev">▼</span></button>
@@ -529,7 +535,7 @@ html,body{max-width:100%;overflow-x:hidden}
 </div>
 <button id="controlToggle" class="controlToggle" type="button" aria-expanded="false" onclick="toggleControlPanel()"><span>도구 메뉴 펼치기</span><span class="chev">▼</span></button>
 <div id="controlPanel" class="controlPanel">
-<div class="tools"><button id="patchBtn" class="tool patchBtn" onclick="showPatchNotes()">패치노트</button><button class="tool" onclick="showCafeImport()">카페 링크 추가</button><button id="cloudToolBtn" class="tool" onclick="showManage();setTimeout(()=>document.getElementById('cloudEmail')?.scrollIntoView({behavior:'smooth',block:'center'}),120)">클라우드 동기화</button><button class="tool" onclick="exportData()">백업 저장</button><button class="tool" onclick="document.getElementById('importFile').click()">백업 복원</button><input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)"><button class="tool" onclick="showAllPointsMap()">전체 지도</button><button class="tool" onclick="locateMe()">내 위치 거리</button><button class="tool" onclick="scrollToTop()">맨 위</button></div>
+<div class="tools"><button id="patchBtn" class="tool patchBtn" onclick="showPatchNotes()">패치노트</button><button class="tool" onclick="showCafeImport()">카페 링크 추가</button><button id="cloudToolBtn" class="tool" onclick="showManage();setTimeout(()=>document.getElementById('cloudEmail')?.scrollIntoView({behavior:'smooth',block:'center'}),120)">클라우드 동기화</button><button class="tool" onclick="exportData()">백업 저장</button><button class="tool" onclick="document.getElementById('importFile').click()">백업 복원</button><input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)"><button class="tool" onclick="showAllPointsMap()">전체 지도</button><button class="tool" onclick="shareSiteLink()">링크 공유하기</button><button class="tool" onclick="locateMe()">내 위치 거리</button><button class="tool" onclick="scrollToTop()">맨 위</button></div>
 </div></div>
 <div id="autoStatus" class="autoStatus"></div><div id="courseDisplayControl" class="courseDisplayControl"><button id="courseDisplayBtn" class="courseDisplayBtn" type="button" onclick="toggleCourseInfoDisplay()"><span id="courseDisplayLabel">전체 코스 정보 접기</span><span id="courseDisplayArrow" aria-hidden="true">▲</span></button><div id="courseInfoTools" class="courseInfoTools"><button type="button" onclick="showStartChooser()">출발지 변경</button><button type="button" onclick="autoRebuildCurrent()">코스 자동정리</button><button type="button" onclick="showCourseMap()">코스 지도</button></div></div><div id="courseNav" class="courseNav"></div><div id="list"></div></div>
 <button class="fab" onclick="openForm()">+ 포인트 추가</button><div id="toast" class="toast"></div>
@@ -614,8 +620,8 @@ html,body{max-width:100%;overflow-x:hidden}
 <div class="smallNote courseSettingsNote">코스 설정은 자동으로 수정 상태가 되지 않습니다. 위의 ‘수정’을 눌렀을 때만 값을 변경할 수 있습니다. 출발지에서 실제 도로 주행거리 기준으로 가까운 포인트부터 코스를 구성하며, 도로거리 계산 실패 시 직선거리 방식으로 대체됩니다.</div></div>
 <button class="tool" onclick="showPatchNotes();manageDlg.close()">패치노트 / 업데이트 내역</button><button class="tool" onclick="exportData()">전체 데이터 백업(JSON)</button><button class="tool" onclick="document.getElementById('importFile').click();manageDlg.close()">백업 파일 복원</button><button id="adminResetBtn" class="tool adminOnly" hidden onclick="if(requireAdmin('초기 상태 복원')&&confirm('직접 추가/수정한 내용을 모두 지우고 최초 상태로 되돌릴까요?')) resetAll()">최초 상태로 복원</button>
 </div><div class="smallNote">주소 좌표 변환은 개인용 저빈도 사용을 전제로 OpenStreetMap Nominatim을 사용하며, 요청은 1초 이상 간격으로 보내고 결과를 브라우저에 저장합니다. © OpenStreetMap contributors.</div><div class="smallNote">V21 현재: 민물은 배스 고정, 바다는 주소의 지역을 기준으로 대상어종을 자동 세팅하며 직접 수정할 수 있습니다.</div><div class="modalBtns"><button class="cancel" onclick="manageDlg.close()">닫기</button><button class="save" onclick="showInstallHelp()">홈 화면 사용법</button></div></div></dialog>
-<dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V61</b><span>현재 설치 버전 · 2026-09-07</span></div><h2>패치노트</h2><div class="patchList">
-<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V62</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>관리자 계정 프로필에서 관리자 배지를 닉네임 바로 옆으로 이동</div><div>기존 관리자 권한과 일반 회원 포인트 추가 권한은 그대로 유지</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V61</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>현재 사용자 계정을 관리자 계정으로 지정하고 관리자 배지 표시</div><div>일반 회원은 포인트 추가를 계속 사용할 수 있게 유지</div><div>기존 포인트 수정·삭제, 추천자리 편집, 기존 지도/주차사진 삭제는 관리자만 가능하도록 제한</div><div>관리자용 최초 상태 복원 버튼도 관리자 계정에서만 표시</div></div></div>
+<dialog id="patchDlg"><div class="modal"><div class="versionHero"><b>낚시 포인트 관리 V63</b><span>현재 설치 버전 · 2026-09-07</span></div><h2>패치노트</h2><div class="patchList">
+<div class="patchItem"><div class="patchHead"><div><span class="patchVer">V63</span><span class="patchCurrent">현재 버전</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>상단 도구 메뉴에 사이트 링크 공유하기 기능 추가</div><div>각 포인트 카드에 해당 포인트 링크 공유 기능 추가</div><div>공유받은 링크를 열면 해당 포인트로 자동 이동하고 강조 표시</div><div>모바일은 기기 공유창, 미지원 브라우저는 링크 자동 복사 방식으로 동작</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V62</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>관리자 계정 프로필에서 관리자 배지를 닉네임 바로 옆으로 이동</div><div>기존 관리자 권한과 일반 회원 포인트 추가 권한은 그대로 유지</div></div></div><div class="patchItem"><div class="patchHead"><div><span class="patchVer">V61</span></div><span class="patchDate">2026-09-07</span></div><div class="patchChanges"><div>현재 사용자 계정을 관리자 계정으로 지정하고 관리자 배지 표시</div><div>일반 회원은 포인트 추가를 계속 사용할 수 있게 유지</div><div>기존 포인트 수정·삭제, 추천자리 편집, 기존 지도/주차사진 삭제는 관리자만 가능하도록 제한</div><div>관리자용 최초 상태 복원 버튼도 관리자 계정에서만 표시</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V60</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>추천 낚시자리를 포인트 이미지가 아닌 실제 지도 위 위도·경도 좌표로 저장하도록 변경</div><div>지도 확대·축소·이동 후에도 초록색 번호 핀이 정확한 위치에 유지되도록 수정</div><div>추천자리 메모·이동·삭제·캐스팅 방향을 실제 지도에서 편집하도록 변경</div><div>V59의 내 프로필 최상단 배치와 코스 설정 수동 수정 방식 유지</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V59</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>사이트 관리 화면에서 내 프로필을 다시 최상단으로 복원</div><div>코스 설정은 현재값 보기 상태로 두고 수정 버튼을 눌렀을 때만 편집되도록 복원</div><div>추천 낚시자리 오버레이를 실제 지도 이미지 영역에 고정해 번호 핀이 안 보이거나 위치가 어긋나는 문제 수정</div><div>추천자리 저장 시 표시 ON으로 자동 전환하고 Safari에서도 저장 직후 지도에 바로 표시되도록 보강</div></div></div>
 <div class="patchItem"><div class="patchHead"><div><span class="patchVer">V58</span></div><span class="patchDate">2026-09-04</span></div><div class="patchChanges"><div>포인트 지도 사진에 초록색 번호로 추천 낚시자리 표시 기능 추가</div><div>추천자리별 메모·위치 이동·삭제·캐스팅 방향 화살표 설정 지원</div><div>추천자리 표시 ON/OFF 및 PC·휴대폰 계정 자동 동기화 지원</div><div>이전 버전의 중복 지도 CSS와 패치 버전 상태를 정리해 충돌 가능성 감소</div></div></div>
@@ -725,6 +731,7 @@ html,body{max-width:100%;overflow-x:hidden}
 <div id="fishingSpotMoveHint" class="smallNote"></div>
 <div id="fishingSpotEditorList" class="fishingSpotEditorList"></div>
 <div class="modalBtns"><button class="cancel" type="button" onclick="cancelFishingSpotEditor()">취소</button><button class="save" type="button" onclick="saveFishingSpotEditor()">저장</button></div></div></dialog>
+<dialog id="sharePointDlg"><div class="modal"><h2>공유받은 낚시 포인트</h2><div class="sharePreview"><div id="sharePointName" class="sharePreviewName">낚시 포인트</div><div id="sharePointAddr" class="sharePreviewAddr">-</div><div id="sharePointMeta" class="sharePreviewMeta"></div></div><div class="smallNote">이 기기의 목록에 같은 포인트가 없을 때 공유 링크에 포함된 기본 정보만 표시합니다.</div><div class="modalBtns"><button class="cancel" type="button" onclick="copySharedPointAddress()">주소 복사</button><button class="save" type="button" onclick="openSharedPointTmap()">티맵 열기</button><button class="cancel" style="grid-column:1/-1" type="button" onclick="sharePointDlg.close()">닫기</button></div></div></dialog>
 <dialog id="photoDlg"><div class="photoModal"><div id="photoTitle" class="photoTitle">사진 보기</div><div class="photoStage"><img id="photoFull" alt="확대 사진"></div><div class="photoBottom"><button type="button" onclick="photoDlg.close()">닫기</button></div></div></dialog>
 <div id="routeBar" class="routeBar"><div id="routeTitle" class="routeTitle"></div><div class="routeBtns"><button class="routeNav" onclick="moveRoute(-1)">이전</button><button class="routeOpen" onclick="openRouteTmap()">티맵</button><button class="routeNav" onclick="moveRoute(1)">다음</button><button class="routeStop" onclick="stopRoute()">종료</button></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -1597,12 +1604,84 @@ function card(p){
         <button class="act edit" onclick="editPoint('${esc(k)}')">수정</button>
         <button class="act danger" onclick="deletePoint('${esc(k)}')">삭제</button>
       </div>`:(fishingSpotItems(p).length?`<div class="actionRow cols1"><button class="act" onclick="showAllPointsMap('${esc(k)}')">추천자리 보기 ${fishingSpotItems(p).length}</button></div>`:'')}
-      ${p.sourceUrl?`<div class="actionRow cols1"><button class="act" onclick='openSource(${JSON.stringify(p.sourceUrl)})'>원문 보기</button></div>`:''}
+      <div class="actionRow ${p.sourceUrl?'cols2':'cols1'}"><button class="act" onclick="sharePointLink('${esc(k)}')">링크 공유</button>${p.sourceUrl?`<button class="act" onclick='openSource(${JSON.stringify(p.sourceUrl)})'>원문 보기</button>`:''}</div>
     </div>
     ${media}
   </article>`;
 }
 
+let sharedPreviewData=null,sharedLinkResolved=false,sharedFallbackShown=false;
+function copyTextFallback(text){let t=document.createElement('textarea');t.value=text;t.setAttribute('readonly','');t.style.position='fixed';t.style.left='-9999px';document.body.append(t);t.select();try{document.execCommand('copy')}catch(e){}t.remove()}
+function baseShareUrl(){
+  try{
+    let u=new URL(location.href);
+    ['share','pk','c','n','a'].forEach(k=>u.searchParams.delete(k));
+    u.hash='';
+    return u;
+  }catch(e){return null}
+}
+function buildPointShareUrl(p){
+  let u=baseShareUrl();if(!u)return location.href;
+  u.searchParams.set('share','point');
+  u.searchParams.set('pk',pointKey(p));
+  u.searchParams.set('c',p.category==='sea'?'sea':'freshwater');
+  u.searchParams.set('n',String(p.name||''));
+  u.searchParams.set('a',String(p.address||''));
+  return u.href;
+}
+async function runNativeShare(title,text,url,copyMessage='링크가 복사되었습니다'){
+  if(location.protocol==='file:'){
+    toast('웹 주소로 접속했을 때 링크 공유가 가능합니다');
+    return false;
+  }
+  if(navigator.share){
+    try{await navigator.share({title,text,url});return true}catch(e){if(e?.name==='AbortError')return false}
+  }
+  try{if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(url);else copyTextFallback(url);toast(copyMessage);return true}
+  catch(e){copyTextFallback(url);toast(copyMessage);return true}
+}
+async function shareSiteLink(){
+  let u=baseShareUrl();if(!u)return;
+  await runNativeShare('낚시 포인트 관리','낚시 포인트 관리 링크',u.href,'사이트 링크가 복사되었습니다');
+}
+async function sharePointLink(k){
+  let p=findPointByKey(k);if(!p)return;
+  let url=buildPointShareUrl(p),text=[p.name,p.address].filter(Boolean).join('\n');
+  await runNativeShare(`${p.name} 낚시 포인트`,text,url,'포인트 링크가 복사되었습니다');
+}
+function readSharedLink(){
+  try{
+    let u=new URL(location.href);if(u.searchParams.get('share')!=='point')return null;
+    return {pk:u.searchParams.get('pk')||'',category:u.searchParams.get('c')==='sea'?'sea':'freshwater',name:u.searchParams.get('n')||'',address:u.searchParams.get('a')||''};
+  }catch(e){return null}
+}
+function findSharedPoint(d){
+  if(!d)return null;
+  let p=d.pk?findPointByKey(d.pk):null;if(p)return p;
+  let norm=x=>String(x||'').replace(/\s+/g,'').toLowerCase();
+  let a=norm(d.address),n=norm(d.name);
+  return points.find(x=>(!d.category||x.category===d.category)&&((a&&norm(x.address)===a)||(n&&norm(x.name)===n)))||null;
+}
+function revealSharedPoint(p){
+  let k=pointKey(p);sharedLinkResolved=true;
+  currentCat=p.category==='sea'?'sea':'freshwater';
+  currentRegion='ALL';currentZone='ALL';currentSpecies='ALL';currentMethod='ALL';searchQuery='';quickFilter='all';
+  let si=$('searchInput');if(si)si.value='';
+  document.querySelectorAll('.qf').forEach(x=>x.classList.toggle('on',x.id==='qf-all'));
+  $('tabFresh')?.classList.toggle('on',currentCat==='freshwater');$('tabSea')?.classList.toggle('on',currentCat==='sea');
+  render();renderStartSummary();updateSeaOnlyUi();
+  setTimeout(()=>{let el=document.getElementById('point-'+k);if(!el)return;el.classList.add('sharedPointFocus');el.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>el.classList.remove('sharedPointFocus'),4200);toast(`${p.name} 포인트를 열었습니다`)},120);
+}
+function showSharedFallback(d){
+  if(!d||sharedFallbackShown||sharedLinkResolved)return;sharedFallbackShown=true;sharedPreviewData=d;
+  let n=$('sharePointName'),a=$('sharePointAddr'),m=$('sharePointMeta');if(n)n.textContent=d.name||'공유 낚시 포인트';if(a)a.textContent=d.address||'주소 정보 없음';if(m)m.textContent=d.category==='sea'?'바다 포인트':'민물 포인트';
+  $('sharePointDlg')?.showModal();
+}
+function handleSharedLink(showFallback=false){
+  if(sharedLinkResolved)return true;let d=readSharedLink();if(!d)return false;let p=findSharedPoint(d);if(p){revealSharedPoint(p);return true}if(showFallback)showSharedFallback(d);return false;
+}
+function copySharedPointAddress(){let a=sharedPreviewData?.address||'';if(!a)return;copyAddr(a)}
+function openSharedPointTmap(){let a=sharedPreviewData?.address||'';if(!a)return;openTmap(a)}
 function copyAddr(a){navigator.clipboard?.writeText(a).then(()=>toast('주소 복사됨')).catch(()=>{let t=document.createElement('textarea');t.value=a;document.body.append(t);t.select();document.execCommand('copy');t.remove();toast('주소 복사됨')})}
 function openTmap(a){copyAddr(a);location.href='tmap://search?name='+encodeURIComponent(a);setTimeout(()=>toast('티맵이 안 열리면 복사된 주소를 붙여넣으세요'),1000)}
 function openSource(u){if(!u)return;window.open(u,'_blank','noopener,noreferrer')}
@@ -1941,7 +2020,7 @@ async function applyPortableData(d,fromCloud=false){
     migrateDaehoGodaeV43();migrateClassifications();
     if(d.settings)settings={...clone(DEFAULT_SETTINGS),...d.settings,base:{...DEFAULT_SETTINGS.base,...(d.settings.base||{})},activeStart:{freshwater:{...DEFAULT_SETTINGS.activeStart.freshwater,...(d.settings.activeStart?.freshwater||{})},sea:{...DEFAULT_SETTINGS.activeStart.sea,...(d.settings.activeStart?.sea||{})}}};
     if(d.profile&&cloudUser){cloudProfile={nickname:String(d.profile.nickname||'').slice(0,20),photo:String(d.profile.photo||'')};saveLocalCloudProfile();}
-    persist(true);localStorage.setItem(CATCH_V44_MIGRATION_KEY,'1');saveLastUiState();render();renderStartSummary();updateSeaOnlyUi();renderCloudPanel();
+    persist(true);localStorage.setItem(CATCH_V44_MIGRATION_KEY,'1');saveLastUiState();render();renderStartSummary();updateSeaOnlyUi();renderCloudPanel();handleSharedLink(false);
   }finally{cloudApplying=false}
 }
 async function exportData(){settings.lastBackupAt=new Date().toISOString();persist(true);toast('사진 포함 백업 준비 중...');let d=await buildPortableData();d.exportedAt=settings.lastBackupAt;let blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='낚시포인트_백업_'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('조과사진 포함 백업 파일 저장')}
@@ -2252,8 +2331,8 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 function setControlPanel(open,remember=true){let p=$('controlPanel'),b=$('controlToggle');if(!p||!b)return;p.classList.toggle('open',!!open);b.classList.toggle('open',!!open);b.setAttribute('aria-expanded',open?'true':'false');b.querySelector('span:first-child').textContent=open?'도구 메뉴 접기':'도구 메뉴 펼치기';b.querySelector('.chev').textContent=open?'▲':'▼';if(remember)localStorage.setItem('fish_control_open',open?'1':'0')}
 function toggleControlPanel(){let p=$('controlPanel');setControlPanel(!p?.classList.contains('open'))}
 function initControlPanel(){setControlPanel(localStorage.getItem('fish_control_open')==='1',false)}
-function showPatchNotes(){localStorage.setItem('fish_seen_patch','60');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
-function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='60',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
+function showPatchNotes(){localStorage.setItem('fish_seen_patch','63');let b=$('patchBtn');if(b)b.classList.remove('new');let t=$('controlToggle');if(t)t.classList.remove('hasNew');$('patchDlg').showModal()}
+function initPatchBadge(){let seen=localStorage.getItem('fish_seen_patch'),isNew=seen!=='63',b=$('patchBtn'),t=$('controlToggle');if(b)b.classList.toggle('new',isNew);if(t)t.classList.toggle('hasNew',isNew)}
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}function showInstallHelp(){alert('휴대폰에서 GitHub Pages 주소를 연 뒤 브라우저 메뉴의 “홈 화면에 추가”를 누르면 앱처럼 사용할 수 있습니다. 회원가입 후 같은 계정으로 로그인하면 PC와 휴대폰에서 포인트·즐겨찾기·기록·조과사진을 자동으로 공유할 수 있습니다. 로그인하지 않으면 개인 설정과 기록은 저장되지 않으며 초기 상태로 이용합니다. 일반 회원은 포인트 추가가 가능하고 기존 포인트 관리 기능은 관리자 계정에서만 표시됩니다.');$('manageDlg').close()}
 
 function openPhoto(src,title='사진 보기'){
@@ -2751,5 +2830,5 @@ async function buildMissingGeojeMaps(){
 ensureV22Settings();
 ensureV23Settings();
 
-migrateV20Defaults();migrateV24GeojePoints();migrateGeojeFeaturesV39();migrateDaehoGodaeV43();migrateRouteFixV33();migrateV34SeaPoints();migrateV46WalkSeaPoints();migrateV47FreshBassPoints();migrateClassifications();migrateUniquePointKeysV41();migrateFishingMethodsV42();persist(true);if(!hasSavedCloudSessionV54())enterGuestModeV54(false);else restoreLastUiState();render();renderStartSummary();updateSeaOnlyUi();initControlPanel();applyRegionPanelState();initPatchBadge();installDialogUX();if(hasSavedCloudSessionV54())migrateCatchPhotosV44().then(()=>render()).catch(e=>console.warn('조과사진 저장소 이전 실패',e));cloudBooting=false;cloudConfig=FIXED_FIREBASE_CONFIG;cloudAuto=true;localStorage.setItem(CLOUD_AUTO_KEY,'1');wireCloudControls();renderCloudPanel();initCloudAuth(false);if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').then(r=>r.update()).catch(()=>{});
+migrateV20Defaults();migrateV24GeojePoints();migrateGeojeFeaturesV39();migrateDaehoGodaeV43();migrateRouteFixV33();migrateV34SeaPoints();migrateV46WalkSeaPoints();migrateV47FreshBassPoints();migrateClassifications();migrateUniquePointKeysV41();migrateFishingMethodsV42();persist(true);if(!hasSavedCloudSessionV54())enterGuestModeV54(false);else restoreLastUiState();render();renderStartSummary();updateSeaOnlyUi();initControlPanel();applyRegionPanelState();initPatchBadge();installDialogUX();handleSharedLink(false);setTimeout(()=>handleSharedLink(true),2200);if(hasSavedCloudSessionV54())migrateCatchPhotosV44().then(()=>render()).catch(e=>console.warn('조과사진 저장소 이전 실패',e));cloudBooting=false;cloudConfig=FIXED_FIREBASE_CONFIG;cloudAuto=true;localStorage.setItem(CLOUD_AUTO_KEY,'1');wireCloudControls();renderCloudPanel();initCloudAuth(false);if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').then(r=>r.update()).catch(()=>{});
 </script></body></html>
